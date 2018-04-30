@@ -1,0 +1,23 @@
+{
+  "name": "mcal",
+  "version": "0.0.1",
+  "description": "Myanmar Calendar from Gregorian Calendar",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AungMyoKyaw/mcal.git"
+  },
+  "keywords": ["Myanmar Calendar", "Calendar"],
+  "author": "Aung Myo Kyaw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AungMyoKyaw/mcal/issues"
+  },
+  "homepage": "https://github.com/AungMyoKyaw/mcal#readme",
+  "devDependencies": {
+    "mocha": "^5.1.1"
+  }
+}
