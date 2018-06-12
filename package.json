@@ -1,6 +1,6 @@
 {
   "name": "mycal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Myanmar Calendar from Gregorian Calendar",
   "main": "dist/index.js",
   "scripts": {
