@@ -1,5 +1,6 @@
 const mmyear = require('./lib/mmyear.lib.js');
 const buddhistYear = require('./lib/buddhist_era_year.lib.js');
+const thingyan = require('./lib/thingyan.lib.js');
 
 class MCAL {
   constructor(dateString) {
@@ -10,6 +11,7 @@ class MCAL {
     this.mmyear = mmyear(gDate);
     this.buddhistYear = buddhistYear(this.mmyear);
     this.mmDateString = gDate.toLocaleString();
+    this.thingygn = thingyan(this.mmyear);
   }
 
   get date() {
@@ -34,6 +36,10 @@ class MCAL {
 
   get mmDate() {
     return this.mmDateString;
+  }
+
+  get thingyan() {
+    return this.thingygn;
   }
 }
 
