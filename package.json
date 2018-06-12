@@ -1,5 +1,5 @@
 {
-  "name": "mcal",
+  "name": "mycal",
   "version": "0.0.1",
   "description": "Myanmar Calendar from Gregorian Calendar",
   "main": "dist/index.js",
@@ -11,10 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/AungMyoKyaw/mcal.git"
   },
-  "keywords": [
-    "Myanmar Calendar",
-    "Calendar"
-  ],
+  "keywords": ["Myanmar Calendar", "Calendar"],
   "author": "Aung Myo Kyaw",
   "license": "MIT",
   "bugs": {

@@ -1,4 +1,4 @@
-# mcal
+# mycal [Work In Progress]
 
 > Myanmar Calendar
 
@@ -7,7 +7,7 @@
 ### npm
 
 ```shell
-
+npm install --save mycal
 ```
 
 ### browser
@@ -18,9 +18,21 @@
 
 ## User Guide
 
+```javascript
+```
+
 ### Example
 
 ```javascript
+const mycal = require('mycal');
+const cal = new mycal();
+const {year, buddhistEraYear, thingyan} = cal;
+```
+
+## test
+
+```javascript
+npm t
 ```
 
 ## License
