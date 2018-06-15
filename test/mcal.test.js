@@ -28,4 +28,11 @@ describe('MCAL', () => {
       atatTime: '4/16/1999, 11:44:11 PM'
     });
   });
+
+  it('SHOULD RETURN IS YEAR WITH THE INTERCALARY MONTH OR NOT', () => {
+    const cal = new mcal('1/1/2001');
+    const {watatYear} = cal;
+
+    assert.equal(watatYear, false);
+  });
 });

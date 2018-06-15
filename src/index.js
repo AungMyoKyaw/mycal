@@ -1,6 +1,7 @@
 const mmyear = require('./lib/mmyear.lib.js');
 const buddhistYear = require('./lib/buddhist_era_year.lib.js');
 const thingyan = require('./lib/thingyan.lib.js');
+const isWatatYear = require('./lib/intercalary.lib.js');
 
 class MCAL {
   constructor(dateString) {
@@ -12,6 +13,7 @@ class MCAL {
     this.buddhistYear = buddhistYear(this.mmyear);
     this.mmDateString = gDate.toLocaleString();
     this.thingygn = thingyan(this.mmyear);
+    this.isWatatYear = isWatatYear(this.mmyear);
   }
 
   get date() {
@@ -40,6 +42,10 @@ class MCAL {
 
   get thingyan() {
     return this.thingygn;
+  }
+
+  get watatYear() {
+    return this.isWatatYear;
   }
 }
 
