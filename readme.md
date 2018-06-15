@@ -2,6 +2,10 @@
 
 > Myanmar Calendar
 
+## Algorithm
+
+[Algorithm, Program and Calculation of Myanmar Calendar][algorithm]
+
 ## Installation
 
 ### npm
@@ -38,3 +42,5 @@ npm t
 ## License
 
 [MIT](./LICENSE)
+
+[algorithm]: http://cool-emerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html
