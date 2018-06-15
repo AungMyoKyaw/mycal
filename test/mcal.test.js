@@ -23,6 +23,7 @@ describe('MCAL', () => {
       akya: '4/14/1999',
       akyat: ['4/15/1999'],
       atat: '4/16/1999',
+      new_year_day: '4/17/1999',
       akyaTime: '4/14/1999, 7:39:30 PM',
       atatTime: '4/16/1999, 11:44:11 PM'
     });
