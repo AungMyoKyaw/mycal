@@ -8,5 +8,10 @@ module.exports = {
     TA: 3.630567, //the number of excess days for 4 months
     TW: 22.2694539,
     WO: -0.5
+  },
+  secondEra: {
+    TA: 7.261134, //the number of excess days for 4 months
+    TW: 25.90002,
+    WO: -1
   }
 };

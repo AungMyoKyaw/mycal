@@ -1,7 +1,7 @@
 const assert = require('assert');
 const mcal = require('../src/index.js');
 
-describe('MCAL', () => {
+describe('MYCAL', () => {
   it('SHOULD RETURN MYANMAR YEAR', () => {
     const cal = new mcal('1/1/2000');
     const {date, day, month, year, mmDate} = cal;
@@ -29,7 +29,7 @@ describe('MCAL', () => {
     });
   });
 
-  it('SHOULD RETURN IS YEAR WITH THE INTERCALARY MONTH OR NOT', () => {
+  it('SHOULD RETURN YEAR IS WITH INTERCALARY MONTH OR NOT', () => {
     const cal = new mcal('1/1/2001');
     const {watatYear} = cal;
 
@@ -40,5 +40,11 @@ describe('MCAL', () => {
     const cal = new mcal('1/1/2013');
     const {waso} = cal;
     assert.equal(waso, '8/2/2012');
+  });
+
+  it('SHOULD RETURN FULLMON DAY OF WASO (SECOND ERA)', () => {
+    const cal = new mcal('1/1/1900');
+    const {waso} = cal;
+    assert.equal(waso, '7/22/1899');
   });
 });
