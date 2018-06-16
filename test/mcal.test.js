@@ -14,7 +14,7 @@ describe('MYCAL', () => {
     assert.equal(buddhistEraYear, 2543);
   });
 
-  it('SHOULD RETURN TYINGYAN DAYS', () => {
+  it('SHOULD RETURN THINGYAN DAYS', () => {
     const cal = new mcal('1/1/2000');
     const {thingyan} = cal;
 
@@ -36,15 +36,21 @@ describe('MYCAL', () => {
     assert.equal(watatYear, false);
   });
 
-  it('SHOULD RETURN FULLMON DAY OF WASO (THIRD ERA)', () => {
+  it('SHOULD RETURN FULLMON DAY OF SECOND WASO (THIRD ERA)', () => {
     const cal = new mcal('1/1/2013');
     const {waso} = cal;
     assert.equal(waso, '8/2/2012');
   });
 
-  it('SHOULD RETURN FULLMON DAY OF WASO (SECOND ERA)', () => {
+  it('SHOULD RETURN FULLMON DAY OF SECOND WASO (SECOND ERA)', () => {
     const cal = new mcal('1/1/1900');
     const {waso} = cal;
     assert.equal(waso, '7/22/1899');
+  });
+
+  it('SHOULD RETURN FULLMON DAY OF SECOND WASO (FIRST ERA)', () => {
+    const cal = new mcal('1/1/1803');
+    const {waso} = cal;
+    assert.equal(waso, '7/14/1802');
   });
 });

@@ -1,4 +1,11 @@
-const {KALI_YUGA, LM, secondEra, thirdEra, SY} = require('./const.lib.js');
+const {
+  KALI_YUGA,
+  LM,
+  firstEra,
+  secondEra,
+  thirdEra,
+  SY
+} = require('./const.lib.js');
 
 const isWatatYear = mmYear => {
   let watatYear, era;
@@ -17,6 +24,8 @@ const isWatatYear = mmYear => {
       break;
     case mmYear <= 1216: //third era
       era = 1;
+      ed < firstEra.TA ? (ed += LM) : '';
+      watatYear = [2, 5, 7, 10, 13, 15, 18].includes((mmYear * 7 + 2) % 19);
       break;
   }
 

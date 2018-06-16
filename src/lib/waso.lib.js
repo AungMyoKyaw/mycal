@@ -1,24 +1,35 @@
 const julian = require('julian');
-const {SY, MO, LM, secondEra, thirdEra} = require('./const.lib.js');
+const {SY, MO, LM, firstEra, secondEra, thirdEra} = require('./const.lib.js');
 
 const waso = (watatInfo, mmYear) => {
-  let w;
+  let w, WO;
+
+  switch (true) {
+    case mmYear < 1100:
+      WO = firstEra.WO1;
+      break;
+
+    case mmYear >= 1100:
+      WO = firstEra.WO2;
+      break;
+  }
 
   switch (watatInfo.era) {
     case 1:
+      if (watatInfo.watatYear) {
+        w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
+      }
       break;
     case 2:
+      WO = secondEra.WO;
       if (watatInfo.watatYear) {
-        w = Math.round(
-          SY * mmYear + MO - watatInfo.ed + 4.5 * LM + secondEra.WO
-        );
+        w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
       }
       break;
     case 3:
+      WO = thirdEra.WO;
       if (watatInfo.watatYear) {
-        w = Math.round(
-          SY * mmYear + MO - watatInfo.ed + 4.5 * LM + thirdEra.WO
-        );
+        w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
       }
       break;
   }
