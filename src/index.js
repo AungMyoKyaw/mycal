@@ -6,52 +6,27 @@ const waso = require('./lib/waso.lib.js');
 
 class MCAL {
   constructor(dateString) {
-    const gDate = dateString ? new Date(dateString) : new Date(); //get gregorian date
-    this.mmdate = gDate.getDate();
-    this.mmday = gDate.getDay();
-    this.mmmonth = gDate.getMonth();
-    this.mmyear = mmyear(gDate);
-    this.buddhistYear = buddhistYear(this.mmyear);
-    this.mmDateString = gDate.toLocaleString();
-    this.thingygn = thingyan(this.mmyear);
-    this.isWatatYear = isWatatYear(this.mmyear);
-    this.fullMoonDayOfWaso = waso(this.isWatatYear, this.mmyear);
-  }
-
-  get date() {
-    return this.mmdate;
-  }
-
-  get day() {
-    return this.mmday;
-  }
-
-  get month() {
-    return this.mmmonth;
+    this.gDate = dateString ? new Date(dateString) : new Date(); //get gregorian date
   }
 
   get year() {
-    return this.mmyear;
+    return mmyear(this.gDate);
   }
 
   get buddhistEraYear() {
-    return this.buddhistYear;
-  }
-
-  get mmDate() {
-    return this.mmDateString;
+    return buddhistYear(this.year);
   }
 
   get thingyan() {
-    return this.thingygn;
+    return thingyan(this.year);
   }
 
   get watatYear() {
-    return this.isWatatYear.watatYear;
+    return isWatatYear(this.year).watatYear;
   }
 
   get waso() {
-    return this.fullMoonDayOfWaso;
+    return waso(isWatatYear(this.year), this.year);
   }
 }
 
