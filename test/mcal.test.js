@@ -35,4 +35,10 @@ describe('MCAL', () => {
 
     assert.equal(watatYear, false);
   });
+
+  it('SHOULD RETURN FULLMON DAY OF WASO (THIRD ERA)', () => {
+    const cal = new mcal('1/1/2013');
+    const {waso} = cal;
+    assert.equal(waso, '8/2/2012');
+  });
 });
