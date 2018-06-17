@@ -3,6 +3,7 @@ const buddhistYear = require('./lib/buddhist_era_year.lib.js');
 const thingyan = require('./lib/thingyan.lib.js');
 const watatInfo = require('./lib/intercalary.lib.js');
 const waso = require('./lib/waso.lib.js');
+const firstDayOfTagu = require('./lib/first_day_of_tagu.lib.js');
 
 class MCAL {
   constructor(dateString) {
@@ -26,19 +27,23 @@ class MCAL {
     let {nearestWatatInfo} = watat;
     let isBigWatat = false;
     if (nearestWatatInfo.isWatatYear) {
-      let currentWaso = new Date(waso(watat, this.year));
-      let nearestWaso = new Date(waso(nearestWatatInfo, nearestWatatInfo.year));
-      isBigWatat =
-        ((currentWaso - nearestWaso) / (24 * 60 * 60 * 1e3)) % 354 == 30
-          ? false
-          : true;
+      let currentWaso = waso(watat, this.year);
+      let nearestWaso = waso(nearestWatatInfo, nearestWatatInfo.year);
+      this.nearestWatatYear = nearestWatatInfo.year;
+      this.nearestWaso = nearestWaso.jd;
+      isBigWatat = (currentWaso.jd - nearestWaso.jd) % 354 == 30 ? false : true;
     }
 
     return {watat: watat.isWatatYear, isBigWatat};
   }
 
   get waso() {
-    return waso(watatInfo(this.year), this.year);
+    return waso(watatInfo(this.year), this.year).gd;
+  }
+
+  get firstDayOfTagu() {
+    this.watatYear;
+    return firstDayOfTagu(this.nearestWaso, this.year - this.nearestWatatYear);
   }
 }
 

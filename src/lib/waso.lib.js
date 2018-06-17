@@ -34,7 +34,7 @@ const waso = (watatInfo, mmYear) => {
       break;
   }
 
-  return julian.toDate(w).toLocaleDateString();
+  return {jd: w, gd: julian.toDate(w).toLocaleDateString()};
 };
 
 module.exports = waso;

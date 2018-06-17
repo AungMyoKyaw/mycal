@@ -60,4 +60,11 @@ describe('MYCAL', () => {
 
     assert.equal(watatYear.isBigWatat, false);
   });
+
+  it('SHOULD RETURN FIRST DAY OF TAGU', () => {
+    const cal = new mcal('1/1/2013');
+    const {firstDayOfTagu} = cal;
+
+    assert.equal(firstDayOfTagu, '3/23/2012');
+  });
 });
