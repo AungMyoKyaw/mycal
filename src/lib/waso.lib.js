@@ -16,19 +16,19 @@ const waso = (watatInfo, mmYear) => {
 
   switch (watatInfo.era) {
     case 1:
-      if (watatInfo.watatYear) {
+      if (watatInfo.isWatatYear) {
         w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
       }
       break;
     case 2:
       WO = secondEra.WO;
-      if (watatInfo.watatYear) {
+      if (watatInfo.isWatatYear) {
         w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
       }
       break;
     case 3:
       WO = thirdEra.WO;
-      if (watatInfo.watatYear) {
+      if (watatInfo.isWatatYear) {
         w = Math.round(SY * mmYear + MO - watatInfo.ed + 4.5 * LM + WO);
       }
       break;

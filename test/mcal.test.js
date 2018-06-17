@@ -33,7 +33,7 @@ describe('MYCAL', () => {
     const cal = new mcal('1/1/2001');
     const {watatYear} = cal;
 
-    assert.equal(watatYear, false);
+    assert.equal(watatYear.watat, false);
   });
 
   it('SHOULD RETURN FULLMON DAY OF SECOND WASO (THIRD ERA)', () => {
@@ -52,5 +52,12 @@ describe('MYCAL', () => {
     const cal = new mcal('1/1/1803');
     const {waso} = cal;
     assert.equal(waso, '7/14/1802');
+  });
+
+  it('SHOULD RETURN YEAR IS WITH INTERCALARY DAY OR NOT', () => {
+    const cal = new mcal('1/1/2013');
+    const {watatYear} = cal;
+
+    assert.equal(watatYear.isBigWatat, false);
   });
 });
