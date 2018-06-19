@@ -4,7 +4,7 @@ const mcal = require('../src/index.js');
 describe('MYCAL', () => {
   it('SHOULD RETURN MYANMAR YEAR', () => {
     const cal = new mcal('1/1/2000');
-    const {date, day, month, year, mmDate} = cal;
+    const {year} = cal;
     assert.equal(year, 1361);
   });
 
@@ -66,5 +66,12 @@ describe('MYCAL', () => {
     const {firstDayOfTagu} = cal;
 
     assert.equal(firstDayOfTagu, '3/23/2012');
+  });
+
+  it('SHOULD RETURN MYANMAR MONTH', () => {
+    const cal = new mcal('8/1/2013');
+    const {month} = cal;
+
+    assert.equal(month, 4);
   });
 });

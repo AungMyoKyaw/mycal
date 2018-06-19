@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AungMyoKyaw/mcal.git"
+    "url": "git+https://github.com/AungMyoKyaw/mycal.git"
   },
   "keywords": ["Myanmar Calendar", "Calendar"],
   "author": "Aung Myo Kyaw",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AungMyoKyaw/mcal/issues"
+    "url": "https://github.com/AungMyoKyaw/mycal/issues"
   },
-  "homepage": "https://github.com/AungMyoKyaw/mcal#readme",
+  "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.6.1",

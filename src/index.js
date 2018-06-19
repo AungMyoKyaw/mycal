@@ -1,4 +1,5 @@
 const mmyear = require('./lib/mmyear.lib.js');
+const myMonth = require('./lib/mymonth.lib.js');
 const buddhistYear = require('./lib/buddhist_era_year.lib.js');
 const thingyan = require('./lib/thingyan.lib.js');
 const watatInfo = require('./lib/intercalary.lib.js');
@@ -26,13 +27,17 @@ class MCAL {
     let watat = watatInfo(this.year);
     let {nearestWatatInfo} = watat;
     let isBigWatat = false;
-    if (nearestWatatInfo.isWatatYear) {
-      let currentWaso = waso(watat, this.year);
-      let nearestWaso = waso(nearestWatatInfo, nearestWatatInfo.year);
-      this.nearestWatatYear = nearestWatatInfo.year;
-      this.nearestWaso = nearestWaso.jd;
+    let currentWaso = waso(watat, this.year);
+    let nearestWaso = waso(nearestWatatInfo, nearestWatatInfo.year);
+    this.nearestWatatYear = nearestWatatInfo.year;
+    this.nearestWaso = nearestWaso.jd;
+
+    if (watat.isWatatYear) {
       isBigWatat = (currentWaso.jd - nearestWaso.jd) % 354 == 30 ? false : true;
     }
+
+    this.c = watat.isWatatYear ? 0 : 1;
+    this.b = isBigWatat ? 1 : 0;
 
     return {watat: watat.isWatatYear, isBigWatat};
   }
@@ -43,7 +48,18 @@ class MCAL {
 
   get firstDayOfTagu() {
     this.watatYear;
-    return firstDayOfTagu(this.nearestWaso, this.year - this.nearestWatatYear);
+    let tg1 = firstDayOfTagu(
+      this.nearestWaso,
+      this.year - this.nearestWatatYear
+    );
+    this.tg1 = tg1.jd;
+    return tg1.gd;
+  }
+
+  get month() {
+    this.firstDayOfTagu;
+
+    return myMonth(this.gDate, this.tg1, this.c, this.b).mm;
   }
 }
 

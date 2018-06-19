@@ -54,7 +54,7 @@ const nearestWatatYear = mmYear => {
 
 const watat = mmYear => {
   let watatInfo = isWatatYear(mmYear);
-  let nearestWatatInfo = watatInfo.isWatatYear ? nearestWatatYear(mmYear) : {};
+  let nearestWatatInfo = nearestWatatYear(mmYear);
   Object.assign(watatInfo, {nearestWatatInfo});
   return watatInfo;
 };
