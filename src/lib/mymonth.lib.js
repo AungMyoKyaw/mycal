@@ -1,7 +1,9 @@
 const julian = require('julian');
 const {SY, MO} = require('./const.lib.js');
+const {month} = require('./localization.lib.js');
 
 const myMonth = (gDate, tg1, c, b) => {
+  let myanmarMonth;
   let jdn = Math.round(julian(gDate));
   let dd = jdn - tg1 + 1;
 
@@ -29,10 +31,26 @@ const myMonth = (gDate, tg1, c, b) => {
   if (mm == 3) {
     mml = mml + b;
   }
-  // let mmyear = Math.floor((jd - 0.5 - MO) / SY);
 
-  return {mm, mml, md};
-  // return true;
+  myanmarMonth = month.en[mm - 1];
+
+  if (!c && mm == 4) {
+    //watat year
+    //second waso
+    myanmarMonth = month.en[3][2];
+  }
+
+  if (!c && mm == 0) {
+    //watat year
+    //first waso
+    myanmarMonth = month.en[3][1];
+  }
+
+  if (c && mm == 4) {
+    //waso
+    myanmarMonth = month.en[3][0];
+  }
+  return {mm: myanmarMonth, mml, md};
 };
 
 module.exports = myMonth;

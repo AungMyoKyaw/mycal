@@ -69,9 +69,9 @@ describe('MYCAL', () => {
   });
 
   it('SHOULD RETURN MYANMAR MONTH', () => {
-    const cal = new mcal('8/1/2013');
+    const cal = new mcal('7/1/2012');
     const {month} = cal;
 
-    assert.equal(month, 4);
+    assert.equal(month, 'First Waso');
   });
 });
