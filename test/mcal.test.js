@@ -74,4 +74,14 @@ describe('MYCAL', () => {
 
     assert.equal(month, 'First Waso');
   });
+
+  it('SHOULD RETURN MYANMAR DAY', () => {
+    const cal = new mcal('5/23/2012');
+    const {day} = cal;
+
+    assert.deepEqual(day, {
+      fd: 3,
+      mp: 'Waxing'
+    });
+  });
 });

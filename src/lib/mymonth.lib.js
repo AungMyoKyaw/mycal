@@ -5,6 +5,12 @@ const {month} = require('./localization.lib.js');
 const myMonth = (gDate, tg1, c, b) => {
   let myanmarMonth;
   let jdn = Math.round(julian(gDate));
+  // console.log(
+  //   'jdn=> ',
+  //   julian(gDate),
+  //   gDate.toLocaleString(),
+  //   gDate.toISOString()
+  // );
   let dd = jdn - tg1 + 1;
 
   let myl = 354 + 30 * (1 - c) + b;
@@ -22,7 +28,7 @@ const myMonth = (gDate, tg1, c, b) => {
 
   let f = Math.floor((mm + 11) / 16);
 
-  let md = Math.floor(dd - (29.544 * mm - 29.26) - b * e + 30 * c * f);
+  let md = dd - Math.floor(29.544 * mm - 29.26) - b * e + 30 * c * f;
 
   mm += 3 * f - 4 * e;
 

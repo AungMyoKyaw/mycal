@@ -1,14 +1,16 @@
 const mmyear = require('./lib/mmyear.lib.js');
 const myMonth = require('./lib/mymonth.lib.js');
+const myDay = require('./lib/myday.lib.js');
 const buddhistYear = require('./lib/buddhist_era_year.lib.js');
 const thingyan = require('./lib/thingyan.lib.js');
 const watatInfo = require('./lib/intercalary.lib.js');
 const waso = require('./lib/waso.lib.js');
 const firstDayOfTagu = require('./lib/first_day_of_tagu.lib.js');
 
-class MCAL {
+class MYCAL {
   constructor(dateString) {
     this.gDate = dateString ? new Date(dateString) : new Date(); //get gregorian date
+    this.gDate.setHours(12,0);
   }
 
   get year() {
@@ -52,15 +54,23 @@ class MCAL {
       this.nearestWaso,
       this.year - this.nearestWatatYear
     );
+
     this.tg1 = tg1.jd;
     return tg1.gd;
   }
 
   get month() {
     this.firstDayOfTagu;
+    let myanmarMonth = myMonth(this.gDate, this.tg1, this.c, this.b);
+    this.md = myanmarMonth.md;
+    this.mml = myanmarMonth.mml;
+    return myanmarMonth.mm;
+  }
 
-    return myMonth(this.gDate, this.tg1, this.c, this.b).mm;
+  get day() {
+    this.month;
+    return myDay(this.md, this.mml);
   }
 }
 
-module.exports = MCAL;
+module.exports = MYCAL;

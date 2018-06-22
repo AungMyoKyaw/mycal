@@ -28,5 +28,9 @@ module.exports = {
       'Tabodwe',
       'Tabaung'
     ]
+  },
+  moon: {
+    my: ['လဆန်း', 'လပြည့်', 'လဆုတ်', 'လကွယ်'],
+    en: ['Waxing', 'Full Moon', 'Waning', 'New Moon']
   }
 };
