@@ -37,8 +37,8 @@ const thingyan = mmyear => {
     akyat: akyat.map(x => x.toLocaleDateString()),
     atat: atat.toLocaleDateString(),
     new_year_day: new_year_day.toLocaleDateString(),
-    akyaTime: julian.toDate(akyaTime).toLocaleString(),
-    atatTime: julian.toDate(atatTime).toLocaleString()
+    akyaTime: julian.toDate(akyaTime).toISOString(),
+    atatTime: julian.toDate(atatTime).toISOString()
   };
 };
 
