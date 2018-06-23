@@ -8,4 +8,4 @@ gulp.task('node', () => {
     .pipe(gulp.dest('dist/node'));
 });
 
-gulp.task('default', ['node']);
+gulp.task('default', gulp.parallel('node'));

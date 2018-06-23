@@ -11,7 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/AungMyoKyaw/mycal.git"
   },
-  "keywords": ["Myanmar Calendar", "Calendar"],
+  "keywords": [
+    "Myanmar Calendar",
+    "Calendar"
+  ],
   "author": "Aung Myo Kyaw",
   "license": "MIT",
   "bugs": {
@@ -20,10 +23,10 @@
   "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.6.1",
-    "gulp": "^3.9.1",
+    "babel-preset-env": "^1.7.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^7.0.1",
-    "mocha": "^5.1.1"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
     "julian": "^0.2.0"
