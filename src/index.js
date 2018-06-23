@@ -1,6 +1,7 @@
-const mmyear = require('./lib/mmyear.lib.js');
+const myYear = require('./lib/myyear.lib.js');
 const myMonth = require('./lib/mymonth.lib.js');
 const myDay = require('./lib/myday.lib.js');
+const myWeekDay = require('./lib/myweekday.lib.js');
 const buddhistYear = require('./lib/buddhist_era_year.lib.js');
 const thingyan = require('./lib/thingyan.lib.js');
 const watatInfo = require('./lib/intercalary.lib.js');
@@ -14,7 +15,7 @@ class MYCAL {
   }
 
   get year() {
-    return mmyear(this.gDate);
+    return myYear(this.gDate);
   }
 
   get buddhistEraYear() {
@@ -70,6 +71,10 @@ class MYCAL {
   get day() {
     this.month;
     return myDay(this.md, this.mml);
+  }
+
+  get weekday() {
+    return myWeekDay(this.gDate);
   }
 }
 

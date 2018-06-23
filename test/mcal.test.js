@@ -84,4 +84,13 @@ describe('MYCAL', () => {
       mp: {en: 'Waxing', my: 'လဆန်း'}
     });
   });
+
+  it('SHOULD RETURN MYANMAR WEEK DAY', () => {
+    const cal = new mcal('1/4/1948');
+    const {weekday} = cal;
+    assert.deepEqual(weekday, {
+      en: 'Sunday',
+      my: 'တနင်္ဂနွေ'
+    });
+  });
 });

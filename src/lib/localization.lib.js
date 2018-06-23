@@ -108,5 +108,35 @@ module.exports = {
         my += number[+n].my;
       });
     return {en, my};
-  }
+  },
+  weekday: [
+    {
+      en: 'Sunday',
+      my: 'တနင်္ဂနွေ'
+    },
+    {
+      en: 'Monday',
+      my: 'တနင်္လာ'
+    },
+    {
+      en: 'Tuesday',
+      my: 'အင်္ဂါ'
+    },
+    {
+      en: 'Wednesday',
+      my: 'ဗုဒ္ဓဟူး'
+    },
+    {
+      en: 'Thursday',
+      my: 'ကြာသပတေး'
+    },
+    {
+      en: 'Friday',
+      my: 'သောကြာ'
+    },
+    {
+      en: 'Saturday',
+      my: 'စနေ'
+    }
+  ]
 };

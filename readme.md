@@ -19,12 +19,6 @@
 npm install --save mycal
 ```
 
-### browser
-
-```shell
-
-```
-
 ## User Guide
 
 ```javascript
