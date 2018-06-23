@@ -1,6 +1,6 @@
 {
   "name": "mycal",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Myanmar Calendar",
   "main": "dist/node/index.js",
   "scripts": {
