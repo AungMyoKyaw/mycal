@@ -1,4 +1,4 @@
-const {moon} = require('./localization.lib.js');
+const {moon, number} = require('./localization.lib.js');
 
 const mmDay = (md, mml) => {
   let fd = md - 15 * Math.floor(md / 16);
@@ -6,7 +6,7 @@ const mmDay = (md, mml) => {
   let mp =
     Math.floor((md + 1) / 16) + Math.floor(md / 16) + Math.floor(md / mml);
 
-  return {fd, mp: moon.en[mp]};
+  return {fd: number(fd), mp: moon[mp]};
 };
 
 module.exports = mmDay;

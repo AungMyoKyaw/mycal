@@ -5,13 +5,13 @@ describe('MYCAL', () => {
   it('SHOULD RETURN MYANMAR YEAR', () => {
     const cal = new mcal('1/1/2000');
     const {year} = cal;
-    assert.equal(year, 1361);
+    assert.deepEqual(year, {en: '1361', my: '၁၃၆၁'});
   });
 
   it('SHOULD RETURN BUDDHIST ERA YEAR', () => {
     const cal = new mcal('1/1/2000');
     const {buddhistEraYear} = cal;
-    assert.equal(buddhistEraYear, 2543);
+    assert.deepEqual(buddhistEraYear, {en: '2543', my: '၂၅၄၃'});
   });
 
   it('SHOULD RETURN THINGYAN DAYS', () => {
@@ -72,7 +72,7 @@ describe('MYCAL', () => {
     const cal = new mcal('7/1/2012');
     const {month} = cal;
 
-    assert.equal(month, 'First Waso');
+    assert.deepEqual(month, {en: 'First Waso', my: 'ပဝါဆို'});
   });
 
   it('SHOULD RETURN MYANMAR DAY', () => {
@@ -80,8 +80,8 @@ describe('MYCAL', () => {
     const {day} = cal;
 
     assert.deepEqual(day, {
-      fd: 3,
-      mp: 'Waxing'
+      fd: {en: '3', my: '၃'},
+      mp: {en: 'Waxing', my: 'လဆန်း'}
     });
   });
 });

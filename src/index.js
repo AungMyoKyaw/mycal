@@ -10,7 +10,7 @@ const firstDayOfTagu = require('./lib/first_day_of_tagu.lib.js');
 class MYCAL {
   constructor(dateString) {
     this.gDate = dateString ? new Date(dateString) : new Date(); //get gregorian date
-    this.gDate.setHours(12,0);
+    this.gDate.setHours(12, 0);
   }
 
   get year() {
@@ -18,18 +18,18 @@ class MYCAL {
   }
 
   get buddhistEraYear() {
-    return buddhistYear(this.year);
+    return buddhistYear(+this.year.en);
   }
 
   get thingyan() {
-    return thingyan(this.year);
+    return thingyan(+this.year.en);
   }
 
   get watatYear() {
-    let watat = watatInfo(this.year);
+    let watat = watatInfo(+this.year.en);
     let {nearestWatatInfo} = watat;
     let isBigWatat = false;
-    let currentWaso = waso(watat, this.year);
+    let currentWaso = waso(watat, +this.year.en);
     let nearestWaso = waso(nearestWatatInfo, nearestWatatInfo.year);
     this.nearestWatatYear = nearestWatatInfo.year;
     this.nearestWaso = nearestWaso.jd;
@@ -45,14 +45,14 @@ class MYCAL {
   }
 
   get waso() {
-    return waso(watatInfo(this.year), this.year).gd;
+    return waso(watatInfo(+this.year.en), +this.year.en).gd;
   }
 
   get firstDayOfTagu() {
     this.watatYear;
     let tg1 = firstDayOfTagu(
       this.nearestWaso,
-      this.year - this.nearestWatatYear
+      +this.year.en - this.nearestWatatYear
     );
 
     this.tg1 = tg1.jd;

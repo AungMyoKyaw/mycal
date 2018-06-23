@@ -38,23 +38,23 @@ const myMonth = (gDate, tg1, c, b) => {
     mml = mml + b;
   }
 
-  myanmarMonth = month.en[mm - 1];
+  myanmarMonth = month[mm - 1];
 
   if (!c && mm == 4) {
     //watat year
     //second waso
-    myanmarMonth = month.en[3][2];
+    myanmarMonth = month[3][2];
   }
 
   if (!c && mm == 0) {
     //watat year
     //first waso
-    myanmarMonth = month.en[3][1];
+    myanmarMonth = month[3][1];
   }
 
   if (c && mm == 4) {
     //waso
-    myanmarMonth = month.en[3][0];
+    myanmarMonth = month[3][0];
   }
   return {mm: myanmarMonth, mml, md};
 };
