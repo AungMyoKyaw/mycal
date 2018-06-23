@@ -32,11 +32,11 @@ const thingyan = mmyear => {
   }
 
   return {
-    akyo: akyo.toLocaleDateString(),
-    akya: akya.toLocaleDateString(),
-    akyat: akyat.map(x => x.toLocaleDateString()),
-    atat: atat.toLocaleDateString(),
-    new_year_day: new_year_day.toLocaleDateString(),
+    akyo: akyo.toLocaleDateString('en-US'),
+    akya: akya.toLocaleDateString('en-US'),
+    akyat: akyat.map(x => x.toLocaleDateString('en-US')),
+    atat: atat.toLocaleDateString('en-US'),
+    new_year_day: new_year_day.toLocaleDateString('en-US'),
     akyaTime: julian.toDate(akyaTime).toISOString(),
     atatTime: julian.toDate(atatTime).toISOString()
   };
