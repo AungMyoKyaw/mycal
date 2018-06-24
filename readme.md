@@ -5,6 +5,7 @@
 [![Build Status][travis]][travis-url]
 [![npm][npm-download]][npm-dl-url]
 [![contributions welcome][contri]][contri-url]
+[![License: MIT][license]][license-url]
 [![NSP Status][nsp]][nsp-url]
 
 ## Algorithm
@@ -33,7 +34,7 @@ npm install --save mycal
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -59,7 +60,7 @@ console.log(day);
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -79,7 +80,7 @@ console.log(weekday);
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -99,7 +100,7 @@ console.log(month);
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -119,7 +120,7 @@ console.log(year);
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -139,7 +140,7 @@ console.log(buddhistEraYear);
 ```javascript
 const mycal = require('mycal');
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 
 //for today date
 //use without params
@@ -169,7 +170,7 @@ const mycal = require('mycal');
 const today = new mycal();
 
 //mycal
-//new mycal(month,day,year);
+//new mycal('month/day/year');
 const myanmarDate = new mycal('1/4/1948');
 
 const {weekday, day, month, year, buddhistEraYear, thingyan} = myanmarDate;
@@ -238,3 +239,5 @@ npm t
 [nsp-url]: https://nodesecurity.io/orgs/aung-myo-kyaw/projects/ee320ba2-3ac2-468d-a886-c8d06850a671
 [npm-download]: https://img.shields.io/npm/dt/mycal.svg
 [npm-dl-url]: https://www.npmjs.com/package/mycal
+[license]: https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat
+[license-url]: https://opensource.org/licenses/MIT
