@@ -12,6 +12,14 @@ class MYCAL {
   constructor(dateString) {
     this.gDate = dateString ? new Date(dateString) : new Date(); //get gregorian date
     this.gDate.setHours(12, 0);
+
+    //myanmar time
+    let utcTime = Date.UTC(
+      this.gDate.getUTCFullYear(),
+      this.gDate.getUTCMonth(),
+      this.gDate.getUTCDate()
+    );
+    this.gDate = new Date(utcTime + 5.5 * 60 * 60 * 1e3);
   }
 
   get year() {
