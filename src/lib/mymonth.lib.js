@@ -2,15 +2,20 @@ const julian = require('julian');
 const {SY, MO} = require('./const.lib.js');
 const {month} = require('./localization.lib.js');
 
-const myMonth = (gDate, tg1, c, b) => {
+/**
+ * Myanmar Month
+ *
+ * @param {Date} gDate Gregorian Date
+ * @param {Number} tg1 First Day of Tagu by Julian Day Number
+ * @param {Number} c Is Watat Year
+ * @param {Number} b Is Big Watat Year
+ * @returns {Object} Myanmar Month
+ */
+
+const MY_MONTH = (gDate, tg1, c, b) => {
   let myanmarMonth;
   let jdn = Math.round(julian(gDate));
-  // console.log(
-  //   'jdn=> ',
-  //   julian(gDate),
-  //   gDate.toLocaleString(),
-  //   gDate.toISOString()
-  // );
+
   let dd = jdn - tg1 + 1;
 
   let myl = 354 + 30 * (1 - c) + b;
@@ -56,7 +61,12 @@ const myMonth = (gDate, tg1, c, b) => {
     //waso
     myanmarMonth = month[3][0];
   }
-  return {mm: myanmarMonth, mml, md};
+
+  return {
+    mm: myanmarMonth,
+    mml, //length of myanmar month
+    md //myanmar day
+  };
 };
 
-module.exports = myMonth;
+module.exports = MY_MONTH;

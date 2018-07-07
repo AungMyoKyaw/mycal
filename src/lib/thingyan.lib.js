@@ -1,7 +1,14 @@
 const julian = require('julian');
 const {SY, MO, SE3} = require('./const.lib.js');
 
-const thingyan = mmyear => {
+/**
+ * Thingyan
+ *
+ * @param {Number} mmyear Myamar Year
+ * @returns {Object} Myanmar Thingyan
+ */
+
+const THINGYAN = mmyear => {
   let akyo, akya, atat, new_year_day, akyaTime;
   let akyat = [];
   let atatTime = SY * mmyear + MO;
@@ -42,4 +49,4 @@ const thingyan = mmyear => {
   };
 };
 
-module.exports = thingyan;
+module.exports = THINGYAN;

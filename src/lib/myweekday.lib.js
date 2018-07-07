@@ -1,7 +1,14 @@
 const {weekday} = require('./localization.lib.js');
 
-const myweekday = gDate => {
+/**
+ * Myanmar Weekday
+ *
+ * @param {Date} gDate Gregorian Date
+ * @returns {String} Burmese Weekday
+ */
+
+const MY_WEEKDAY = gDate => {
   return weekday[gDate.getDay()];
 };
 
-module.exports = myweekday;
+module.exports = MY_WEEKDAY;

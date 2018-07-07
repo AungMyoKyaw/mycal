@@ -1,7 +1,14 @@
 const {number} = require('./localization.lib.js');
 
-const buddhist_era_year = mmYear => {
+/**
+ * Buddhist Era Year
+ *
+ * @param {Number} mmYear Myanmar Year
+ * @returns {Number} Buddhist Era Year
+ */
+
+const BUDDHIST_ERA_YEAR = mmYear => {
   return number(mmYear + 1182);
 };
 
-module.exports = buddhist_era_year;
+module.exports = BUDDHIST_ERA_YEAR;

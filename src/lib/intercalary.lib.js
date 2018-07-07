@@ -7,7 +7,14 @@ const {
   SY
 } = require('./const.lib.js');
 
-const isWatatYear = mmYear => {
+/**
+ * Check Watat
+ *
+ * @param {Number} mmYear Myanmar Year
+ * @returns {Object}
+ */
+
+const IS_WATAT_YEAR = mmYear => {
   let isWatatYear, era;
   let ed = (SY * (mmYear + KALI_YUGA)) % LM;
 
@@ -31,18 +38,25 @@ const isWatatYear = mmYear => {
 
   return {
     era,
-    ed,
+    ed, //number of excess days
     isWatatYear
   };
 };
 
-const nearestWatatYear = mmYear => {
+/**
+ * Find Nearest Watat Year
+ *
+ * @param {Number} mmYear Myanmar Year
+ * @returns {Object}
+ */
+
+const NEAREST_WATAT_YEAR = mmYear => {
   let isWatat = false;
   let watatInfo;
   mmYear--;
 
   do {
-    watatInfo = isWatatYear(mmYear);
+    watatInfo = IS_WATAT_YEAR(mmYear);
     isWatat = watatInfo.isWatatYear;
     isWatat ? mmYear : mmYear--;
   } while (!isWatat);
@@ -52,11 +66,18 @@ const nearestWatatYear = mmYear => {
   return watatInfo;
 };
 
-const watat = mmYear => {
-  let watatInfo = isWatatYear(mmYear);
-  let nearestWatatInfo = nearestWatatYear(mmYear);
+/**
+ * Check Watat and Find Nearest Watat Year
+ *
+ * @param {Number} mmYear Myanmar Year
+ * @returns {Object}
+ */
+
+const WATAT = mmYear => {
+  let watatInfo = IS_WATAT_YEAR(mmYear);
+  let nearestWatatInfo = NEAREST_WATAT_YEAR(mmYear);
   Object.assign(watatInfo, {nearestWatatInfo});
   return watatInfo;
 };
 
-module.exports = watat;
+module.exports = WATAT;

@@ -1,7 +1,15 @@
 const julian = require('julian');
 const {SY, MO, LM, firstEra, secondEra, thirdEra} = require('./const.lib.js');
 
-const waso = (watatInfo, mmYear) => {
+/**
+ * Full Moon Day of Waso
+ *
+ * @param {Object} watatInfo WatatInfo
+ * @param {Number} mmYear Myanmar Year
+ * @returns {Object}
+ */
+
+const WASO = (watatInfo, mmYear) => {
   let w, WO;
 
   switch (true) {
@@ -34,7 +42,10 @@ const waso = (watatInfo, mmYear) => {
       break;
   }
 
-  return {jd: w, gd: julian.toDate(w).toLocaleDateString('en-US')};
+  return {
+    jd: w, //julian day
+    gd: julian.toDate(w).toLocaleDateString('en-US') //gregorian date
+  };
 };
 
-module.exports = waso;
+module.exports = WASO;
