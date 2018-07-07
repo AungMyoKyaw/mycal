@@ -20,6 +20,12 @@
 npm install --save mycal
 ```
 
+### web
+
+```html
+<script src="https://unpkg.com/mycal@latest/dist/client/mycal.min.js"></script>
+```
+
 ## API
 
 - [Day](#day)
@@ -30,6 +36,9 @@ npm install --save mycal
 - [THINGYAN](#thingyan)
 
 ### Day
+
+<details>
+<summary>Day</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -55,7 +64,12 @@ console.log(day);
 // }
 ```
 
+</details>
+
 ### Weekday
+
+<details>
+<summary>Weekday</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -75,7 +89,12 @@ console.log(weekday);
 // }
 ```
 
+</details>
+
 ### Month
+
+<details>
+<summary>Month</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -95,7 +114,12 @@ console.log(month);
 // }
 ```
 
+</details>
+
 ## Year
+
+<details>
+<summary>Year</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -115,7 +139,12 @@ console.log(year);
 // }
 ```
 
+</details>
+
 ## Buddhist Era Year
+
+<details>
+<summary>Buddhist Era Year</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -135,7 +164,12 @@ console.log(buddhistEraYear);
 // }
 ```
 
+</details>
+
 ## THINGYAN
+
+<details>
+<summary>THINGYAN</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -162,7 +196,12 @@ console.log(thingyan);
 // }
 ```
 
+</details>
+
 ## Usage
+
+<details>
+<summary>Usage</summary>
 
 ```javascript
 const mycal = require('mycal');
@@ -220,10 +259,18 @@ console.log(thingyan);
 // }
 ```
 
+</details>
+
 ## Test
 
-```javascript
+```shell
 npm t
+```
+
+## Build
+
+```shell
+npm run build
 ```
 
 ## License
