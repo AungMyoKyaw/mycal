@@ -3,10 +3,10 @@
 > Myanmar Calendar
 
 [![Build Status][travis]][travis-url]
+[![code style: prettier][prettier]][prettier-url]
 [![npm][npm-download]][npm-dl-url]
 [![contributions welcome][contri]][contri-url]
 [![License: MIT][license]][license-url]
-[![NSP Status][nsp]][nsp-url]
 
 ## Algorithm
 
@@ -50,7 +50,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {day} = myanmarDate;
+const { day } = myanmarDate;
 console.log(day);
 // {
 //    fd:{
@@ -81,7 +81,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {weekday} = myanmarDate;
+const { weekday } = myanmarDate;
 console.log(weekday);
 // {
 //    en:'Sunday',
@@ -106,7 +106,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {month} = myanmarDate;
+const { month } = myanmarDate;
 console.log(month);
 // {
 //    en:'Pyatho',
@@ -131,7 +131,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {year} = myanmarDate;
+const { year } = myanmarDate;
 console.log(year);
 // {
 //    en:'1309',
@@ -156,7 +156,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {buddhistEraYear} = myanmarDate;
+const { buddhistEraYear } = myanmarDate;
 console.log(buddhistEraYear);
 // {
 //    en:'2491',
@@ -181,7 +181,7 @@ const mycal = require('mycal');
 //new mycal()
 const myanmarDate = new mycal('1/4/1948');
 
-const {thingyan} = myanmarDate;
+const { thingyan } = myanmarDate;
 console.log(thingyan);
 // {
 //    akyo:'4/13/1947',
@@ -212,7 +212,7 @@ const today = new mycal();
 //new mycal('month/day/year');
 const myanmarDate = new mycal('1/4/1948');
 
-const {weekday, day, month, year, buddhistEraYear, thingyan} = myanmarDate;
+const { weekday, day, month, year, buddhistEraYear, thingyan } = myanmarDate;
 
 console.log(weekday);
 // {
@@ -278,13 +278,13 @@ npm run build
 [MIT](./LICENSE)
 
 [algorithm]: https://coolemerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html
-[contri]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
+[contri]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square
 [contri-url]: https://github.com/AungMyoKyaw/mycal/issues
-[travis]: https://travis-ci.org/AungMyoKyaw/mycal.svg?branch=master
+[travis]: https://img.shields.io/travis/AungMyoKyaw/mycal/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/AungMyoKyaw/mycal
-[nsp]: https://nodesecurity.io/orgs/aung-myo-kyaw/projects/ee320ba2-3ac2-468d-a886-c8d06850a671/badge
-[nsp-url]: https://nodesecurity.io/orgs/aung-myo-kyaw/projects/ee320ba2-3ac2-468d-a886-c8d06850a671
-[npm-download]: https://img.shields.io/npm/dt/mycal.svg
+[npm-download]: https://img.shields.io/npm/dt/mycal.svg?style=flat-square
 [npm-dl-url]: https://www.npmjs.com/package/mycal
-[license]: https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat
+[license]: https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square
 [license-url]: https://opensource.org/licenses/MIT
+[prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[prettier-url]: https://github.com/prettier/prettier
