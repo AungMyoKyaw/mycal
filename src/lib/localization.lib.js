@@ -1,48 +1,5 @@
 const myNum = require('mynum');
 
-const number = [
-  {
-    en: 0,
-    my: '၀'
-  },
-  {
-    en: 1,
-    my: '၁'
-  },
-  {
-    en: 2,
-    my: '၂'
-  },
-  {
-    en: 3,
-    my: '၃'
-  },
-  {
-    en: 4,
-    my: '၄'
-  },
-  {
-    en: 5,
-    my: '၅'
-  },
-  {
-    en: 6,
-    my: '၆'
-  },
-  {
-    en: 7,
-    my: '၇'
-  },
-  {
-    en: 8,
-    my: '၈'
-  },
-  {
-    en: 9,
-    my: '၉'
-  }
-];
-
 module.exports = {
   month: [
     {
