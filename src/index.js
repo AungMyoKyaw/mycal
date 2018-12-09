@@ -36,7 +36,7 @@ class MYCAL {
 
   get watatYear() {
     let watat = watatInfo(+this.year.en);
-    let {nearestWatatInfo} = watat;
+    let { nearestWatatInfo } = watat;
     let isBigWatat = false;
     let currentWaso = waso(watat, +this.year.en);
     let nearestWaso = waso(nearestWatatInfo, nearestWatatInfo.year);
@@ -50,7 +50,7 @@ class MYCAL {
     this.c = watat.isWatatYear ? 0 : 1;
     this.b = isBigWatat ? 1 : 0;
 
-    return {watat: watat.isWatatYear, isBigWatat};
+    return { watat: watat.isWatatYear, isBigWatat };
   }
 
   get waso() {

@@ -1,5 +1,5 @@
 const julian = require('julian');
-const {SY, MO, LM, firstEra, secondEra, thirdEra} = require('./const.lib.js');
+const { SY, MO, LM, firstEra, secondEra, thirdEra } = require('./const.lib.js');
 
 /**
  * Full Moon Day of Waso

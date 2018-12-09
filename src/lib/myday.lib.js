@@ -1,4 +1,4 @@
-const {moon, number} = require('./localization.lib.js');
+const { moon, number } = require('./localization.lib.js');
 
 /**
  * Myanmar Day

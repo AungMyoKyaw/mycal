@@ -1,5 +1,5 @@
 const julian = require('julian');
-const {SY, MO, SE3} = require('./const.lib.js');
+const { SY, MO, SE3 } = require('./const.lib.js');
 
 /**
  * Thingyan

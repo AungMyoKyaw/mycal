@@ -1,4 +1,4 @@
-const {weekday} = require('./localization.lib.js');
+const { weekday } = require('./localization.lib.js');
 
 /**
  * Myanmar Weekday

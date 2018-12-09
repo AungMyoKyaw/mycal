@@ -1,6 +1,6 @@
 const julian = require('julian');
-const {SY, MO} = require('./const.lib.js');
-const {month} = require('./localization.lib.js');
+const { SY, MO } = require('./const.lib.js');
+const { month } = require('./localization.lib.js');
 
 /**
  * Myanmar Month

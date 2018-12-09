@@ -1,4 +1,4 @@
-const {number} = require('./localization.lib.js');
+const { number } = require('./localization.lib.js');
 
 /**
  * Buddhist Era Year
