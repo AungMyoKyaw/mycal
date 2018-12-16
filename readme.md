@@ -275,7 +275,7 @@ npm run build
 
 ## License
 
-[MIT](./LICENSE)
+MIT © [Aung Myo Kyaw](https://github.com/AungMyoKyaw)
 
 [algorithm]: https://coolemerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html
 [contri]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square
