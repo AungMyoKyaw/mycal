@@ -1,0 +1,38 @@
+{
+  "name": "mycal",
+  "version": "1.2.1",
+  "description": "Myanmar Calendar",
+  "main": "dist/node/index.js",
+  "scripts": {
+    "test": "mocha test",
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AungMyoKyaw/mycal.git"
+  },
+  "keywords": [
+    "Myanmar Calendar",
+    "Calendar"
+  ],
+  "author": "Aung Myo Kyaw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AungMyoKyaw/mycal/issues"
+  },
+  "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^7.0.1",
+    "mocha": "^5.2.0",
+    "typescript": "^5.9.2",
+    "webpack": "^4.15.1"
+  },
+  "dependencies": {
+    "julian": "^0.2.0",
+    "mynum": "^1.0.0"
+  }
+}
