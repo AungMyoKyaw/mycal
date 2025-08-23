@@ -91,4 +91,21 @@ describe('MYCAL TypeScript Version', () => {
 
     assert.deepEqual(weekday, { en: 'Saturday', my: 'စနေ' });
   });
+
+  // Additional tests based on the algorithm examples from the reference
+  it('EXAMPLE FROM PAPER: SECOND WASO FULL MOON FOR 1374 ME (2012-08-02)', () => {
+    // The paper computes the full moon day of Second Waso for 1374 ME as 2012-08-02
+    const cal = new MYCAL('1/1/2013');
+    const { waso } = cal;
+    assert.equal(waso, '8/2/2012');
+  });
+
+  it('EXAMPLE FROM PAPER: START OF 1375 ME (atat ~ 2013-04-16 08:10 UTC)', () => {
+    // The paper gives ja for 1375 ME as 2456398.8407875 which converts to 2013-04-16 ~08:10
+    // Ensure we construct a Gregorian date that maps to Myanmar year 1375 (e.g., 2013-04-17)
+    const cal = new MYCAL('4/17/2013');
+    const { thingyan } = cal;
+    // atatTime should be an ISO string for 2013-04-16 (the atat time for 1375 ME)
+    assert.ok(thingyan.atatTime.startsWith('2013-04-16'));
+  });
 });

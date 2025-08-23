@@ -62,7 +62,11 @@ function toDate(julianDay: number): Date {
   const seconds = Math.floor((millisFromFraction % 60000) / 1000);
   const milliseconds = millisFromFraction % 1000;
 
-  return new Date(year, month - 1, day, hours, minutes, seconds, milliseconds);
+  // Construct date using UTC components so the resulting Date represents the
+  // correct absolute time regardless of the system local timezone. The
+  // original implementation used the local-time Date constructor which caused
+  // toISOString() to shift the hour by the local offset (e.g. -7 hours).
+  return new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds, milliseconds));
 }
 
 // Create the main function with attached methods

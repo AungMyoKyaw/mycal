@@ -31,28 +31,31 @@ export function getThingyan(mmyear: number): ThingyanInfo {
   atat = julian.toDate(atatTime);
   akya = julian.toDate(akyaTime);
 
-  atat.setHours(0, 0, 0, 0);
-  akya.setHours(0, 0, 0, 0);
+  // Normalize to UTC midnight to avoid local timezone shifts
+  atat.setUTCHours(0, 0, 0, 0);
+  akya.setUTCHours(0, 0, 0, 0);
 
-  akyo = new Date(akya.getFullYear(), akya.getMonth(), akya.getDate() - 1);
+  // Use UTC-based constructors for adjacent days
+  akyo = new Date(Date.UTC(akya.getUTCFullYear(), akya.getUTCMonth(), akya.getUTCDate() - 1));
   new_year_day = new Date(
-    atat.getFullYear(),
-    atat.getMonth(),
-    atat.getDate() + 1
+    Date.UTC(atat.getUTCFullYear(), atat.getUTCMonth(), atat.getUTCDate() + 1)
   );
 
   for (let i = 1; i < atat.getUTCDate() - akya.getUTCDate(); i++) {
     akyat.push(
-      new Date(akya.getFullYear(), akya.getMonth(), akya.getDate() + i)
+      new Date(Date.UTC(akya.getUTCFullYear(), akya.getUTCMonth(), akya.getUTCDate() + i))
     );
   }
 
+  // Helper to format dates as M/D/YYYY using UTC components so tests are stable
+  const formatUTC = (d: Date) => `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+
   return {
-    akyo: akyo.toLocaleDateString('en-US'),
-    akya: akya.toLocaleDateString('en-US'),
-    akyat: akyat.map(x => x.toLocaleDateString('en-US')),
-    atat: atat.toLocaleDateString('en-US'),
-    new_year_day: new_year_day.toLocaleDateString('en-US'),
+    akyo: formatUTC(akyo),
+    akya: formatUTC(akya),
+    akyat: akyat.map(x => formatUTC(x)),
+    atat: formatUTC(atat),
+    new_year_day: formatUTC(new_year_day),
     akyaTime: julian.toDate(akyaTime).toISOString(),
     atatTime: julian.toDate(atatTime).toISOString()
   };
