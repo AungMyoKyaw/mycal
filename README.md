@@ -1,5 +1,7 @@
 # Myanmar Calendar (MYCAL) - TypeScript Edition
 
+![CI](https://github.com/AungMyoKyaw/mycal/actions/workflows/ci.yml/badge.svg?branch=master)
+
 A Myanmar calendar library completely rewritten in TypeScript with **zero external dependencies**.
 
 ## Features
