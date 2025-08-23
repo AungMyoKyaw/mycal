@@ -83,3 +83,7 @@ npm run dev
 ## License
 
 MIT - see [LICENSE](LICENSE) file for details.
+
+## Credits
+
+This library's algorithm and calculations are based on the work described at: https://cool-emerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html
