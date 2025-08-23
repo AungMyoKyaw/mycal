@@ -81,8 +81,3 @@ npm run dev
 ## License
 
 MIT - see [LICENSE](LICENSE) file for details.
-
-## Credits
-
-Original algorithm and implementation by Aung Myo Kyaw.
-TypeScript rewrite maintains full compatibility while modernizing the codebase.
