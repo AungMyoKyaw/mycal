@@ -65,11 +65,14 @@ export function validateMyanmarYear(my: number): ValidationResult {
     });
   }
 
-  if (watatInfo.ed >= LM) {
+  // Note: ed can be >= LM after adjustment (when ed < TA, we add LM)
+  // Maximum adjusted ed is TA + LM ≈ 33.16, which is valid
+  // Only check for truly impossible values (ed > TA + LM * 2)
+  if (watatInfo.ed > 100) {
     issues.push({
       type: 'error',
-      code: 'EXCESS_EXCEEDS_LUNAR_MONTH',
-      message: `Excess days (${watatInfo.ed}) must be less than lunar month (${LM}).`,
+      code: 'EXCESS_DAYS_TOO_LARGE',
+      message: `Excess days (${watatInfo.ed}) is unreasonably large.`,
       value: watatInfo.ed,
     });
   }

@@ -9,6 +9,14 @@ import type { WatatInfo } from '../types.js';
 const { KALI_YUGA, LM, firstEra, secondEra, thirdEra, SY } = CONST;
 
 /**
+ * Mathematical modulo that always returns positive result
+ * JavaScript's % operator returns negative for negative dividends
+ */
+function mod(n: number, m: number): number {
+  return ((n % m) + m) % m;
+}
+
+/**
  * Check if a Myanmar year is a watat year (has intercalary month)
  *
  * @param mmYear - Myanmar Year
@@ -17,7 +25,7 @@ const { KALI_YUGA, LM, firstEra, secondEra, thirdEra, SY } = CONST;
 export function isWatatYear(mmYear: number): Omit<WatatInfo, 'nearestWatatInfo'> {
   let isWatatYear: boolean;
   let era: 1 | 2 | 3;
-  let ed = (SY * (mmYear + KALI_YUGA)) % LM;
+  let ed = mod(SY * (mmYear + KALI_YUGA), LM);
 
   switch (true) {
     case mmYear >= 1312: // Third era
@@ -41,7 +49,8 @@ export function isWatatYear(mmYear: number): Omit<WatatInfo, 'nearestWatatInfo'>
       if (ed < firstEra.TA) {
         ed += LM;
       }
-      isWatatYear = [2, 5, 7, 10, 13, 15, 18].includes((mmYear * 7 + 2) % 19);
+      // Use proper modulo for Metonic cycle calculation to handle negative years
+      isWatatYear = [2, 5, 7, 10, 13, 15, 18].includes(mod(mmYear * 7 + 2, 19));
       break;
 
     default:
@@ -74,9 +83,17 @@ export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
   let watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>;
   mmYear--;
 
+  const MIN_YEAR = 0; // Myanmar calendar starts at ME 0 (year 0 IS a watat year)
+
   do {
+    // Prevent infinite loop by clamping to minimum year
+    if (mmYear < MIN_YEAR) {
+      mmYear = MIN_YEAR;
+    }
+
     watatInfo = isWatatYear(mmYear);
     isWatat = watatInfo.isWatatYear;
+
     if (!isWatat) {
       mmYear--;
     }
