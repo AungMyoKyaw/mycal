@@ -50,7 +50,8 @@ describe('MYCAL', () => {
   test('SHOULD RETURN FULLMOON DAY OF SECOND WASO (SECOND ERA)', () => {
     const cal = new Mycal('1/1/1900');
     const { waso } = cal;
-    expect(waso).toBe('7/22/1899');
+    // ME 1261 has fme exception of -1 day, so full moon is 7/21 instead of 7/22
+    expect(waso).toBe('7/21/1899');
   });
 
   test('SHOULD RETURN FULLMOON DAY OF SECOND WASO (FIRST ERA)', () => {

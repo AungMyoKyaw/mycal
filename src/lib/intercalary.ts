@@ -3,7 +3,7 @@
  * Determines if a year has an extra month (watat) and/or extra day
  */
 
-import { CONST } from '../constants.js';
+import { CONST, findException, getExceptions } from '../constants.js';
 import type { WatatInfo } from '../types.js';
 
 const { KALI_YUGA, LM, firstEra, secondEra, thirdEra, SY } = CONST;
@@ -47,6 +47,13 @@ export function isWatatYear(mmYear: number): Omit<WatatInfo, 'nearestWatatInfo'>
     default:
       era = 3;
       isWatatYear = false;
+  }
+
+  // Apply watat year exceptions (wte)
+  const exceptions = getExceptions(mmYear);
+  const watatException = findException(mmYear, exceptions.wte);
+  if (watatException !== undefined) {
+    isWatatYear = watatException === 1;
   }
 
   return {

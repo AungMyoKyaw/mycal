@@ -4,7 +4,7 @@
  */
 
 import { julianToDate } from '../utils/julian.js';
-import { CONST } from '../constants.js';
+import { CONST, findException, getExceptions } from '../constants.js';
 import type { WatatInfo, WasoResult } from '../types.js';
 
 const { SY, MO, LM, firstEra, secondEra, thirdEra } = CONST;
@@ -63,6 +63,13 @@ export function waso(watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>, mmYear: num
       jd: 0,
       gd: '',
     };
+  }
+
+  // Apply full moon day exceptions (fme)
+  const exceptions = getExceptions(mmYear);
+  const fmeException = findException(mmYear, exceptions.fme);
+  if (fmeException !== undefined) {
+    w += fmeException;
   }
 
   return {

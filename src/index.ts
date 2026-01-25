@@ -181,7 +181,25 @@ export type {
   MonthType,
   MyanmarMonth,
   IMycal,
+  ValidationIssue,
+  ValidationIssueType,
+  ValidationResult,
+  WatatValidationResult,
+  FullMoonValidationResult,
+  ThingyanValidationResult,
+  CalendarConsistencyResult,
 } from './types.js';
+
+// Export validation functions
+export {
+  validateMyanmarYear,
+  validateWatatYear,
+  validateFullMoonDay,
+  validateThingyan,
+  validateCalendarConsistency,
+  isValidYear,
+  getValidationSummary,
+} from './lib/validator.js';
 
 // Default export for backward compatibility
 export default Mycal;

@@ -114,6 +114,18 @@ export interface EraConstants {
 }
 
 /**
+ * Exception table for historical accuracy
+ * fme[x,y]: for year x, add y days to the full moon day
+ * wte[x,y]: for year x, set watat to y (1=watat, 0=common)
+ */
+export interface ExceptionTable {
+  begin: number; // Beginning year of this era
+  end: number; // Ending year of this era
+  fme: [number, number][]; // Full moon day exceptions
+  wte: [number, number][]; // Watat year exceptions
+}
+
+/**
  * Calendar constants
  */
 export interface CalendarConstants {
@@ -125,6 +137,13 @@ export interface CalendarConstants {
   thirdEra: EraConstants;
   secondEra: EraConstants;
   firstEra: EraConstants;
+  exceptions?: {
+    era1_1: ExceptionTable;
+    era1_2: ExceptionTable;
+    era1_3: ExceptionTable;
+    era2: ExceptionTable;
+    era3: ExceptionTable;
+  };
 }
 
 /**
@@ -157,4 +176,79 @@ export interface IMycal {
   readonly watatYear: WatatYearResult;
   readonly waso: string;
   readonly firstDayOfTagu: string;
+}
+
+/**
+ * Validation issue type
+ */
+export type ValidationIssueType = 'error' | 'warning' | 'info';
+
+/**
+ * Validation issue
+ */
+export interface ValidationIssue {
+  type: ValidationIssueType;
+  code: string;
+  message: string;
+  value?: any;
+  context?: any;
+}
+
+/**
+ * Base validation result
+ */
+export interface ValidationResult {
+  valid: boolean;
+  issues: ValidationIssue[];
+  warnings: ValidationIssue[];
+  year: number;
+  era: 1 | 2 | 3;
+  isWatat: boolean;
+  excessDays: number;
+}
+
+/**
+ * Watat year validation result
+ */
+export interface WatatValidationResult extends ValidationResult {
+  watatValid: boolean;
+  metonicRemainder?: number;
+  isWatatByAlgorithm: boolean;
+  hasException: boolean;
+}
+
+/**
+ * Full moon day validation result
+ */
+export interface FullMoonValidationResult extends ValidationResult {
+  fullMoonValid: boolean;
+  calculatedJulianDay: number;
+  adjustedJulianDay: number;
+  hasFmeException: boolean;
+}
+
+/**
+ * Thingyan validation result
+ */
+export interface ThingyanValidationResult extends ValidationResult {
+  thingyanValid: boolean;
+  akyatDaysCount: number;
+  thingyanLength: number;
+  expectedLength: number;
+}
+
+/**
+ * Calendar consistency validation result
+ */
+export interface CalendarConsistencyResult {
+  valid: boolean;
+  issues: ValidationIssue[];
+  warnings: ValidationIssue[];
+  startYear: number;
+  endYear: number;
+  totalYears: number;
+  watatYears: number;
+  commonYears: number;
+  watatFrequency: number;
+  yearResults: Record<number, ValidationResult>;
 }
