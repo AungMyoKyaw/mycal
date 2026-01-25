@@ -115,6 +115,7 @@ export function validateWatatYear(my: number): WatatValidationResult {
   const baseValidation = validateMyanmarYear(my);
   const watatInfo = isWatatYear(my);
   const issues: ValidationIssue[] = [...baseValidation.issues];
+  const warnings: ValidationIssue[] = [...baseValidation.warnings];
 
   // Check watat consistency
   if (watatInfo.era === 3) {
@@ -160,6 +161,7 @@ export function validateWatatYear(my: number): WatatValidationResult {
   return {
     ...baseValidation,
     issues,
+    warnings,
     watatValid: issues.length === 0,
     metonicRemainder: watatInfo.era === 1 ? (my * 7 + 2) % 19 : undefined,
     isWatatByAlgorithm: watatInfo.isWatatYear,
@@ -238,7 +240,7 @@ export function validateFullMoonDay(my: number): FullMoonValidationResult {
     // Check if full moon is in Waso (July/August)
     const month = date.getUTCMonth();
     if (month < 6 || month > 7) {
-      warnings.push({
+      baseValidation.warnings.push({
         type: 'info',
         code: 'FULLMOON_NOT_IN_WASO',
         message: `Full moon day of Waso is not in Waso month: ${date.getUTCMonth() + 1}/${date.getUTCDate()}.`,
@@ -321,9 +323,9 @@ export function validateThingyan(my: number): ThingyanValidationResult {
   }
 
   // Validate Thingyan length
-  const akyaDate = new Date(thingyanData.akyaTime);
-  const atatDate = new Date(thingyanData.atatTime);
-  const thingyanLength = (atatDate.getTime() - akyaDate.getTime()) / (1000 * 60 * 60 * 24);
+  const akyaTimeDate = new Date(thingyanData.akyaTime);
+  const atatTimeDate = new Date(thingyanData.atatTime);
+  const thingyanLength = (atatTimeDate.getTime() - akyaTimeDate.getTime()) / (1000 * 60 * 60 * 24);
   const expectedLength = my >= CONST.SE3 ? 2.169918982 : 2.1675;
 
   if (Math.abs(thingyanLength - expectedLength) > 0.01) {
