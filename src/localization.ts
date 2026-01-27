@@ -10,7 +10,9 @@ import { localizeNumber } from './utils/numerals.js';
  * Myanmar month names
  * Note: Index 3 (Waso) has three variants: Waso, First Waso, Second Waso
  */
-const monthData: Array<{ en: string; my: string } | { en: string; my: string }[]> = [
+const monthData: Array<
+  { en: string; my: string } | { en: string; my: string }[]
+> = [
   { en: 'Tagu', my: 'တန်ခူး' },
   { en: 'Kason', my: 'ကဆုန်' },
   { en: 'Nayon', my: 'နယုန်' },

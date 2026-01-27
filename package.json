@@ -22,20 +22,36 @@
     "test": "bun test",
     "dev": "bun --watch src/index.ts",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "bun run build",
+    "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AungMyoKyaw/mycal.git"
   },
   "keywords": [
-    "Myanmar Calendar",
-    "Calendar",
-    "Burmese Calendar",
-    "Myanmar",
-    "Burmese",
-    "TypeScript",
-    "Bun"
+    "myanmar",
+    "burma",
+    "burmese",
+    "calendar",
+    "myanmar-calendar",
+    "burmese-calendar",
+    "thingyan",
+    "myanmar-new-year",
+    "watat",
+    "intercalary",
+    "myanmar-dates",
+    "burmese-dates",
+    "date",
+    "datetime",
+    "date-converter",
+    "calendar-converter",
+    "typescript",
+    "bun",
+    "zero-dependency",
+    "lightweight"
   ],
   "author": "Aung Myo Kyaw",
   "license": "MIT",
@@ -44,10 +60,18 @@
   },
   "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "lint-staged": {
+    "*.{ts,js,json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
 }

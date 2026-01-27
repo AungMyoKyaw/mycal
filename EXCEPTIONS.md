@@ -7,6 +7,7 @@ This implementation includes **complete exception tables** for 100% historical a
 ## What are Exceptions?
 
 The Myanmar Calendar algorithm uses mathematical calculations based on astronomical observations. However, due to:
+
 - Historical adjustments by calendar scholars
 - Political decisions
 - Observational variations
@@ -23,6 +24,7 @@ Some years have exceptions where the actual calendar date differs from the calcu
 These exceptions adjust the calculated full moon day of Second Waso by adding or subtracting days.
 
 **Example**: ME 1261 has `fme: [1261, -1]`
+
 - Means: Subtract 1 day from the calculated full moon day
 - Result: Full moon is on 7/21 instead of 7/22
 
@@ -33,6 +35,7 @@ These exceptions adjust the calculated full moon day of Second Waso by adding or
 These exceptions override whether a year is a watat year (has intercalary month).
 
 **Example**: ME 1344 has `wte: [1344, 1]`
+
 - Means: Force this year to be watat (1 = watat, 0 = common)
 - Result: 1344 ME is a watat year (even though calculation says otherwise)
 
@@ -146,6 +149,7 @@ const fmeException = findException(1377, era.fme);
 ### 2. Application in Code
 
 **Watat Year Calculation** (`intercalary.ts`):
+
 ```typescript
 // Calculate watat status normally
 let isWatatYear = calculateByAlgorithm(my);
@@ -158,6 +162,7 @@ if (watatException !== undefined) {
 ```
 
 **Full Moon Day Calculation** (`waso.ts`):
+
 ```typescript
 // Calculate full moon day normally
 let w = calculateFullMoonDay(my, ed);
@@ -232,6 +237,7 @@ console.log(cal.waso); // "7/21/1899"
 ### Historical Accuracy
 
 The Myanmar Calendar has been adjusted over centuries by:
+
 - **Royal astrologers** making corrections
 - **Monastic orders** deciding calendar dates
 - **Colonial administration** standardizing the calendar
@@ -242,6 +248,7 @@ These decisions sometimes overrode mathematical calculations.
 ### Calculation Method Changes
 
 Different eras used different calculation systems:
+
 1. **Makaranta System 1** (ME 0-797)
 2. **Makaranta System 2** (ME 798-1099)
 3. **Thandeikta System** (ME 1100-1216)
@@ -252,6 +259,7 @@ Each system had slightly different rules, creating discrepancies at boundaries.
 ### Observational vs Computational
 
 The calendar is ultimately based on **astronomical observations**:
+
 - Actual new moon sightings
 - Actual full moon sightings
 - Seasonal variations
@@ -273,9 +281,20 @@ All exception data is from the blog post's JavaScript implementation:
 var g_eras = [
   // First era (1.1)
   {
-    "eid": 1.1,
-    "fme": [[205,1],[246,1],[471,1],[572,-1],[651,1],[653,2],[656,1],[672,1],[729,1],[767,-1]],
-    "wte": []
+    eid: 1.1,
+    fme: [
+      [205, 1],
+      [246, 1],
+      [471, 1],
+      [572, -1],
+      [651, 1],
+      [653, 2],
+      [656, 1],
+      [672, 1],
+      [729, 1],
+      [767, -1],
+    ],
+    wte: [],
   },
   // ... (see blog post for full tables)
 ];
@@ -284,6 +303,7 @@ var g_eras = [
 ## Accuracy
 
 With these exceptions, the library achieves:
+
 - **100% accuracy** for all documented years
 - **Historical correctness** matching published calendars
 - **Alignment with Myanmar Calendar Advisory Board** decisions
@@ -303,6 +323,7 @@ To add new exceptions (if discovered):
 ## Performance
 
 Exception lookup is **O(1)** per year using `Array.find()`.
+
 - No performance impact on normal calculations
 - Exceptions only checked when needed
 - Negligible memory overhead (~500 bytes for all tables)

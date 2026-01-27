@@ -7,7 +7,14 @@ import { isWatatYear } from './intercalary.js';
 import { thingyan } from './thingyan.js';
 import { CONST, getExceptions, findException } from '../constants.js';
 import { julianToDate } from '../utils/julian.js';
-import type { ValidationResult, ValidationIssue, WatatValidationResult, FullMoonValidationResult, ThingyanValidationResult, CalendarConsistencyResult } from '../types.js';
+import type {
+  ValidationResult,
+  ValidationIssue,
+  WatatValidationResult,
+  FullMoonValidationResult,
+  ThingyanValidationResult,
+  CalendarConsistencyResult,
+} from '../types.js';
 
 const { LM, SY, MO } = CONST;
 
@@ -132,7 +139,11 @@ export function validateWatatYear(my: number): WatatValidationResult {
             type: 'error',
             code: 'WATAT_THRESHOLD_VIOLATION',
             message: `Year ${my} marked as watat but adjusted excess days (${adjustedEd}) < threshold (${CONST.thirdEra.TW}).`,
-            value: { ed: watatInfo.ed, adjustedEd, threshold: CONST.thirdEra.TW },
+            value: {
+              ed: watatInfo.ed,
+              adjustedEd,
+              threshold: CONST.thirdEra.TW,
+            },
           });
         }
       }
@@ -155,7 +166,11 @@ export function validateWatatYear(my: number): WatatValidationResult {
           type: 'warning',
           code: 'METONIC_CYCLE_VIOLATION',
           message: `Year ${my} remainder ${remainder} ${isWatatByCycle ? 'should be' : 'should not be'} watat (no exception found).`,
-          value: { remainder, expected: isWatatByCycle, actual: watatInfo.isWatatYear },
+          value: {
+            remainder,
+            expected: isWatatByCycle,
+            actual: watatInfo.isWatatYear,
+          },
         });
       }
     }
@@ -224,7 +239,11 @@ export function validateFullMoonDay(my: number): FullMoonValidationResult {
         type: 'info',
         code: 'FME_EXCEPTION_APPLIED',
         message: `Full moon day adjusted by ${fmeException > 0 ? '+' : ''}${fmeException} day(s).`,
-        value: { calculated: calculatedJd, adjusted: adjustedJd, adjustment: fmeException },
+        value: {
+          calculated: calculatedJd,
+          adjusted: adjustedJd,
+          adjustment: fmeException,
+        },
       });
     }
 
@@ -328,7 +347,8 @@ export function validateThingyan(my: number): ThingyanValidationResult {
   // Validate Thingyan length
   const akyaTimeDate = new Date(thingyanData.akyaTime);
   const atatTimeDate = new Date(thingyanData.atatTime);
-  const thingyanLength = (atatTimeDate.getTime() - akyaTimeDate.getTime()) / (1000 * 60 * 60 * 24);
+  const thingyanLength =
+    (atatTimeDate.getTime() - akyaTimeDate.getTime()) / (1000 * 60 * 60 * 24);
   const expectedLength = my >= CONST.SE3 ? 2.169918982 : 2.1675;
 
   if (Math.abs(thingyanLength - expectedLength) > 0.01) {
@@ -353,26 +373,36 @@ export function validateThingyan(my: number): ThingyanValidationResult {
 /**
  * Validate calendar consistency across multiple years
  */
-export function validateCalendarConsistency(startYear: number, endYear: number): CalendarConsistencyResult {
+export function validateCalendarConsistency(
+  startYear: number,
+  endYear: number
+): CalendarConsistencyResult {
   const issues: ValidationIssue[] = [];
   const warnings: ValidationIssue[] = [];
-  const yearResults: Map<number, ReturnType<typeof validateMyanmarYear>> = new Map();
+  const yearResults: Map<
+    number,
+    ReturnType<typeof validateMyanmarYear>
+  > = new Map();
 
   for (let my = startYear; my <= endYear; my++) {
     const result = validateMyanmarYear(my);
     yearResults.set(my, result);
 
     if (!result.valid) {
-      issues.push(...result.issues.map(i => ({
-        ...i,
-        context: { year: my, ...i },
-      })));
+      issues.push(
+        ...result.issues.map(i => ({
+          ...i,
+          context: { year: my, ...i },
+        }))
+      );
     }
 
-    warnings.push(...result.warnings.map(i => ({
-      ...i,
-      context: { year: my, ...i },
-    })));
+    warnings.push(
+      ...result.warnings.map(i => ({
+        ...i,
+        context: { year: my, ...i },
+      }))
+    );
 
     // Check for consecutive common years beyond maximum
     if (my > startYear && !result.isWatat) {
@@ -396,7 +426,9 @@ export function validateCalendarConsistency(startYear: number, endYear: number):
   }
 
   // Check for watat year frequency
-  const watatYears = Array.from(yearResults.values()).filter(r => r.isWatat).length;
+  const watatYears = Array.from(yearResults.values()).filter(
+    r => r.isWatat
+  ).length;
   const totalYears = endYear - startYear + 1;
   const watatFrequency = watatYears / totalYears;
 
@@ -446,14 +478,18 @@ export function getValidationSummary(validation: ValidationResult): string {
   if (validation.issues.length > 0) {
     lines.push(`  Issues (${validation.issues.length}):`);
     validation.issues.forEach((issue, i) => {
-      lines.push(`    ${i + 1}. [${issue.code.toUpperCase()}] ${issue.message}`);
+      lines.push(
+        `    ${i + 1}. [${issue.code.toUpperCase()}] ${issue.message}`
+      );
     });
   }
 
   if (validation.warnings.length > 0) {
     lines.push(`  Warnings (${validation.warnings.length}):`);
     validation.warnings.forEach((warning, i) => {
-      lines.push(`    ${i + 1}. [${warning.code.toUpperCase()}] ${warning.message}`);
+      lines.push(
+        `    ${i + 1}. [${warning.code.toUpperCase()}] ${warning.message}`
+      );
     });
   }
 

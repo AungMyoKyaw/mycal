@@ -22,7 +22,9 @@ function mod(n: number, m: number): number {
  * @param mmYear - Myanmar Year
  * @returns Watat information including era, excess days, and watat status
  */
-export function isWatatYear(mmYear: number): Omit<WatatInfo, 'nearestWatatInfo'> {
+export function isWatatYear(
+  mmYear: number
+): Omit<WatatInfo, 'nearestWatatInfo'> {
   let isWatatYear: boolean;
   let era: 1 | 2 | 3;
   let ed = mod(SY * (mmYear + KALI_YUGA), LM);

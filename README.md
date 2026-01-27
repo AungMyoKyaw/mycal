@@ -62,10 +62,10 @@ const { Mycal } = require('mycal');
 // Myanmar Independence Day
 const myanmarDate = new Mycal('1/4/1948');
 
-console.log(myanmarDate.year);         // { en: '1309', my: '၁၃၀၉' }
-console.log(myanmarDate.month);        // { en: 'Pyatho', my: 'ပြာသို' }
-console.log(myanmarDate.day);          // { fd: { en: '9', my: '၉' }, mp: { en: 'Waning', my: 'လပြည့်ကျော်' } }
-console.log(myanmarDate.weekday);      // { en: 'Sunday', my: 'တနင်္ဂနွေ' }
+console.log(myanmarDate.year); // { en: '1309', my: '၁၃၀၉' }
+console.log(myanmarDate.month); // { en: 'Pyatho', my: 'ပြာသို' }
+console.log(myanmarDate.day); // { fd: { en: '9', my: '၉' }, mp: { en: 'Waning', my: 'လပြည့်ကျော်' } }
+console.log(myanmarDate.weekday); // { en: 'Sunday', my: 'တနင်္ဂနွေ' }
 console.log(myanmarDate.buddhistEraYear); // { en: '2491', my: '၂၄၉၁' }
 ```
 
@@ -90,15 +90,15 @@ console.log(today.month);
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <script type="module">
-    import { Mycal } from 'https://unpkg.com/mycal@latest/dist/browser/index.js';
+  <head>
+    <script type="module">
+      import { Mycal } from 'https://unpkg.com/mycal@latest/dist/browser/index.js';
 
-    const date = new Mycal('2000-01-01');
-    document.body.textContent = `${date.month.en} ${date.year.en}`;
-  </script>
-</head>
-<body></body>
+      const date = new Mycal('2000-01-01');
+      document.body.textContent = `${date.month.en} ${date.year.en}`;
+    </script>
+  </head>
+  <body></body>
 </html>
 ```
 
@@ -109,6 +109,7 @@ console.log(today.month);
 Creates a new Mycal instance.
 
 **Parameters:**
+
 - `dateString` (optional): Date string in formats like '2000-01-01', '1/1/2000', or undefined for current date
 - `options` (optional): Configuration options (reserved for future use)
 
@@ -152,6 +153,7 @@ console.log(cal.day);
 ```
 
 **Moon phases:**
+
 - `Waxing` (လဆန်း) - Growing moon
 - `Full Moon` (လပြည့်) - Full moon
 - `Waning` (လပြည့်ကျော်) - Shrinking moon
@@ -234,13 +236,13 @@ All types are exported for TypeScript users:
 
 ```typescript
 import type {
-  LocalizedString,        // { en: string, my: string }
-  ThingyanResult,         // Thingyan information
-  WatatYearResult,        // Watat year information
-  MyanmarDayResult,       // Day and moon phase
-  MoonPhase,              // 'waxing' | 'full' | 'waning' | 'new'
-  MonthType,              // 'hma' | 'hgu'
-  MyanmarMonth,           // 0 | 1 | 2 | ... | 12
+  LocalizedString, // { en: string, my: string }
+  ThingyanResult, // Thingyan information
+  WatatYearResult, // Watat year information
+  MyanmarDayResult, // Day and moon phase
+  MoonPhase, // 'waxing' | 'full' | 'waning' | 'new'
+  MonthType, // 'hma' | 'hgu'
+  MyanmarMonth, // 0 | 1 | 2 | ... | 12
 } from 'mycal';
 ```
 
@@ -249,6 +251,7 @@ import type {
 **Good news!** The API is 100% backward compatible. The only changes are internal:
 
 ### Before (v1.x)
+
 ```javascript
 const mycal = require('mycal');
 const date = new mycal('2000-01-01');
@@ -256,6 +259,7 @@ console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
 ```
 
 ### After (v2.0) - Same API!
+
 ```javascript
 const { Mycal } = require('mycal');
 const date = new Mycal('2000-01-01');
@@ -263,6 +267,7 @@ console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
 ```
 
 **Or use TypeScript:**
+
 ```typescript
 import { Mycal } from 'mycal';
 const date = new Mycal('2000-01-01');

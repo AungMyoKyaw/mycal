@@ -14,7 +14,13 @@ import { thingyan } from './lib/thingyan.js';
 import { watat } from './lib/intercalary.js';
 import { waso } from './lib/waso.js';
 import { firstDayOfTagu } from './lib/firstDayOfTagu.js';
-import type { MycalOptions, ThingyanResult, WatatYearResult, LocalizedString, MyanmarDayResult } from './types.js';
+import type {
+  MycalOptions,
+  ThingyanResult,
+  WatatYearResult,
+  LocalizedString,
+  MyanmarDayResult,
+} from './types.js';
 
 /**
  * Mycal - Myanmar Calendar Class
@@ -103,7 +109,8 @@ export class Mycal {
     this.nearestWasoValue = nearestWaso.jd;
 
     if (watatInfo.isWatatYear) {
-      isBigWatat = (currentWaso.jd - nearestWaso.jd) % 354 === 30 ? false : true;
+      isBigWatat =
+        (currentWaso.jd - nearestWaso.jd) % 354 === 30 ? false : true;
     }
 
     this.cValue = watatInfo.isWatatYear ? 0 : 1;
@@ -142,7 +149,12 @@ export class Mycal {
     // Trigger firstDayOfTagu to populate tg1
     this.firstDayOfTagu;
 
-    const myanmarMonth = myMonth(this.gDate, this.tg1Value!, this.cValue!, this.bValue!);
+    const myanmarMonth = myMonth(
+      this.gDate,
+      this.tg1Value!,
+      this.cValue!,
+      this.bValue!
+    );
     this.mdValue = myanmarMonth.md;
     this.mmlValue = myanmarMonth.mml;
     return myanmarMonth.mm;

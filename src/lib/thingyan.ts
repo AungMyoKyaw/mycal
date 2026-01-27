@@ -31,7 +31,9 @@ export function thingyan(mmyear: number): ThingyanResult {
   atat.setHours(0, 0, 0, 0);
   akya.setHours(0, 0, 0, 0);
 
-  const akyo = new Date(Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() - 1));
+  const akyo = new Date(
+    Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() - 1)
+  );
   const new_year_day = new Date(
     Date.UTC(atat.getFullYear(), atat.getMonth(), atat.getDate() + 1)
   );
@@ -39,8 +41,9 @@ export function thingyan(mmyear: number): ThingyanResult {
   const akyat: string[] = [];
   for (let i = 1; i < atat.getUTCDate() - akya.getUTCDate(); i++) {
     akyat.push(
-      new Date(Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() + i))
-        .toLocaleDateString('en-US')
+      new Date(
+        Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() + i)
+      ).toLocaleDateString('en-US')
     );
   }
 

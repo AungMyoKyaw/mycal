@@ -89,9 +89,7 @@ const era2 = {
 const era3 = {
   begin: 1312,
   end: 9999,
-  fme: [
-    [1377, 1],
-  ] as [number, number][],
+  fme: [[1377, 1]] as [number, number][],
   wte: [
     [1344, 1],
     [1345, 0],
@@ -115,7 +113,10 @@ export function getExceptions(my: number) {
  * @param table - Exception table (fme or wte)
  * @returns Exception value if found, undefined otherwise
  */
-export function findException(year: number, table: [number, number][]): number | undefined {
+export function findException(
+  year: number,
+  table: [number, number][]
+): number | undefined {
   const result = table.find(([y]) => y === year);
   return result?.[1];
 }
@@ -154,4 +155,5 @@ export const CONST: CalendarConstants = {
 };
 
 // Re-export individual constants for convenience
-export const { SY, MO, SE3, LM, KALI_YUGA, thirdEra, secondEra, firstEra } = CONST;
+export const { SY, MO, SE3, LM, KALI_YUGA, thirdEra, secondEra, firstEra } =
+  CONST;

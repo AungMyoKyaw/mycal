@@ -141,7 +141,9 @@ describe('Validation Tools: Full Moon Day Validation', () => {
       const result = validateFullMoonDay(1377);
       expect(result.hasFmeException).toBe(true);
       expect(result.calculatedJulianDay).not.toBe(result.adjustedJulianDay);
-      expect(result.warnings.some(w => w.code === 'FME_EXCEPTION_APPLIED')).toBe(true);
+      expect(
+        result.warnings.some(w => w.code === 'FME_EXCEPTION_APPLIED')
+      ).toBe(true);
     });
 
     test('should handle non-watat year', () => {
@@ -232,7 +234,9 @@ describe('Validation Tools: Integration Tests', () => {
       // Should have warnings but no errors
       expect(result.issues.filter(i => i.type === 'error').length).toBe(0);
       expect(result.hasFmeException).toBe(true);
-      expect(result.warnings.some(w => w.code === 'FME_EXCEPTION_APPLIED')).toBe(true);
+      expect(
+        result.warnings.some(w => w.code === 'FME_EXCEPTION_APPLIED')
+      ).toBe(true);
     });
   });
 

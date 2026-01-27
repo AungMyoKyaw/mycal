@@ -14,7 +14,13 @@ import { waso } from '../src/lib/waso';
 import { firstDayOfTagu } from '../src/lib/firstDayOfTagu';
 import { myMonth } from '../src/lib/mymonth';
 import { myDay } from '../src/lib/myday';
-import { gregorianToJulian, julianToGregorian, dateToJulian, julianToDate, julian } from '../src/utils/julian';
+import {
+  gregorianToJulian,
+  julianToGregorian,
+  dateToJulian,
+  julianToDate,
+  julian,
+} from '../src/utils/julian';
 import { toMyanmarNumber, localizeNumber } from '../src/utils/numerals';
 import { CONST } from '../src/constants';
 
@@ -636,7 +642,7 @@ describe('Mycal Class - Integration Tests', () => {
         '2000-12-01', // Tabaung
       ];
 
-      months.forEach((dateStr) => {
+      months.forEach(dateStr => {
         const cal = new Mycal(dateStr);
         expect(cal.month).toBeDefined();
         expect(cal.month.en).toBeTruthy();
@@ -673,7 +679,7 @@ describe('Mycal Class - Integration Tests', () => {
         '2024-01-13', // Saturday
       ];
 
-      weekdays.forEach((dateStr) => {
+      weekdays.forEach(dateStr => {
         const cal = new Mycal(dateStr);
         expect(cal.weekday).toBeDefined();
         expect(cal.weekday.en).toBeTruthy();

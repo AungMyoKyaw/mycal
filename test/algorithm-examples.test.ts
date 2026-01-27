@@ -119,9 +119,12 @@ describe('Algorithm Examples from Blog Post', () => {
 
     test('Third era: watat years from 1350 to 1396', () => {
       // Based on the table in Section 10 of the blog post
-      const watatYears = [1350, 1353, 1355, 1358, 1361, 1363, 1366, 1369, 1372, 1374, 1377, 1380, 1382, 1385, 1388, 1391, 1393, 1396];
+      const watatYears = [
+        1350, 1353, 1355, 1358, 1361, 1363, 1366, 1369, 1372, 1374, 1377, 1380,
+        1382, 1385, 1388, 1391, 1393, 1396,
+      ];
 
-      watatYears.forEach((year) => {
+      watatYears.forEach(year => {
         const result = isWatatYear(year);
         expect(result.isWatatYear).toBe(true);
         expect(result.era).toBe(3);
@@ -291,7 +294,9 @@ describe('Algorithm Examples from Blog Post', () => {
       // Just verify the structure is correct
       expect(cal.day).toHaveProperty('mp');
       expect(cal.day).toHaveProperty('fd');
-      expect(['Waxing', 'Full Moon', 'Waning', 'New Moon']).toContain(cal.day.mp.en);
+      expect(['Waxing', 'Full Moon', 'Waning', 'New Moon']).toContain(
+        cal.day.mp.en
+      );
     });
   });
 
@@ -316,11 +321,15 @@ describe('Algorithm Examples from Blog Post', () => {
 
       const ed1374 = (SY * (my + KALI_YUGA)) % LM;
       const adjustedEd1374 = ed1374 < CONST.thirdEra.TA ? ed1374 + LM : ed1374;
-      const w1374 = Math.round(SY * my + MO - adjustedEd1374 + 4.5 * LM + CONST.thirdEra.WO);
+      const w1374 = Math.round(
+        SY * my + MO - adjustedEd1374 + 4.5 * LM + CONST.thirdEra.WO
+      );
 
       const ed1372 = (SY * (nearest + KALI_YUGA)) % LM;
       const adjustedEd1372 = ed1372 < CONST.thirdEra.TA ? ed1372 + LM : ed1372;
-      const w1372 = Math.round(SY * nearest + MO - adjustedEd1372 + 4.5 * LM + CONST.thirdEra.WO);
+      const w1372 = Math.round(
+        SY * nearest + MO - adjustedEd1372 + 4.5 * LM + CONST.thirdEra.WO
+      );
 
       const diff = w1374 - w1372;
       const remainder = diff % 354;

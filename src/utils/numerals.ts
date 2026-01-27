@@ -6,7 +6,18 @@
 /**
  * Myanmar digit characters
  */
-const MYANMAR_DIGITS = ['၀', '၁', '၂', '၃', '၄', '၅', '၆', '၇', '၈', '၉'] as const;
+const MYANMAR_DIGITS = [
+  '၀',
+  '၁',
+  '၂',
+  '၃',
+  '၄',
+  '၅',
+  '၆',
+  '၇',
+  '၈',
+  '၉',
+] as const;
 
 /**
  * Convert a number to Myanmar numerals
@@ -23,7 +34,7 @@ const MYANMAR_DIGITS = ['၀', '၁', '၂', '၃', '၄', '၅', '၆', '၇', 
 export function toMyanmarNumber(num: number | string): string {
   return String(num)
     .split('')
-    .map((d) => {
+    .map(d => {
       const digit = parseInt(d, 10);
       if (!isNaN(digit) && digit >= 0 && digit <= 9) {
         return MYANMAR_DIGITS[digit];

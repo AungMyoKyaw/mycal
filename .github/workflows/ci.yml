@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master, feature/* ]
+    branches: [master, feature/*]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   test:
@@ -41,6 +41,9 @@ jobs:
 
       - name: Type check
         run: bun run typecheck
+
+      - name: Format check
+        run: bun run format:check
 
       - name: Run tests
         run: bun test

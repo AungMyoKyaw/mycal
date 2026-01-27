@@ -12,11 +12,20 @@
  * @param day - Gregorian day
  * @returns Julian Day Number
  */
-export function gregorianToJulian(year: number, month: number, day: number): number {
+export function gregorianToJulian(
+  year: number,
+  month: number,
+  day: number
+): number {
   return Math.floor(
     (1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4 +
-      Math.floor((367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12) -
-      Math.floor((3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) / 4) +
+      Math.floor(
+        (367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12
+      ) -
+      Math.floor(
+        (3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) /
+          4
+      ) +
       day -
       32075
   );
@@ -29,7 +38,11 @@ export function gregorianToJulian(year: number, month: number, day: number): num
  * @param jd - Julian Day Number
  * @returns Object containing year, month, day
  */
-export function julianToGregorian(jd: number): { year: number; month: number; day: number } {
+export function julianToGregorian(jd: number): {
+  year: number;
+  month: number;
+  day: number;
+} {
   const L = jd + 68569;
   const N = Math.floor((4 * L) / 146097);
   const L2 = L - Math.floor((146097 * N + 3) / 4);
@@ -50,7 +63,11 @@ export function julianToGregorian(jd: number): { year: number; month: number; da
  * @returns Julian Day Number
  */
 export function dateToJulian(date: Date): number {
-  return gregorianToJulian(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  return gregorianToJulian(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  );
 }
 
 /**
@@ -76,7 +93,9 @@ export function julianToDate(jd: number): Date {
   const milliseconds = Math.round((totalSeconds % 1) * 1000);
 
   // Create date with precise time
-  const date = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds, milliseconds));
+  const date = new Date(
+    Date.UTC(year, month - 1, day, hours, minutes, seconds, milliseconds)
+  );
   return date;
 }
 

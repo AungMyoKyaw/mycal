@@ -64,16 +64,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **API Exports**: New validation functions exported from main module
   ```typescript
-   import {
-     validateMyanmarYear,
-     validateWatatYear,
-     validateFullMoonDay,
-     validateThingyan,
-     validateCalendarConsistency,
-     isValidYear,
-     getValidationSummary
-   } from 'mycal';
-   ```
+  import {
+    validateMyanmarYear,
+    validateWatatYear,
+    validateFullMoonDay,
+    validateThingyan,
+    validateCalendarConsistency,
+    isValidYear,
+    getValidationSummary,
+  } from 'mycal';
+  ```
 
 ### Fixed
 
@@ -227,6 +227,7 @@ const date = new Mycal('2000-01-01');
 ### Migration Guide
 
 1. **Update import** (optional, old import still works):
+
    ```javascript
    // Before
    const mycal = require('mycal');
@@ -238,6 +239,7 @@ const date = new Mycal('2000-01-01');
    ```
 
 2. **TypeScript users** (new feature):
+
    ```typescript
    import { Mycal, type LocalizedString } from 'mycal';
 
@@ -277,17 +279,20 @@ No security issues.
 ## [1.2.1] - 2021-01-XX
 
 ### Fixed
+
 - Bug fixes and improvements
 
 ## [1.2.0] - 2020-XX-XX
 
 ### Added
+
 - Flat style badge
 - Various improvements
 
 ## [1.0.0] - 2018-XX-XX
 
 ### Added
+
 - Initial release
 - Myanmar calendar conversion
 - Thingyan calculations

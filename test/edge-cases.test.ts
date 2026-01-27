@@ -14,7 +14,13 @@ import { thingyan } from '../src/lib/thingyan';
 import { watat, isWatatYear, nearestWatatYear } from '../src/lib/intercalary';
 import { waso } from '../src/lib/waso';
 import { firstDayOfTagu } from '../src/lib/firstDayOfTagu';
-import { gregorianToJulian, julianToGregorian, dateToJulian, julianToDate, julian } from '../src/utils/julian';
+import {
+  gregorianToJulian,
+  julianToGregorian,
+  dateToJulian,
+  julianToDate,
+  julian,
+} from '../src/utils/julian';
 import { toMyanmarNumber, localizeNumber } from '../src/utils/numerals';
 import { CONST, findException, getExceptions } from '../src/constants';
 
@@ -93,9 +99,18 @@ describe('Edge Cases: Date Boundaries', () => {
 
     test('should handle last day of each month', () => {
       const months = [
-        '2000-01-31', '2000-02-29', '2000-03-31', '2000-04-30',
-        '2000-05-31', '2000-06-30', '2000-07-31', '2000-08-31',
-        '2000-09-30', '2000-10-31', '2000-11-30', '2000-12-31'
+        '2000-01-31',
+        '2000-02-29',
+        '2000-03-31',
+        '2000-04-30',
+        '2000-05-31',
+        '2000-06-30',
+        '2000-07-31',
+        '2000-08-31',
+        '2000-09-30',
+        '2000-10-31',
+        '2000-11-30',
+        '2000-12-31',
       ];
 
       months.forEach(date => {
@@ -335,9 +350,7 @@ describe('Edge Cases: Julian Day Number', () => {
     });
 
     test('should handle round-trip conversion for edge dates', () => {
-      const dates = [
-        '2000-01-01', '2100-01-01'
-      ];
+      const dates = ['2000-01-01', '2100-01-01'];
 
       dates.forEach(dateStr => {
         const date = new Date(dateStr);
@@ -369,12 +382,7 @@ describe('Edge Cases: Julian Day Number', () => {
 describe('Edge Cases: Invalid or Unusual Inputs', () => {
   describe('Date string formats', () => {
     test('should handle various date formats', () => {
-      const formats = [
-        '2000-01-01',
-        '01/01/2000',
-        '1-1-2000',
-        '2000/01/01',
-      ];
+      const formats = ['2000-01-01', '01/01/2000', '1-1-2000', '2000/01/01'];
 
       formats.forEach(format => {
         const cal = new Mycal(format);

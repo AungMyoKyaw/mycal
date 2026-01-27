@@ -63,11 +63,14 @@ describe('First Era (1.1 - ME 0-797) Exceptions', () => {
       { year: 767, adjustment: -1 },
     ];
 
-    test.each(fmeTests)('ME $year should have fme exception of $adjustment days', ({ year, adjustment }) => {
-      const era = getExceptions(year);
-      const exception = findException(year, era.fme);
-      expect(exception).toBe(adjustment);
-    });
+    test.each(fmeTests)(
+      'ME $year should have fme exception of $adjustment days',
+      ({ year, adjustment }) => {
+        const era = getExceptions(year);
+        const exception = findException(year, era.fme);
+        expect(exception).toBe(adjustment);
+      }
+    );
   });
 });
 
@@ -89,11 +92,14 @@ describe('First Era (1.2 - ME 798-1099) Exceptions', () => {
       { year: 1039, adjustment: -1 },
     ];
 
-    test.each(fmeTests)('ME $year should have fme exception of $adjustment days', ({ year, adjustment }) => {
-      const era = getExceptions(year);
-      const exception = findException(year, era.fme);
-      expect(exception).toBe(adjustment);
-    });
+    test.each(fmeTests)(
+      'ME $year should have fme exception of $adjustment days',
+      ({ year, adjustment }) => {
+        const era = getExceptions(year);
+        const exception = findException(year, era.fme);
+        expect(exception).toBe(adjustment);
+      }
+    );
   });
 });
 
@@ -248,7 +254,7 @@ describe('Exception Table Coverage', () => {
   test('All eras should have exception tables defined', () => {
     const eras = [500, 900, 1150, 1250, 1400];
 
-    eras.forEach((year) => {
+    eras.forEach(year => {
       const era = getExceptions(year);
       expect(era).toHaveProperty('begin');
       expect(era).toHaveProperty('end');

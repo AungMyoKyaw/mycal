@@ -16,7 +16,10 @@ const { SY, MO, LM, firstEra, secondEra, thirdEra } = CONST;
  * @param mmYear - Myanmar Year
  * @returns Waso full moon day information (Julian day and Gregorian date)
  */
-export function waso(watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>, mmYear: number): WasoResult {
+export function waso(
+  watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>,
+  mmYear: number
+): WasoResult {
   let w: number | undefined;
   let WO: number;
 
