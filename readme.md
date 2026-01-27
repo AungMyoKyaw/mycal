@@ -2,7 +2,6 @@
 
 > Myanmar Calendar - Zero dependency TypeScript library
 
-[![Build Status][travis]][travis-url]
 [![code style: prettier][prettier]][prettier-url]
 [![npm][npm-download]][npm-dl-url]
 [![contributions welcome][contri]][contri-url]
@@ -345,8 +344,6 @@ Based on [Algorithm, Program and Calculation of Myanmar Calendar][algorithm] by 
 [algorithm]: https://coolemerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html
 [contri]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square
 [contri-url]: https://github.com/AungMyoKyaw/mycal/issues
-[travis]: https://img.shields.io/travis/AungMyoKyaw/mycal/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/AungMyoKyaw/mycal
 [npm-download]: https://img.shields.io/npm/dt/mycal.svg?style=flat-square
 [npm-dl-url]: https://www.npmjs.com/package/mycal
 [license]: https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square
