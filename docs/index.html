@@ -6,6 +6,9 @@
   <title>MyCal - Myanmar Calendar TypeScript Library</title>
   <meta name="description" content="Zero dependency Myanmar calendar library for TypeScript. Convert Gregorian dates to Myanmar calendar with Thingyan, Watat years, and full type safety.">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -403,7 +406,13 @@
       align-items: center;
       justify-content: center;
       margin-bottom: var(--space-md);
-      font-size: 1.5rem;
+      color: var(--gold-primary);
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 2;
     }
 
     .feature-title {
@@ -472,6 +481,9 @@
       font-weight: 600;
       cursor: pointer;
       transition: all var(--transition-base);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
     }
 
     .demo-button:hover {
@@ -579,10 +591,18 @@
       font-size: 0.75rem;
       font-weight: 600;
       transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .code-copy:hover {
       background: rgba(212, 175, 55, 0.2);
+    }
+
+    .code-copy svg {
+      width: 14px;
+      height: 14px;
     }
 
     .code-content {
@@ -757,7 +777,10 @@
     </div>
 
     <div class="hero-content">
-      <div class="hero-badge">✨ v2.0 - Zero Dependency Rewrite</div>
+      <div class="hero-badge">
+        <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+        v2.0 - Zero Dependency Rewrite
+      </div>
       <h1 class="hero-title">Myanmar Calendar<br>for TypeScript</h1>
       <p class="hero-subtitle">
         Convert Gregorian dates to Myanmar calendar with Thingyan, Watat years,
@@ -768,7 +791,8 @@
           npm install mycal
         </a>
         <a href="https://github.com/AungMyoKyaw/mycal" target="_blank" class="btn btn-secondary">
-          View on GitHub →
+          View on GitHub
+          <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
         </a>
       </div>
     </div>
@@ -787,7 +811,9 @@
 
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon">
+            <i data-lucide="zap"></i>
+          </div>
           <h3 class="feature-title">Zero Dependencies</h3>
           <p class="feature-description">
             No external packages. Smaller bundle size. Faster installs.
@@ -796,7 +822,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🔷</div>
+          <div class="feature-icon">
+            <i data-lucide="file-code"></i>
+          </div>
           <h3 class="feature-title">Full TypeScript</h3>
           <p class="feature-description">
             Complete type safety with exported types. Better IDE support.
@@ -805,7 +833,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🎯</div>
+          <div class="feature-icon">
+            <i data-lucide="target"></i>
+          </div>
           <h3 class="feature-title">Thingyan Data</h3>
           <p class="feature-description">
             Complete Thingyan (Water Festival) information including
@@ -814,7 +844,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🌙</div>
+          <div class="feature-icon">
+            <i data-lucide="moon"></i>
+          </div>
           <h3 class="feature-title">Watat Years</h3>
           <p class="feature-description">
             Calculate intercalary months and days. Detect leap years
@@ -823,7 +855,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🌐</div>
+          <div class="feature-icon">
+            <i data-lucide="globe"></i>
+          </div>
           <h3 class="feature-title">Browser & Node</h3>
           <p class="feature-description">
             Works everywhere. Separate builds for Node.js and browsers.
@@ -832,7 +866,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">⚙️</div>
+          <div class="feature-icon">
+            <i data-lucide="settings"></i>
+          </div>
           <h3 class="feature-title">Buddhist Era</h3>
           <p class="feature-description">
             Get Buddhist Era year alongside Myanmar year.
@@ -841,7 +877,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🎨</div>
+          <div class="feature-icon">
+            <i data-lucide="languages"></i>
+          </div>
           <h3 class="feature-title">Localized Output</h3>
           <p class="feature-description">
             All data available in English and Myanmar script.
@@ -850,7 +888,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🚀</div>
+          <div class="feature-icon">
+            <i data-lucide="rocket"></i>
+          </div>
           <h3 class="feature-title">Tiny & Fast</h3>
           <p class="feature-description">
             Built with Bun for maximum performance.
@@ -859,7 +899,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">✅</div>
+          <div class="feature-icon">
+            <i data-lucide="check-circle-2"></i>
+          </div>
           <h3 class="feature-title">Backward Compatible</h3>
           <p class="feature-description">
             100% API compatible with v1.x. Drop-in replacement.
@@ -887,9 +929,12 @@
             type="date"
             id="demoInput"
             class="demo-input"
-            value="1948-01-04"
+            value="1915-02-13"
           >
-          <button class="demo-button" onclick="convertDate()">Convert</button>
+          <button class="demo-button" onclick="convertDate()">
+            <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+            Convert
+          </button>
         </div>
         <div class="demo-result" id="demoResult">
           <div class="demo-result-empty">
@@ -920,7 +965,10 @@
         </div>
 
         <div class="code-block">
-          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+          <button class="code-copy" onclick="copyCode(this)">
+            <i data-lucide="copy"></i>
+            Copy
+          </button>
 
           <div id="install-npm" class="code-content active">
             <pre>npm install mycal</pre>
@@ -947,7 +995,10 @@
         <div style="margin-top: var(--space-lg);">
           <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: var(--space-md);">Quick Start</h3>
           <div class="code-block">
-            <button class="code-copy" onclick="copyCode(this)">Copy</button>
+            <button class="code-copy" onclick="copyCode(this)">
+              <i data-lucide="copy"></i>
+              Copy
+            </button>
             <pre><span class="token-keyword">import</span> { Mycal } <span class="token-keyword">from</span> <span class="token-string">'mycal'</span>;
 
 <span class="token-comment">// Myanmar Independence Day</span>
@@ -1091,7 +1142,13 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
     </div>
   </footer>
 
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <script type="module">
+    // Initialize Lucide icons
+    lucide.createIcons();
+
     // Import MyCal from unpkg for the demo
     import { Mycal } from 'https://unpkg.com/mycal@latest/dist/browser/index.js';
 
@@ -1123,9 +1180,12 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
     window.copyCode = (button) => {
       const codeBlock = button.parentElement.querySelector('pre');
       navigator.clipboard.writeText(codeBlock.textContent);
-      button.textContent = 'Copied!';
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+      lucide.createIcons();
       setTimeout(() => {
-        button.textContent = 'Copy';
+        button.innerHTML = originalHTML;
+        lucide.createIcons();
       }, 2000);
     };
 
