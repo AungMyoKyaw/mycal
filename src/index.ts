@@ -131,7 +131,7 @@ export class Mycal {
    */
   get firstDayOfTagu(): string {
     // Trigger watatYear calculation to populate cached values
-    this.watatYear;
+    void this.watatYear;
 
     const tg1 = firstDayOfTagu(
       this.nearestWasoValue!,
@@ -147,7 +147,7 @@ export class Mycal {
    */
   get month(): LocalizedString {
     // Trigger firstDayOfTagu to populate tg1
-    this.firstDayOfTagu;
+    void this.firstDayOfTagu;
 
     const myanmarMonth = myMonth(
       this.gDate,
@@ -165,7 +165,7 @@ export class Mycal {
    */
   get day(): MyanmarDayResult {
     // Trigger month calculation to populate md and mml
-    this.month;
+    void this.month;
     return myDay(this.mdValue!, this.mmlValue!);
   }
 

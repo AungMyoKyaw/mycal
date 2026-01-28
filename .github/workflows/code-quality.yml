@@ -33,6 +33,12 @@ jobs:
       - name: Type check
         run: bun run typecheck
 
+      - name: Lint check
+        run: bun run lint:check
+
+      - name: Format check
+        run: bun run format:check
+
       - name: Check build
         run: bun run build
 

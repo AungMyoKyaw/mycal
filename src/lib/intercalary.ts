@@ -35,7 +35,7 @@ export function isWatatYear(
       if (ed < thirdEra.TA) {
         ed += LM;
       }
-      isWatatYear = ed >= (thirdEra.TW || 0);
+      isWatatYear = ed >= (thirdEra.TW ?? 0);
       break;
 
     case mmYear >= 1217 && mmYear <= 1311: // Second era
@@ -43,7 +43,7 @@ export function isWatatYear(
       if (ed < secondEra.TA) {
         ed += LM;
       }
-      isWatatYear = ed >= (secondEra.TW || 0);
+      isWatatYear = ed >= (secondEra.TW ?? 0);
       break;
 
     case mmYear <= 1216: // First era

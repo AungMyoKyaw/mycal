@@ -100,10 +100,18 @@ const era3 = {
  * Get exception table for a given Myanmar year
  */
 export function getExceptions(my: number) {
-  if (my <= era1_1.end) return era1_1;
-  if (my <= era1_2.end) return era1_2;
-  if (my <= era1_3.end) return era1_3;
-  if (my <= era2.end) return era2;
+  if (my <= era1_1.end) {
+    return era1_1;
+  }
+  if (my <= era1_2.end) {
+    return era1_2;
+  }
+  if (my <= era1_3.end) {
+    return era1_3;
+  }
+  if (my <= era2.end) {
+    return era2;
+  }
   return era3;
 }
 

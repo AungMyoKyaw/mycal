@@ -25,6 +25,10 @@
     "prepublishOnly": "bun run build",
     "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix",
+    "lint:check": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --max-warnings=0",
+    "validate": "bun run typecheck && bun run lint:check && bun run format:check",
     "prepare": "husky"
   },
   "repository": {
@@ -60,17 +64,26 @@
   },
   "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
   "devDependencies": {
+    "@eslint/compat": "^2.0.1",
+    "@eslint/js": "^9.18.0",
     "@types/bun": "latest",
+    "eslint": "^9.18.0",
+    "globals": "^17.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.19.1"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "type": "module",
   "lint-staged": {
-    "*.{ts,js,json,md,yml,yaml}": [
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
   }

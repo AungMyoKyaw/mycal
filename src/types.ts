@@ -150,7 +150,7 @@ export interface CalendarConstants {
  * Localization data
  */
 export interface LocalizationData {
-  month: Array<LocalizedString | LocalizedString[]>;
+  month: (LocalizedString | LocalizedString[])[];
   moon: LocalizedString[];
   number: (num: number) => LocalizedString;
   weekday: LocalizedString[];
@@ -190,8 +190,8 @@ export interface ValidationIssue {
   type: ValidationIssueType;
   code: string;
   message: string;
-  value?: any;
-  context?: any;
+  value?: unknown;
+  context?: Record<string, unknown>;
 }
 
 /**

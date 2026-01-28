@@ -48,9 +48,13 @@ export function validateMyanmarYear(my: number): ValidationResult {
 
   // Check era assignment
   let expectedEra: 1 | 2 | 3;
-  if (my >= 1312) expectedEra = 3;
-  else if (my >= 1217) expectedEra = 2;
-  else expectedEra = 1;
+  if (my >= 1312) {
+    expectedEra = 3;
+  } else if (my >= 1217) {
+    expectedEra = 2;
+  } else {
+    expectedEra = 1;
+  }
 
   const watatInfo = isWatatYear(my);
   if (watatInfo.era !== expectedEra) {
@@ -379,10 +383,7 @@ export function validateCalendarConsistency(
 ): CalendarConsistencyResult {
   const issues: ValidationIssue[] = [];
   const warnings: ValidationIssue[] = [];
-  const yearResults: Map<
-    number,
-    ReturnType<typeof validateMyanmarYear>
-  > = new Map();
+  const yearResults = new Map<number, ReturnType<typeof validateMyanmarYear>>();
 
   for (let my = startYear; my <= endYear; my++) {
     const result = validateMyanmarYear(my);

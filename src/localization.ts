@@ -10,26 +10,25 @@ import { localizeNumber } from './utils/numerals.js';
  * Myanmar month names
  * Note: Index 3 (Waso) has three variants: Waso, First Waso, Second Waso
  */
-const monthData: Array<
-  { en: string; my: string } | { en: string; my: string }[]
-> = [
-  { en: 'Tagu', my: 'တန်ခူး' },
-  { en: 'Kason', my: 'ကဆုန်' },
-  { en: 'Nayon', my: 'နယုန်' },
+const monthData: ({ en: string; my: string } | { en: string; my: string }[])[] =
   [
-    { en: 'Waso', my: 'ဝါဆို' },
-    { en: 'First Waso', my: 'ပဝါဆို' },
-    { en: 'Second Waso', my: 'ဒုဝါဆို' },
-  ],
-  { en: 'Wagaung', my: 'ဝါခေါင်' },
-  { en: 'Tawthalin', my: 'တော်သလင်း' },
-  { en: 'Thadingyut', my: 'သီတင်းကျွတ်' },
-  { en: 'Tazaungmon', my: 'တန်ဆောင်မုန်း' },
-  { en: 'Nadaw', my: 'နတ်တော်' },
-  { en: 'Pyatho', my: 'ပြာသို' },
-  { en: 'Tabodwe', my: 'တပို့တွဲ' },
-  { en: 'Tabaung', my: 'တပေါင်း' },
-];
+    { en: 'Tagu', my: 'တန်ခူး' },
+    { en: 'Kason', my: 'ကဆုန်' },
+    { en: 'Nayon', my: 'နယုန်' },
+    [
+      { en: 'Waso', my: 'ဝါဆို' },
+      { en: 'First Waso', my: 'ပဝါဆို' },
+      { en: 'Second Waso', my: 'ဒုဝါဆို' },
+    ],
+    { en: 'Wagaung', my: 'ဝါခေါင်' },
+    { en: 'Tawthalin', my: 'တော်သလင်း' },
+    { en: 'Thadingyut', my: 'သီတင်းကျွတ်' },
+    { en: 'Tazaungmon', my: 'တန်ဆောင်မုန်း' },
+    { en: 'Nadaw', my: 'နတ်တော်' },
+    { en: 'Pyatho', my: 'ပြာသို' },
+    { en: 'Tabodwe', my: 'တပို့တွဲ' },
+    { en: 'Tabaung', my: 'တပေါင်း' },
+  ];
 
 /**
  * Moon phase names
