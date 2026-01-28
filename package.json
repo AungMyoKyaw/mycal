@@ -62,7 +62,7 @@
   "bugs": {
     "url": "https://github.com/AungMyoKyaw/mycal/issues"
   },
-  "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
+  "homepage": "https://aungmyokyaw.github.io/mycal/",
   "devDependencies": {
     "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.18.0",
