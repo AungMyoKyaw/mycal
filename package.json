@@ -1,19 +1,61 @@
 {
   "name": "mycal",
-  "version": "1.2.1",
-  "description": "Myanmar Calendar",
-  "main": "dist/node/index.js",
+  "version": "2.0.0",
+  "description": "Myanmar Calendar - Zero dependency TypeScript rewrite with Bun",
+  "main": "./dist/node/index.js",
+  "module": "./dist/node/index.js",
+  "browser": "./dist/browser/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "node": "./dist/node/index.js",
+      "browser": "./dist/browser/index.js",
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/node/index.js"
+    }
+  },
   "scripts": {
-    "test": "mocha test",
-    "build": "gulp"
+    "build": "bun run build:node && bun run build:browser && bun run build:types",
+    "build:node": "bun build ./src/index.ts --outdir ./dist/node",
+    "build:browser": "bun build ./src/index.ts --outdir ./dist/browser --target browser",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir ./dist/types",
+    "test": "bun test",
+    "dev": "bun --watch src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build",
+    "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md,yml,yaml}\"",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix",
+    "lint:check": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --max-warnings=0",
+    "validate": "bun run typecheck && bun run lint:check && bun run format:check",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AungMyoKyaw/mycal.git"
   },
   "keywords": [
-    "Myanmar Calendar",
-    "Calendar"
+    "myanmar",
+    "burma",
+    "burmese",
+    "calendar",
+    "myanmar-calendar",
+    "burmese-calendar",
+    "thingyan",
+    "myanmar-new-year",
+    "watat",
+    "intercalary",
+    "myanmar-dates",
+    "burmese-dates",
+    "date",
+    "datetime",
+    "date-converter",
+    "calendar-converter",
+    "typescript",
+    "bun",
+    "zero-dependency",
+    "lightweight"
   ],
   "author": "Aung Myo Kyaw",
   "license": "MIT",
@@ -22,16 +64,27 @@
   },
   "homepage": "https://github.com/AungMyoKyaw/mycal#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "gulp": "^4.0.0",
-    "gulp-babel": "^7.0.1",
-    "mocha": "^5.2.0",
-    "webpack": "^4.15.1"
+    "@eslint/compat": "^2.0.1",
+    "@eslint/js": "^9.18.0",
+    "@types/bun": "latest",
+    "eslint": "^9.18.0",
+    "globals": "^17.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "typescript-eslint": "^8.19.1"
   },
-  "dependencies": {
-    "julian": "^0.2.0",
-    "mynum": "^1.0.0"
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "module",
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

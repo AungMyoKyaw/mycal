@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+
+# Build artifacts (we publish from dist/)
+src/
+
+# Development files
+*.test.ts
+*.test.js
+test/
+tests/
+
+# CI/CD
+.github/
+
+# Documentation
+*.md
+!README.md
+
+# Git
+.git
+.gitignore
+
+# Editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+bun.lockb

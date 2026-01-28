@@ -1,0 +1,41 @@
+# Dependencies
+node_modules
+bower_components
+
+# Build outputs
+dist
+build
+*.tsbuildinfo
+
+# Cache
+.bun
+.cache
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lock files
+bun.lockb
+package-lock.json
+yarn.lock
+
+# Test coverage
+coverage
+.nyc_output
+
+# Misc
+*.min.js
+*.min.css
