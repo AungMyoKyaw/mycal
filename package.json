@@ -1,6 +1,6 @@
 {
   "name": "mycal",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Myanmar Calendar - Zero dependency TypeScript rewrite with Bun",
   "main": "./dist/node/index.js",
   "module": "./dist/node/index.js",
