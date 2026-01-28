@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCal - Myanmar Calendar TypeScript Library</title>
+  <meta name="description" content="Zero dependency Myanmar calendar library for TypeScript. Convert Gregorian dates to Myanmar calendar with Thingyan, Watat years, and full type safety.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Temple Golden Hour Palette */
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #141414;
+      --bg-card: #1a1a1a;
+      --bg-elevated: #222222;
+
+      --gold-primary: #d4af37;
+      --gold-light: #f4d47c;
+      --gold-dark: #b8931f;
+
+      --ruby-accent: #8b1538;
+      --ruby-light: #a31942;
+
+      --ivory-text: #f5f0e6;
+      --ivory-muted: #b8b0a0;
+      --ivory-dim: #7a7568;
+
+      --temple-shadow: rgba(0, 0, 0, 0.7);
+
+      /* Typography */
+      --font-heading: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Space Grotesk', system-ui, sans-serif;
+
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2.5rem;
+      --space-xl: 4rem;
+      --space-2xl: 6rem;
+
+      /* Animation */
+      --transition-fast: 200ms ease;
+      --transition-base: 300ms ease;
+      --transition-slow: 500ms ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--ivory-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Myanmar Pattern Background */
+    .myanmar-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          var(--gold-primary) 0,
+          var(--gold-primary) 1px,
+          transparent 0,
+          transparent 50%
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          var(--gold-primary) 0,
+          var(--gold-primary) 1px,
+          transparent 0,
+          transparent 50%
+        );
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: linear-gradient(
+        to bottom,
+        var(--bg-primary) 0%,
+        transparent 100%
+      );
+      backdrop-filter: blur(10px);
+      padding: var(--space-sm) 0;
+      transition: background var(--transition-base);
+    }
+
+    header.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--ivory-text);
+    }
+
+    nav {
+      display: flex;
+      gap: var(--space-lg);
+    }
+
+    nav a {
+      color: var(--ivory-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color var(--transition-fast);
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold-primary);
+      transition: width var(--transition-base);
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: var(--space-2xl) var(--space-md);
+    }
+
+    .hero-content {
+      max-width: 900px;
+      animation: heroReveal 1s ease-out;
+    }
+
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: linear-gradient(135deg, var(--ruby-accent), var(--ruby-light));
+      color: white;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+      box-shadow: 0 4px 20px rgba(139, 21, 56, 0.4);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--ivory-muted);
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-base);
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: var(--bg-primary);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gold-light);
+      border-color: var(--gold-dark);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-code {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.875rem;
+    }
+
+    /* Animated Calendar */
+    .calendar-animation {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      opacity: 0.1;
+      animation: rotate 60s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .calendar-ring {
+      position: absolute;
+      border: 1px solid var(--gold-primary);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .calendar-ring:nth-child(1) { width: 200px; height: 200px; }
+    .calendar-ring:nth-child(2) { width: 300px; height: 300px; animation: rotate 40s linear infinite reverse; }
+    .calendar-ring:nth-child(3) { width: 400px; height: 400px; }
+    .calendar-ring:nth-child(4) { width: 500px; height: 500px; animation: rotate 80s linear infinite reverse; }
+    .calendar-ring:nth-child(5) { width: 600px; height: 600px; }
+
+    /* Section Styles */
+    section {
+      padding: var(--space-2xl) 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-description {
+      color: var(--ivory-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 12px;
+      padding: var(--space-lg);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--ruby-accent));
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212, 175, 55, 0.2);
+      box-shadow: 0 20px 40px var(--temple-shadow);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(139, 21, 56, 0.2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      font-size: 1.5rem;
+    }
+
+    .feature-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      color: var(--ivory-text);
+    }
+
+    .feature-description {
+      color: var(--ivory-muted);
+      line-height: 1.7;
+    }
+
+    /* Demo Section */
+    .demo-section {
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        var(--bg-secondary) 50%,
+        transparent 100%
+      );
+    }
+
+    .demo-container {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 16px;
+      padding: var(--space-lg);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .demo-input-group {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .demo-input {
+      flex: 1;
+      min-width: 250px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-elevated);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      color: var(--ivory-text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color var(--transition-fast);
+    }
+
+    .demo-input:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+    }
+
+    .demo-button {
+      padding: var(--space-sm) var(--space-md);
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      border: none;
+      border-radius: 8px;
+      color: var(--bg-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+
+    .demo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .demo-result {
+      background: var(--bg-elevated);
+      border-radius: 12px;
+      padding: var(--space-md);
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.875rem;
+      overflow-x: auto;
+    }
+
+    .demo-result-empty {
+      text-align: center;
+      color: var(--ivory-dim);
+      padding: var(--space-lg);
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-label {
+      color: var(--ivory-dim);
+    }
+
+    .result-value {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .result-myanmar {
+      color: var(--ruby-accent);
+    }
+
+    /* Installation Section */
+    .install-tabs {
+      display: flex;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .install-tab {
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 6px;
+      color: var(--ivory-muted);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+
+    .install-tab:hover {
+      border-color: var(--gold-dark);
+      color: var(--ivory-text);
+    }
+
+    .install-tab.active {
+      background: var(--gold-primary);
+      border-color: var(--gold-primary);
+      color: var(--bg-primary);
+    }
+
+    .code-block {
+      background: var(--bg-elevated);
+      border-radius: 12px;
+      padding: var(--space-md);
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      margin: 0;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--ivory-text);
+    }
+
+    .code-copy {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 6px;
+      color: var(--gold-light);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .code-copy:hover {
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .code-content {
+      display: none;
+    }
+
+    .code-content.active {
+      display: block;
+    }
+
+    /* API Section */
+    .api-section {
+      background: var(--bg-secondary);
+    }
+
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .api-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: var(--space-md);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .api-name {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 1rem;
+      color: var(--gold-light);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
+    .api-description {
+      color: var(--ivory-muted);
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .api-type {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(139, 21, 56, 0.2);
+      color: var(--ruby-light);
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.75rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      padding: var(--space-xl) 0 var(--space-md);
+      border-top: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .footer-section h4 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: var(--space-sm);
+      color: var(--gold-primary);
+    }
+
+    .footer-section p {
+      color: var(--ivory-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .footer-links a {
+      color: var(--ivory-muted);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--ivory-dim);
+      font-size: 0.875rem;
+    }
+
+    .myanmar-text {
+      font-family: 'Myanmar Text', 'Padauk', sans-serif;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .demo-input-group {
+        flex-direction: column;
+      }
+
+      .calendar-animation {
+        width: 300px;
+        height: 300px;
+      }
+
+      .calendar-ring:nth-child(1) { width: 100px; height: 100px; }
+      .calendar-ring:nth-child(2) { width: 150px; height: 150px; }
+      .calendar-ring:nth-child(3) { width: 200px; height: 200px; }
+      .calendar-ring:nth-child(4) { width: 250px; height: 250px; }
+      .calendar-ring:nth-child(5) { width: 300px; height: 300px; }
+    }
+
+    /* Syntax Highlighting */
+    .token-keyword { color: #ff79c6; }
+    .token-string { color: #f1fa8c; }
+    .token-comment { color: #6272a4; }
+    .token-function { color: #50fa7b; }
+    .token-number { color: #bd93f9; }
+  </style>
+</head>
+<body>
+  <div class="myanmar-pattern"></div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="container header-content">
+      <a href="#" class="logo">My<span>Cal</span></a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#install">Installation</a>
+        <a href="#api">API</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="calendar-animation">
+      <div class="calendar-ring"></div>
+      <div class="calendar-ring"></div>
+      <div class="calendar-ring"></div>
+      <div class="calendar-ring"></div>
+      <div class="calendar-ring"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">✨ v2.0 - Zero Dependency Rewrite</div>
+      <h1 class="hero-title">Myanmar Calendar<br>for TypeScript</h1>
+      <p class="hero-subtitle">
+        Convert Gregorian dates to Myanmar calendar with Thingyan, Watat years,
+        and Buddhist Era. Zero dependencies. Full TypeScript support. Production-ready.
+      </p>
+      <div class="hero-cta">
+        <a href="#install" class="btn btn-primary btn-code">
+          npm install mycal
+        </a>
+        <a href="https://github.com/AungMyoKyaw/mycal" target="_blank" class="btn btn-secondary">
+          View on GitHub →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-description">
+          A complete Myanmar calendar solution built with modern TypeScript and zero dependencies
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Zero Dependencies</h3>
+          <p class="feature-description">
+            No external packages. Smaller bundle size. Faster installs.
+            Less security risk. Just pure TypeScript.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔷</div>
+          <h3 class="feature-title">Full TypeScript</h3>
+          <p class="feature-description">
+            Complete type safety with exported types. Better IDE support.
+            Catch errors at compile time.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">Thingyan Data</h3>
+          <p class="feature-description">
+            Complete Thingyan (Water Festival) information including
+            Akyo, Akya, Akyat, Atat, and New Year dates.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3 class="feature-title">Watat Years</h3>
+          <p class="feature-description">
+            Calculate intercalary months and days. Detect leap years
+            and extra days in the Myanmar calendar.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3 class="feature-title">Browser & Node</h3>
+          <p class="feature-description">
+            Works everywhere. Separate builds for Node.js and browsers.
+            Use it in any JavaScript environment.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3 class="feature-title">Buddhist Era</h3>
+          <p class="feature-description">
+            Get Buddhist Era year alongside Myanmar year.
+            Support for traditional calendar systems.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3 class="feature-title">Localized Output</h3>
+          <p class="feature-description">
+            All data available in English and Myanmar script.
+            Month names, weekdays, moon phases in both languages.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title">Tiny & Fast</h3>
+          <p class="feature-description">
+            Built with Bun for maximum performance.
+            Smallest possible bundle size. Lightning fast calculations.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3 class="feature-title">Backward Compatible</h3>
+          <p class="feature-description">
+            100% API compatible with v1.x. Drop-in replacement.
+            Upgrade without breaking your code.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo" class="demo-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Interactive Demo</div>
+        <h2 class="section-title">Try It Now</h2>
+        <p class="section-description">
+          Convert any Gregorian date to Myanmar calendar in real-time
+        </p>
+      </div>
+
+      <div class="demo-container">
+        <div class="demo-input-group">
+          <input
+            type="date"
+            id="demoInput"
+            class="demo-input"
+            value="1948-01-04"
+          >
+          <button class="demo-button" onclick="convertDate()">Convert</button>
+        </div>
+        <div class="demo-result" id="demoResult">
+          <div class="demo-result-empty">
+            Select a date and click Convert to see the Myanmar calendar date
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation -->
+  <section id="install">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Installation</div>
+        <h2 class="section-title">Get Started</h2>
+        <p class="section-description">
+          Install MyCal with your favorite package manager
+        </p>
+      </div>
+
+      <div class="demo-container">
+        <div class="install-tabs">
+          <button class="install-tab active" onclick="showInstall('npm')">npm</button>
+          <button class="install-tab" onclick="showInstall('bun')">bun</button>
+          <button class="install-tab" onclick="showInstall('yarn')">yarn</button>
+          <button class="install-tab" onclick="showInstall('browser')">Browser</button>
+        </div>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+
+          <div id="install-npm" class="code-content active">
+            <pre>npm install mycal</pre>
+          </div>
+
+          <div id="install-bun" class="code-content">
+            <pre>bun add mycal</pre>
+          </div>
+
+          <div id="install-yarn" class="code-content">
+            <pre>yarn add mycal</pre>
+          </div>
+
+          <div id="install-browser" class="code-content">
+            <pre>&lt;script type="module"&gt;
+  import { Mycal } from 'https://unpkg.com/mycal@latest/dist/browser/index.js';
+
+  const date = new Mycal('2000-01-01');
+  console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
+&lt;/script&gt;</pre>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: var(--space-md);">Quick Start</h3>
+          <div class="code-block">
+            <button class="code-copy" onclick="copyCode(this)">Copy</button>
+            <pre><span class="token-keyword">import</span> { Mycal } <span class="token-keyword">from</span> <span class="token-string">'mycal'</span>;
+
+<span class="token-comment">// Myanmar Independence Day</span>
+<span class="token-keyword">const</span> myanmarDate = <span class="token-keyword">new</span> <span class="token-function">Mycal</span>(<span class="token-string">'1/4/1948'</span>);
+
+console.<span class="token-function">log</span>(myanmarDate.year);        <span class="token-comment">// { en: '1309', my: '၁၃၀၉' }</span>
+console.<span class="token-function">log</span>(myanmarDate.month);       <span class="token-comment">// { en: 'Pyatho', my: 'ပြာသို' }</span>
+console.<span class="token-function">log</span>(myanmarDate.weekday);     <span class="token-comment">// { en: 'Sunday', my: 'တနင်္ဂနွေ' }</span>
+console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <span class="token-comment">// { en: '2491', my: '၂၄၉၁' }</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API -->
+  <section id="api" class="api-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">API Reference</div>
+        <h2 class="section-title">Available Properties</h2>
+        <p class="section-description">
+          All properties are read-only and computed lazily for optimal performance
+        </p>
+      </div>
+
+      <div class="api-grid">
+        <div class="api-card">
+          <div class="api-name">year</div>
+          <div class="api-description">
+            Myanmar year in English and Myanmar numerals
+          </div>
+          <span class="api-type">LocalizedString</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">month</div>
+          <div class="api-description">
+            Myanmar month name in both languages
+          </div>
+          <span class="api-type">LocalizedString</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">day</div>
+          <div class="api-description">
+            Fortnight day and moon phase (Waxing/Waning/Full/New)
+          </div>
+          <span class="api-type">MyanmarDayResult</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">weekday</div>
+          <div class="api-description">
+            Day of the week in Myanmar calendar
+          </div>
+          <span class="api-type">LocalizedString</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">buddhistEraYear</div>
+          <div class="api-description">
+            Buddhist Era year (BE = Myanmar Year + 1184)
+          </div>
+          <span class="api-type">LocalizedString</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">thingyan</div>
+          <div class="api-description">
+            Thingyan festival dates and exact times
+          </div>
+          <span class="api-type">ThingyanResult</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">watatYear</div>
+          <div class="api-description">
+            Intercalary month and day information
+          </div>
+          <span class="api-type">WatatYearResult</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">waso</div>
+          <div class="api-description">
+            Full moon day of Waso month
+          </div>
+          <span class="api-type">string</span>
+        </div>
+
+        <div class="api-card">
+          <div class="api-name">firstDayOfTagu</div>
+          <div class="api-description">
+            First day of Tagu (Myanmar New Year)
+          </div>
+          <span class="api-type">string</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>MyCal</h4>
+          <p>
+            Myanmar Calendar library for TypeScript and JavaScript.
+            Zero dependencies, full type safety, production-ready.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Links</h4>
+          <div class="footer-links">
+            <a href="https://github.com/AungMyoKyaw/mycal" target="_blank">GitHub Repository</a>
+            <a href="https://www.npmjs.com/package/mycal" target="_blank">npm Package</a>
+            <a href="https://github.com/AungMyoKyaw/mycal/issues" target="_blank">Report Issues</a>
+            <a href="https://github.com/AungMyoKyaw/mycal/blob/master/README.md" target="_blank">Documentation</a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Algorithm</h4>
+          <p>
+            Based on <em>Algorithm, Program and Calculation of Myanmar Calendar</em>
+            by Coolemerald.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          MIT © Aung Myo Kyaw •
+          Built with TypeScript & Bun •
+          <span class="myanmar-text">မြန်မာ ပြက္ခဒိန်</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Import MyCal from unpkg for the demo
+    import { Mycal } from 'https://unpkg.com/mycal@latest/dist/browser/index.js';
+
+    // Make Mycal available globally
+    window.Mycal = Mycal;
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Installation tabs
+    window.showInstall = (tab) => {
+      // Remove active class from all tabs and content
+      document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
+
+      // Add active class to selected tab and content
+      event.target.classList.add('active');
+      document.getElementById(`install-${tab}`).classList.add('active');
+    };
+
+    // Copy code functionality
+    window.copyCode = (button) => {
+      const codeBlock = button.parentElement.querySelector('pre');
+      navigator.clipboard.writeText(codeBlock.textContent);
+      button.textContent = 'Copied!';
+      setTimeout(() => {
+        button.textContent = 'Copy';
+      }, 2000);
+    };
+
+    // Date conversion demo
+    window.convertDate = () => {
+      const input = document.getElementById('demoInput').value;
+      const resultDiv = document.getElementById('demoResult');
+
+      if (!input) {
+        resultDiv.innerHTML = '<div class="demo-result-empty">Please select a date</div>';
+        return;
+      }
+
+      try {
+        const date = new window.Mycal(input);
+
+        resultDiv.innerHTML = `
+          <div class="result-item">
+            <span class="result-label">Myanmar Year</span>
+            <span class="result-value">${date.year.en} <span class="result-myanmar">${date.year.my}</span></span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Month</span>
+            <span class="result-value">${date.month.en} <span class="result-myanmar">${date.month.my}</span></span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Day</span>
+            <span class="result-value">${date.day.fd.en} <span class="result-myanmar">${date.day.fd.my}</span> - ${date.day.mp.en} <span class="result-myanmar">${date.day.mp.my}</span></span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Weekday</span>
+            <span class="result-value">${date.weekday.en} <span class="result-myanmar">${date.weekday.my}</span></span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Buddhist Era</span>
+            <span class="result-value">${date.buddhistEraYear.en} <span class="result-myanmar">${date.buddhistEraYear.my}</span></span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Watat Year</span>
+            <span class="result-value">${date.watatYear.watat ? 'Yes' : 'No'}${date.watatYear.isBigWatat ? ' (Big Watat)' : ''}</span>
+          </div>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="demo-result-empty">Error: ${error.message}</div>`;
+      }
+    };
+
+    // Convert initial date on load
+    setTimeout(() => {
+      if (window.Mycal) {
+        window.convertDate();
+      }
+    }, 500);
+  </script>
+</body>
+</html>
