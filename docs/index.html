@@ -148,6 +148,21 @@
       color: var(--ivory-text);
     }
 
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold-light);
+      cursor: pointer;
+      padding: var(--space-xs);
+    }
+
+    .mobile-menu-btn svg {
+      width: 28px;
+      height: 28px;
+    }
+
     nav {
       display: flex;
       gap: var(--space-lg);
@@ -179,6 +194,39 @@
 
     nav a:hover::after {
       width: 100%;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--bg-primary);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding: var(--space-md);
+      flex-direction: column;
+      gap: var(--space-md);
+      z-index: 99;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      color: var(--ivory-text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: var(--space-sm);
+      border-radius: 8px;
+      transition: background var(--transition-fast);
+    }
+
+    .mobile-nav a:hover {
+      background: rgba(212, 175, 55, 0.1);
     }
 
     /* Hero Section */
@@ -226,9 +274,9 @@
 
     .hero-title {
       font-family: var(--font-heading);
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(2.5rem, 8vw, 6rem);
       font-weight: 700;
-      line-height: 1;
+      line-height: 1.1;
       margin-bottom: var(--space-md);
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
       -webkit-background-clip: text;
@@ -237,7 +285,7 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-size: clamp(0.9375rem, 2vw, 1.125rem);
       color: var(--ivory-muted);
       max-width: 600px;
       margin: 0 auto var(--space-lg);
@@ -254,6 +302,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-xs);
       padding: var(--space-sm) var(--space-md);
       border-radius: 8px;
@@ -263,6 +312,7 @@
       transition: all var(--transition-base);
       cursor: pointer;
       border: 2px solid transparent;
+      white-space: nowrap;
     }
 
     .btn-primary {
@@ -288,7 +338,7 @@
     }
 
     .btn-code {
-      font-family: 'SF Mono', Monaco, monospace;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
       font-size: 0.875rem;
     }
 
@@ -302,6 +352,7 @@
       height: 600px;
       opacity: 0.1;
       animation: rotate 60s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes rotate {
@@ -326,13 +377,13 @@
 
     /* Section Styles */
     section {
-      padding: var(--space-2xl) 0;
+      padding: var(--space-xl) 0;
       position: relative;
     }
 
     .section-header {
       text-align: center;
-      margin-bottom: var(--space-xl);
+      margin-bottom: var(--space-lg);
     }
 
     .section-label {
@@ -346,7 +397,7 @@
 
     .section-title {
       font-family: var(--font-heading);
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.75rem, 5vw, 3rem);
       font-weight: 600;
       margin-bottom: var(--space-sm);
     }
@@ -355,21 +406,22 @@
       color: var(--ivory-muted);
       max-width: 600px;
       margin: 0 auto;
+      font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
     }
 
     /* Features Grid */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: var(--space-md);
-      margin-top: var(--space-xl);
+      margin-top: var(--space-lg);
     }
 
     .feature-card {
       background: var(--bg-card);
       border: 1px solid rgba(212, 175, 55, 0.1);
       border-radius: 12px;
-      padding: var(--space-lg);
+      padding: var(--space-md);
       transition: all var(--transition-base);
       position: relative;
       overflow: hidden;
@@ -417,7 +469,7 @@
 
     .feature-title {
       font-family: var(--font-heading);
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: var(--space-sm);
       color: var(--ivory-text);
@@ -425,7 +477,8 @@
 
     .feature-description {
       color: var(--ivory-muted);
-      line-height: 1.7;
+      line-height: 1.6;
+      font-size: 0.9375rem;
     }
 
     /* Demo Section */
@@ -442,7 +495,7 @@
       background: var(--bg-card);
       border: 1px solid rgba(212, 175, 55, 0.15);
       border-radius: 16px;
-      padding: var(--space-lg);
+      padding: var(--space-md);
       max-width: 800px;
       margin: 0 auto;
     }
@@ -450,13 +503,13 @@
     .demo-input-group {
       display: flex;
       gap: var(--space-sm);
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-md);
       flex-wrap: wrap;
     }
 
     .demo-input {
       flex: 1;
-      min-width: 250px;
+      min-width: 200px;
       padding: var(--space-sm) var(--space-md);
       background: var(--bg-elevated);
       border: 1px solid rgba(212, 175, 55, 0.2);
@@ -484,6 +537,7 @@
       display: inline-flex;
       align-items: center;
       gap: var(--space-xs);
+      white-space: nowrap;
     }
 
     .demo-button:hover {
@@ -495,22 +549,25 @@
       background: var(--bg-elevated);
       border-radius: 12px;
       padding: var(--space-md);
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.875rem;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.8125rem;
       overflow-x: auto;
     }
 
     .demo-result-empty {
       text-align: center;
       color: var(--ivory-dim);
-      padding: var(--space-lg);
+      padding: var(--space-md);
     }
 
     .result-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: var(--space-xs) 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      flex-wrap: wrap;
+      gap: var(--space-xs);
     }
 
     .result-item:last-child {
@@ -519,11 +576,13 @@
 
     .result-label {
       color: var(--ivory-dim);
+      font-size: 0.8125rem;
     }
 
     .result-value {
       color: var(--gold-light);
       font-weight: 600;
+      text-align: right;
     }
 
     .result-myanmar {
@@ -549,6 +608,9 @@
       font-size: 0.875rem;
       font-weight: 500;
       transition: all var(--transition-fast);
+      flex: 1;
+      min-width: 60px;
+      text-align: center;
     }
 
     .install-tab:hover {
@@ -572,10 +634,12 @@
 
     .code-block pre {
       margin: 0;
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.875rem;
-      line-height: 1.7;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
       color: var(--ivory-text);
+      white-space: pre-wrap;
+      word-break: break-all;
     }
 
     .code-copy {
@@ -594,6 +658,7 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      white-space: nowrap;
     }
 
     .code-copy:hover {
@@ -620,7 +685,7 @@
 
     .api-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: var(--space-md);
     }
 
@@ -632,8 +697,8 @@
     }
 
     .api-name {
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 1rem;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.9375rem;
       color: var(--gold-light);
       margin-bottom: var(--space-sm);
       font-weight: 600;
@@ -641,45 +706,46 @@
 
     .api-description {
       color: var(--ivory-muted);
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       margin-bottom: var(--space-sm);
+      line-height: 1.5;
     }
 
     .api-type {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 2px 6px;
       background: rgba(139, 21, 56, 0.2);
       color: var(--ruby-light);
       border-radius: 4px;
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.75rem;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      font-size: 0.6875rem;
     }
 
     /* Footer */
     footer {
       background: var(--bg-secondary);
-      padding: var(--space-xl) 0 var(--space-md);
+      padding: var(--space-lg) 0 var(--space-md);
       border-top: 1px solid rgba(212, 175, 55, 0.1);
     }
 
     .footer-content {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: var(--space-lg);
       margin-bottom: var(--space-lg);
     }
 
     .footer-section h4 {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       margin-bottom: var(--space-sm);
       color: var(--gold-primary);
     }
 
     .footer-section p {
       color: var(--ivory-muted);
-      font-size: 0.9375rem;
-      line-height: 1.7;
+      font-size: 0.875rem;
+      line-height: 1.6;
     }
 
     .footer-links {
@@ -691,7 +757,7 @@
     .footer-links a {
       color: var(--ivory-muted);
       text-decoration: none;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       transition: color var(--transition-fast);
     }
 
@@ -704,30 +770,83 @@
       padding-top: var(--space-md);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       color: var(--ivory-dim);
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
     }
 
     .myanmar-text {
       font-family: 'Myanmar Text', 'Padauk', sans-serif;
     }
 
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: var(--bg-primary);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all var(--transition-base);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
+      :root {
+        --space-xs: 0.5rem;
+        --space-sm: 0.75rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+      }
+
+      .container {
+        padding: 0 var(--space-sm);
+      }
+
       nav {
         display: none;
       }
 
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero {
+        padding: var(--space-lg) var(--space-sm);
+      }
+
       .hero-cta {
         flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
       }
 
       .btn {
         width: 100%;
-        justify-content: center;
       }
 
       .demo-input-group {
         flex-direction: column;
+      }
+
+      .demo-button {
+        width: 100%;
+        justify-content: center;
       }
 
       .calendar-animation {
@@ -740,6 +859,49 @@
       .calendar-ring:nth-child(3) { width: 200px; height: 200px; }
       .calendar-ring:nth-child(4) { width: 250px; height: 250px; }
       .calendar-ring:nth-child(5) { width: 300px; height: 300px; }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+      }
+
+      .api-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .install-tabs {
+        gap: var(--space-xs);
+      }
+
+      .install-tab {
+        font-size: 0.8125rem;
+        padding: var(--space-xs);
+      }
+
+      section {
+        padding: var(--space-lg) 0;
+      }
+
+      .toast {
+        left: var(--space-sm);
+        right: var(--space-sm);
+        bottom: var(--space-md);
+      }
+    }
+
+    @media (min-width: 480px) and (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-cta {
+        flex-direction: row;
+        max-width: none;
+      }
+
+      .btn {
+        width: auto;
+      }
     }
 
     /* Syntax Highlighting */
@@ -763,8 +925,19 @@
         <a href="#install">Installation</a>
         <a href="#api">API</a>
       </nav>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#features" onclick="toggleMobileMenu()">Features</a>
+    <a href="#demo" onclick="toggleMobileMenu()">Demo</a>
+    <a href="#install" onclick="toggleMobileMenu()">Installation</a>
+    <a href="#api" onclick="toggleMobileMenu()">API</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
@@ -787,9 +960,9 @@
         and Buddhist Era. Zero dependencies. Full TypeScript support. Production-ready.
       </p>
       <div class="hero-cta">
-        <a href="#install" class="btn btn-primary btn-code">
+        <button class="btn btn-primary btn-code" onclick="copyNpmCommand(this)">
           npm install mycal
-        </a>
+        </button>
         <a href="https://github.com/AungMyoKyaw/mycal" target="_blank" class="btn btn-secondary">
           View on GitHub
           <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
@@ -1142,6 +1315,12 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
     </div>
   </footer>
 
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+    <span>Command copied to clipboard!</span>
+  </div>
+
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -1164,6 +1343,43 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
         header.classList.remove('scrolled');
       }
     });
+
+    // Mobile menu toggle
+    window.toggleMobileMenu = () => {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('active');
+    };
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobileNav');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+        nav.classList.remove('active');
+      }
+    });
+
+    // Show toast notification
+    window.showToast = (message) => {
+      const toast = document.getElementById('toast');
+      toast.querySelector('span').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    };
+
+    // Copy npm command from hero button
+    window.copyNpmCommand = (button) => {
+      navigator.clipboard.writeText('npm install mycal');
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<i data-lucide="check" style="width: 16px; height: 16px;"></i> Copied!';
+      lucide.createIcons();
+      setTimeout(() => {
+        button.innerHTML = originalHTML;
+        lucide.createIcons();
+      }, 2000);
+    };
 
     // Installation tabs
     window.showInstall = (tab) => {
