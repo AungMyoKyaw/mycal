@@ -179,6 +179,22 @@ export interface IMycal {
 }
 
 /**
+ * Chinese zodiac result
+ */
+export interface ChineseZodiacResult {
+  sign: string; // English zodiac sign
+  signInBurmese: string; // Burmese zodiac sign
+}
+
+/**
+ * Western zodiac result
+ */
+export interface ZodiacResult {
+  sign: string; // English zodiac sign
+  sign_mm: string; // Burmese zodiac sign
+}
+
+/**
  * Validation issue type
  */
 export type ValidationIssueType = 'error' | 'warning' | 'info';

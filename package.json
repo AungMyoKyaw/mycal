@@ -1,6 +1,6 @@
 {
   "name": "mycal",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "Myanmar Calendar - Zero dependency TypeScript rewrite with Bun",
   "main": "./dist/node/index.js",
   "module": "./dist/node/index.js",
@@ -29,6 +29,7 @@
     "lint:fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix",
     "lint:check": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --max-warnings=0",
     "validate": "bun run typecheck && bun run lint:check && bun run format:check",
+    "ci": "bun run validate && bun run test",
     "prepare": "husky"
   },
   "repository": {

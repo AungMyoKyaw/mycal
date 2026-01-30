@@ -14,12 +14,21 @@ import { thingyan } from './lib/thingyan.js';
 import { watat } from './lib/intercalary.js';
 import { waso } from './lib/waso.js';
 import { firstDayOfTagu } from './lib/firstDayOfTagu.js';
+import {
+  maharbote,
+  numerology,
+  numFormat,
+  chineseZodiac,
+  zodiac,
+} from './lib/baydin.js';
 import type {
   MycalOptions,
   ThingyanResult,
   WatatYearResult,
   LocalizedString,
   MyanmarDayResult,
+  ChineseZodiacResult,
+  ZodiacResult,
 } from './types.js';
 
 /**
@@ -175,6 +184,41 @@ export class Mycal {
   get weekday(): LocalizedString {
     return myWeekday(this.gDate);
   }
+
+  /**
+   * Maharbote birth sign
+   */
+  get maharbote(): string {
+    return maharbote(Number(this.year.en), this.gDate.getDay() + 1);
+  }
+
+  /**
+   * Numerology number (digital root of day)
+   */
+  get numerology(): number {
+    return numerology(this.gDate.getDate());
+  }
+
+  /**
+   * Format number to Burmese words
+   */
+  numFormat(num: number): string {
+    return numFormat(num);
+  }
+
+  /**
+   * Chinese zodiac sign for the current year
+   */
+  get chineseZodiac(): ChineseZodiacResult {
+    return chineseZodiac(this.gDate.getFullYear());
+  }
+
+  /**
+   * Western zodiac sign for the current date (static method)
+   */
+  static zodiac(day: number, month: number): ZodiacResult {
+    return zodiac(day, month);
+  }
 }
 
 // Export all types for TypeScript users
@@ -200,7 +244,18 @@ export type {
   FullMoonValidationResult,
   ThingyanValidationResult,
   CalendarConsistencyResult,
+  ChineseZodiacResult,
+  ZodiacResult,
 } from './types.js';
+
+// Export baydin functions for standalone use
+export {
+  maharbote,
+  numerology,
+  numFormat,
+  chineseZodiac,
+  zodiac,
+} from './lib/baydin.js';
 
 // Export validation functions
 export {

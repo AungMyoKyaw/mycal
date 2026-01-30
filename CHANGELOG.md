@@ -5,6 +5,81 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-01-31
+
+### Added
+
+- **BayDin - Myanmar Astrology Functions**: Complete astrology, numerology, and zodiac support
+  - `maharbote(year, weekday)` - Calculate birth sign (ဘင်္ဂ, မရဏ, အထွန်း, သိုက်, ရာဇာ, ပုတိ, အဓိပတိ)
+  - `numerology(num)` - Calculate digital root of a number (1-9)
+  - `numFormat(num)` - Format numbers to Burmese words (တစ်, နှစ်သုံး, သောင်း, သိန်း, သန်း, ကုဋေ)
+  - `chineseZodiac(year)` - Get Chinese zodiac sign with Burmese translations (ကြွက်, နွား, ကျား, etc.)
+  - `zodiac(day, month)` - Get Western zodiac sign with Burmese translations (မိဿ, ပြိဿ, မေထုန်, etc.)
+  - `toBurmeseNumerals(num)` - Convert numbers to Burmese numerals (၀-၉)
+  - `fromBurmeseNumerals(str)` - Convert Burmese numerals back to numbers
+
+- **Mycal Class Enhancements**: New convenience properties and methods
+  - `cal.maharbote` - Birth sign for the current date
+  - `cal.numerology` - Digital root of the day of month
+  - `cal.chineseZodiac` - Chinese zodiac for the Gregorian year
+  - `cal.numFormat(num)` - Instance method to format numbers
+  - `Mycal.zodiac(day, month)` - Static method for Western zodiac
+
+- **CI Script**: New `bun run ci` command runs validation and tests
+
+### Added
+
+- **Type Definitions**:
+  - `ChineseZodiacResult` - Chinese zodiac with English and Burmese names
+  - `ZodiacResult` - Western zodiac with English and Burmese names
+
+- **Test Coverage**: 550+ new tests for BayDin functions
+  - Full coverage of all 7 Maharbote birth signs
+  - Complete 12 Chinese zodiac signs with cycle verification
+  - All 12 Western zodiac signs with boundary tests
+  - Number formatting for all place values (ရာ, ထောင်, သောင်း, သိန်း, သန်း, ကုဋေ)
+  - Burmese numeral conversion tests
+  - Integration and roundtrip tests
+  - Edge cases for invalid inputs
+
+### Breaking Changes
+
+**None!** The API remains 100% backward compatible with v2.1.0.
+
+### Migration Guide
+
+**No migration needed!** All existing v2.1.0 code works without changes.
+
+**New BayDin features available** (optional):
+
+```typescript
+import { Mycal, maharbote, chineseZodiac, zodiac } from 'mycal';
+
+// Existing code works unchanged
+const cal = new Mycal('2000-01-01');
+
+// New BayDin features (optional)
+console.log(cal.maharbote); // "ဘင်္ဂ"
+console.log(cal.numerology); // 1 (digital root)
+console.log(cal.chineseZodiac); // { sign: "Dragon", signInBurmese: "နဂါး" }
+console.log(cal.numFormat(12345)); // "တစ်သောင်းနှစ်ထောင်သုံးရာလေးဆယ်ငါး"
+
+// Static method for Western zodiac
+console.log(Mycal.zodiac(15, 6)); // { sign: "Gemini", sign_mm: "မေထုန်" }
+
+// Standalone functions
+console.log(maharbote(1385, 1)); // Birth sign for ME 1385, Sunday
+console.log(chineseZodiac(2024)); // { sign: "Dragon", signInBurmese: "နဂါး" }
+```
+
+### Internal Changes
+
+- Added `src/lib/baydin.ts` - Myanmar astrology library
+- Added `test/baydin.test.ts` - Comprehensive BayDin test suite
+- Updated `src/types.ts` - New astrology type definitions
+- Updated `src/index.ts` - Export BayDin API and add class methods
+- Updated `package.json` - Added `ci` script for CI/CD
+
 ## [2.1.0] - 2025-01-26
 
 ### Added
