@@ -12,9 +12,20 @@
 
 [Algorithm, Program and Calculation of Myanmar Calendar][algorithm]
 
-## v2.0 - What's New?
+## v2.2 - What's New?
 
-**MyCal v2.0** is a complete rewrite with:
+**MyCal v2.2** adds complete astrology support:
+
+- ✅ **Maharbote** - Birth sign calculation based on weekday
+- ✅ **Numerology** - Digital root calculation for any number
+- ✅ **Chinese Zodiac** - Chinese zodiac with Burmese translations
+- ✅ **Western Zodiac** - Zodiac sign from day/month
+- ✅ **Number Formatting** - Convert numbers to Burmese words
+- ✅ **Validation Tools** - Calendar consistency validation framework
+
+## v2.0 - Major Rewrite
+
+**MyCal v2.0** was a complete rewrite with:
 
 - ✅ **Zero Dependencies** - No external packages required
 - ✅ **TypeScript** - Full type safety and better IDE support
@@ -230,6 +241,131 @@ console.log(cal.firstDayOfTagu);
 // '3/23/2012'
 ```
 
+#### `maharbote`
+
+Returns the birth sign (Maharbote) based on the day of the week.
+
+```typescript
+const cal = new Mycal('2000-01-01');
+console.log(cal.maharbote);
+// 'အထွန်း' (Binga)
+```
+
+**Birth signs:**
+
+- `ဘင်္ဂ` (Binga) - Saturday
+- `မရဏ` (Marana) - Sunday
+- `အထွန်း` (Ahtone) - Monday
+- `သိုက်` (Thike) - Tuesday
+- `ရာဇာ` (Yaza) - Wednesday
+- `ပုတိ` (Puti) - Thursday
+- `အဓိပတိ` (Adipati) - Friday
+
+#### `numerology`
+
+Returns the numerology number (digital root) of the day of the month (1-9).
+
+```typescript
+const cal = new Mycal('2000-01-15');
+console.log(cal.numerology);
+// 6
+```
+
+#### `chineseZodiac`
+
+Returns the Chinese zodiac sign with Burmese translation.
+
+```typescript
+const cal = new Mycal('2000-01-01');
+console.log(cal.chineseZodiac);
+// { en: 'Dragon', my: 'မြွေ' }
+```
+
+### Static Methods
+
+#### `Mycal.zodiac(day, month)`
+
+Returns the Western zodiac sign for a given day and month.
+
+```typescript
+const zodiac = Mycal.zodiac(15, 1); // January 15
+console.log(zodiac);
+// { en: 'Capricorn', my: 'ဆင်သည်' }
+```
+
+### Instance Methods
+
+#### `numFormat(num)`
+
+Formats a number to Burmese words.
+
+```typescript
+const cal = new Mycal('2000-01-01');
+console.log(cal.numFormat(1234));
+// 'တစ်ထောင်နှစ်ရာသုံးဆယ့်လေး'
+```
+
+## Standalone Functions
+
+You can also import functions directly without creating a Mycal instance:
+
+### BayDin (Astrology) Functions
+
+```typescript
+import {
+  maharbote,
+  numerology,
+  numFormat,
+  chineseZodiac,
+  zodiac,
+  toBurmeseNumerals,
+  fromBurmeseNumerals,
+} from 'mycal';
+
+// Birth sign from weekday (0=Saturday, 6=Friday)
+const sign = maharbote(0); // Saturday -> 'ဘင်္ဂ'
+
+// Numerology from day of month
+const num = numerology(15); // 6
+
+// Format number to Burmese words
+const words = numFormat(1234); // 'တစ်ထောင်နှစ်ရာသုံးဆယ့်လေး'
+
+// Chinese zodiac from year
+const cz = chineseZodiac(2000); // { en: 'Dragon', my: 'မြွေ' }
+
+// Western zodiac from day and month
+const wz = zodiac(15, 1); // { en: 'Capricorn', my: 'ဆင်သည်' }
+
+// Number to Burmese numerals
+const burmeseNum = toBurmeseNumerals(1234); // '၁၂၃၄'
+
+// Burmese numerals to number
+const normalNum = fromBurmeseNumerals('၁၂၃၄'); // 1234
+```
+
+### Validation Functions
+
+```typescript
+import {
+  validateMyanmarYear,
+  validateWatatYear,
+  validateFullMoonDay,
+  validateThingyan,
+  validateCalendarConsistency,
+  isValidYear,
+  getValidationSummary,
+} from 'mycal';
+
+// Validate a Myanmar year
+const result = validateMyanmarYear(1361);
+console.log(result.valid); // true/false
+console.log(result.issues); // Array of issues if any
+
+// Get validation summary for a range
+const summary = getValidationSummary(1300, 1400);
+```
+
 ## TypeScript Types
 
 All types are exported for TypeScript users:
@@ -243,12 +379,16 @@ import type {
   MoonPhase, // 'waxing' | 'full' | 'waning' | 'new'
   MonthType, // 'hma' | 'hgu'
   MyanmarMonth, // 0 | 1 | 2 | ... | 12
+  ChineseZodiacResult, // { en: string, my: string }
+  ZodiacResult, // { en: string, my: string }
+  ValidationResult, // { valid: boolean, issues: ValidationIssue[] }
+  ValidationIssue, // { type: string, message: string, ... }
 } from 'mycal';
 ```
 
-## Migration from v1.x to v2.0
+## Migration from v1.x to v2.x
 
-**Good news!** The API is 100% backward compatible. The only changes are internal:
+**Good news!** The API is 100% backward compatible. All your existing code will continue to work:
 
 ### Before (v1.x)
 
@@ -258,7 +398,7 @@ const date = new mycal('2000-01-01');
 console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
 ```
 
-### After (v2.0) - Same API!
+### After (v2.x) - Same API!
 
 ```javascript
 const { Mycal } = require('mycal');
@@ -266,12 +406,17 @@ const date = new Mycal('2000-01-01');
 console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
 ```
 
-**Or use TypeScript:**
+**Plus new features in v2.2:**
 
 ```typescript
 import { Mycal } from 'mycal';
 const date = new Mycal('2000-01-01');
-console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
+
+// New astrology features
+console.log(date.maharbote); // Birth sign
+console.log(date.numerology); // Numerology number
+console.log(date.chineseZodiac); // Chinese zodiac
+console.log(Mycal.zodiac(15, 1)); // Western zodiac
 ```
 
 ## Development
@@ -310,6 +455,18 @@ npm run build
 
 # Development mode (with watch)
 bun run dev
+
+# Linting
+bun run lint
+bun run lint:fix
+
+# Formatting
+bun run format
+bun run format:check
+
+# Full validation
+bun run validate  # Type check + lint + format check
+bun run ci        # Full CI pipeline
 ```
 
 ### Build Outputs

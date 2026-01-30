@@ -1174,28 +1174,21 @@
             </p>
           </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="star"></i>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="star"></i>
+            </div>
+            <h3 class="feature-title">Astrology Features</h3>
+            <p class="feature-description">
+              Maharbote birth signs, Chinese zodiac, Western zodiac, and
+              numerology calculations included.
+            </p>
           </div>
-          <h3 class="feature-title">Astrology Features</h3>
-          <p class="feature-description">
-            Maharbote birth signs, Chinese zodiac, Western zodiac,
-            and numerology calculations included.
-          </p>
-        </div>
 
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="check-circle-2"></i>
-          </div>
-          <h3 class="feature-title">Backward Compatible</h3>
-          <p class="feature-description">
-            100% API compatible with v1.x. Drop-in replacement.
-            Upgrade without breaking your code.
-          </p>
-        </div>
-      </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="check-circle-2"></i>
+            </div>
             <h3 class="feature-title">Backward Compatible</h3>
             <p class="feature-description">
               100% API compatible with v1.x. Drop-in replacement. Upgrade
@@ -1219,12 +1212,7 @@
 
         <div class="demo-container">
           <div class="demo-input-group">
-            <input
-              type="date"
-              id="demoInput"
-              class="demo-input"
-              value="1915-02-13"
-            />
+            <input type="date" id="demoInput" class="demo-input" />
             <button class="demo-button" onclick="convertDate()">
               <i data-lucide="refresh-cw" style="width: 16px; height: 16px"></i>
               Convert
@@ -1401,75 +1389,73 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
             <span class="api-type">string</span>
           </div>
 
-        <div class="api-card">
-          <div class="api-name">firstDayOfTagu</div>
-          <div class="api-description">
-            First day of Tagu (Myanmar New Year)
+          <div class="api-card">
+            <div class="api-name">firstDayOfTagu</div>
+            <div class="api-description">
+              First day of Tagu (Myanmar New Year)
+            </div>
+            <span class="api-type">string</span>
           </div>
-          <span class="api-type">string</span>
-        </div>
 
-        <div class="api-card">
-          <div class="api-name">maharbote</div>
-          <div class="api-description">
-            Maharbote birth sign based on year and weekday
+          <div class="api-card">
+            <div class="api-name">maharbote</div>
+            <div class="api-description">
+              Maharbote birth sign based on year and weekday
+            </div>
+            <span class="api-type">string</span>
           </div>
-          <span class="api-type">string</span>
-        </div>
 
-        <div class="api-card">
-          <div class="api-name">numerology</div>
-          <div class="api-description">
-            Numerology number (digital root of day)
+          <div class="api-card">
+            <div class="api-name">numerology</div>
+            <div class="api-description">
+              Numerology number (digital root of day)
+            </div>
+            <span class="api-type">number</span>
           </div>
-          <span class="api-type">number</span>
-        </div>
 
-        <div class="api-card">
-          <div class="api-name">chineseZodiac</div>
-          <div class="api-description">
-            Chinese zodiac sign for the current year
+          <div class="api-card">
+            <div class="api-name">chineseZodiac</div>
+            <div class="api-description">
+              Chinese zodiac sign for the current year
+            </div>
+            <span class="api-type">ChineseZodiacResult</span>
           </div>
-          <span class="api-type">ChineseZodiacResult</span>
-        </div>
 
-        <div class="api-card">
-          <div class="api-name">Mycal.zodiac(day, month)</div>
-          <div class="api-description">
-            Western zodiac sign (static method)
+          <div class="api-card">
+            <div class="api-name">Mycal.zodiac(day, month)</div>
+            <div class="api-description">
+              Western zodiac sign (static method)
+            </div>
+            <span class="api-type">ZodiacResult</span>
           </div>
-          <span class="api-type">ZodiacResult</span>
-        </div>
 
-        <div class="api-card">
-          <div class="api-name">numFormat(num)</div>
-          <div class="api-description">
-            Format number to Burmese words
+          <div class="api-card">
+            <div class="api-name">numFormat(num)</div>
+            <div class="api-description">Format number to Burmese words</div>
+            <span class="api-type">string</span>
           </div>
-          <span class="api-type">string</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TypeScript Types -->
-  <section id="types">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">TypeScript Support</div>
-        <h2 class="section-title">Exported Types</h2>
-        <p class="section-description">
-          Full type safety with comprehensive TypeScript definitions
-        </p>
-      </div>
+    <!-- TypeScript Types -->
+    <section id="types">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">TypeScript Support</div>
+          <h2 class="section-title">Exported Types</h2>
+          <p class="section-description">
+            Full type safety with comprehensive TypeScript definitions
+          </p>
+        </div>
 
-      <div class="demo-container">
-        <div class="code-block">
-          <button class="code-copy" onclick="copyCode(this)">
-            <i data-lucide="copy"></i>
-            Copy
-          </button>
-          <pre><span class="token-keyword">import</span> type {
+        <div class="demo-container">
+          <div class="code-block">
+            <button class="code-copy" onclick="copyCode(this)">
+              <i data-lucide="copy"></i>
+              Copy
+            </button>
+            <pre><span class="token-keyword">import</span> type {
   LocalizedString,    <span class="token-comment">// { en: string, my: string }</span>
   ThingyanResult,     <span class="token-comment">// Thingyan festival information</span>
   WatatYearResult,    <span class="token-comment">// Watat year information</span>
@@ -1480,12 +1466,12 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
   ChineseZodiacResult,<span class="token-comment">// { sign: string, signInBurmese: string }</span>
   ZodiacResult,       <span class="token-comment">// { sign: string, sign_mm: string }</span>
 } <span class="token-keyword">from</span> <span class="token-string">'mycal'</span>;</pre>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
+    <!-- Footer -->
     <footer>
       <div class="container">
         <div class="footer-content">
@@ -1634,22 +1620,26 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
         }, 2000);
       };
 
-    // Date conversion demo
-    window.convertDate = () => {
-      const input = document.getElementById('demoInput').value;
-      const resultDiv = document.getElementById('demoResult');
+      // Date conversion demo
+      window.convertDate = () => {
+        const input = document.getElementById('demoInput').value;
+        const resultDiv = document.getElementById('demoResult');
 
-      if (!input) {
-        resultDiv.innerHTML = '<div class="demo-result-empty">Please select a date</div>';
-        return;
-      }
+        if (!input) {
+          resultDiv.innerHTML =
+            '<div class="demo-result-empty">Please select a date</div>';
+          return;
+        }
 
-      try {
-        const date = new window.Mycal(input);
-        const inputDate = new Date(input);
-        const zodiac = window.Mycal.zodiac(inputDate.getDate(), inputDate.getMonth() + 1);
+        try {
+          const date = new window.Mycal(input);
+          const inputDate = new Date(input);
+          const zodiac = window.Mycal.zodiac(
+            inputDate.getDate(),
+            inputDate.getMonth() + 1
+          );
 
-        resultDiv.innerHTML = `
+          resultDiv.innerHTML = `
           <div class="result-item">
             <span class="result-label">Myanmar Year</span>
             <span class="result-value">${date.year.en} <span class="result-myanmar">${date.year.my}</span></span>
@@ -1691,10 +1681,17 @@ console.<span class="token-function">log</span>(myanmarDate.buddhistEraYear); <s
             <span class="result-value">${zodiac.sign} <span class="result-myanmar">(${zodiac.sign_mm})</span></span>
           </div>
         `;
-      } catch (error) {
-        resultDiv.innerHTML = `<div class="demo-result-empty">Error: ${error.message}</div>`;
-      }
-    };
+        } catch (error) {
+          resultDiv.innerHTML = `<div class="demo-result-empty">Error: ${error.message}</div>`;
+        }
+      };
+
+      // Set date input to today
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      document.getElementById('demoInput').value = `${yyyy}-${mm}-${dd}`;
 
       // Convert initial date on load
       setTimeout(() => {
