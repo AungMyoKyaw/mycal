@@ -40,6 +40,13 @@ jobs:
 
       - name: Type check
         run: bun run typecheck
+        env:
+          TZ: UTC
+
+      - name: Run tests
+        run: bun test
+        env:
+          TZ: UTC
 
       - name: Run tests
         run: bun test
