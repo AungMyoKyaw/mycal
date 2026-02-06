@@ -5,7 +5,7 @@
 
 import { julianToDate } from '../utils/julian.js';
 import { CONST, findException, getExceptions } from '../constants.js';
-import { caches } from '../utils/cache.js';
+// import { caches } from '../utils/cache.js'; // TEMPORARILY DISABLED FOR DEBUGGING
 import type { WatatInfo, WasoResult } from '../types.js';
 
 const { SY, MO, LM, firstEra, secondEra, thirdEra } = CONST;
@@ -31,10 +31,10 @@ export function waso(
   watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>,
   mmYear: number
 ): WasoResult {
-  // Check cache first
-  const cacheKey = `${mmYear}-${watatInfo.era}-${watatInfo.isWatatYear}`;
-  const cached = caches.waso.get(cacheKey);
-  if (cached) return cached;
+  // TEMPORARILY DISABLE CACHING FOR DEBUGGING
+  // const cacheKey = `${mmYear}-${watatInfo.era}-${watatInfo.isWatatYear}`;
+  // const cached = caches.waso.get(cacheKey);
+  // if (cached) return cached;
 
   let w: number | undefined;
   let WO: number;
@@ -96,8 +96,8 @@ export function waso(
     gd: formatDate(julianToDate(w)), // Use optimized formatting
   };
 
-  // Cache the result
-  caches.waso.set(cacheKey, result);
+  // TEMPORARILY DISABLE CACHING FOR DEBUGGING
+  // caches.waso.set(cacheKey, result);
 
   return result;
 }
