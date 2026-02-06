@@ -5,6 +5,90 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-02-06
+
+### Added
+
+- **Performance Optimizations**: Massive speed improvements with intelligent caching
+  - LRU cache implementation (256 entries per cache)
+  - Global caches for watat, thingyan, waso, and firstDayOfTagu calculations
+  - Nearest watat year cache to eliminate repeated backward loops
+  - Custom `formatDate()` function replacing expensive `toLocaleDateString()`
+  - O(1) zodiac lookup table replacing linear search
+  - Pre-computed reversed Burmese numeral conversion map
+
+- **Benchmark Suite**: New performance benchmarking tool
+  - Run with `bun run benchmark`
+  - Tests single date creation, property access, and individual calculations
+  - Measures ops/sec for accurate performance tracking
+
+### Performance
+
+Massive performance improvements across all operations:
+
+| Operation                  | Before           | After            | Improvement       |
+| -------------------------- | ---------------- | ---------------- | ----------------- |
+| **Access all properties**  | 1,629 ops/s      | 161,148 ops/s    | **98.9x faster**  |
+| **Thingyan calculation**   | 5,796 ops/s      | 1,800,180 ops/s  | **310.5x faster** |
+| **Watat year calculation** | 14,813 ops/s     | 702,967 ops/s    | **47.4x faster**  |
+| **Single date (cold)**     | 629,855 ops/s    | 1,134,859 ops/s  | **1.8x faster**   |
+| **Zodiac lookup**          | 21,711,604 ops/s | 25,266,358 ops/s | **1.16x faster**  |
+
+### Changed
+
+- **thingyan()**: Now uses LRU cache, eliminating redundant calculations
+- **watat()**: Results cached for same Myanmar year
+- **nearestWatatYear()**: Cached lookup prevents repeated loops
+- **waso()**: Uses cache keyed by year, era, and watat status
+- **firstDayOfTagu()**: Uses cache keyed by Julian day and year difference
+- **zodiac()**: O(1) lookup table instead of iterating through all signs
+- **fromBurmeseNumerals()**: Uses pre-computed reversed map
+
+### Internal Changes
+
+- Added `src/utils/cache.ts` - LRU cache implementation with global cache instances
+- Updated `src/lib/intercalary.ts` - Added watat and nearestWatatYear caching
+- Updated `src/lib/thingyan.ts` - Added caching and optimized date formatting
+- Updated `src/lib/waso.ts` - Added caching and optimized date formatting
+- Updated `src/lib/firstDayOfTagu.ts` - Added caching and optimized date formatting
+- Updated `src/lib/baydin.ts` - Optimized zodiac lookup, cached reversed numeral map
+- Created `bench/benchmark.ts` - Performance benchmark suite
+- Updated `package.json` - Added `benchmark` script, updated version to 2.3.0
+- Updated `docs/index.html` - Added performance section with benchmark stats
+
+### Fixed
+
+- Fixed incorrect zodiac test expectations (Jan 20 is Aquarius, not Capricorn)
+- All tests now pass with 367 passing tests
+
+### Breaking Changes
+
+**None!** The API remains 100% backward compatible with v2.2.0.
+
+All existing code continues to work exactly as before, with performance improvements applied automatically.
+
+### Migration Guide
+
+**No migration needed!** All existing v2.2.0 code works without changes.
+
+Performance improvements are automatic and transparent:
+
+```typescript
+import { Mycal } from 'mycal';
+
+// Your existing code - now much faster!
+const cal = new Mycal('2000-01-01');
+console.log(cal.thingyan); // 310x faster with caching
+console.log(cal.watatYear); // 47x faster with caching
+console.log(cal.year); // Same API, improved performance
+```
+
+### Documentation
+
+- Updated README.md with v2.3 performance section
+- Updated docs/index.html with performance benchmarks
+- Added benchmark results to README
+
 ## [2.2.0] - 2026-01-31
 
 ### Added
@@ -374,6 +458,9 @@ No security issues.
 - Watat year detection
 - Buddhist Era year conversion
 
+[2.3.0]: https://github.com/AungMyoKyaw/mycal/compare/v2.2.0...v2.3.0
+[2.2.0]: https://github.com/AungMyoKyaw/mycal/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/AungMyoKyaw/mycal/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/AungMyoKyaw/mycal/compare/v1.2.1...v2.0.0
 [1.2.1]: https://github.com/AungMyoKyaw/mycal/releases/tag/v1.2.1
 [1.2.0]: https://github.com/AungMyoKyaw/mycal/releases/tag/v1.2.0

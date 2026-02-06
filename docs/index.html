@@ -1563,6 +1563,7 @@
         <a href="#" class="logo">My<span>Cal</span></a>
         <nav>
           <a href="#features">Features</a>
+          <a href="#performance">Performance</a>
           <a href="#demo">Demo</a>
           <a href="#install">Installation</a>
           <a href="#api">API</a>
@@ -1580,6 +1581,7 @@
     <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobileNav">
       <a href="#features" onclick="toggleMobileMenu()">Features</a>
+      <a href="#performance" onclick="toggleMobileMenu()">Performance</a>
       <a href="#demo" onclick="toggleMobileMenu()">Demo</a>
       <a href="#install" onclick="toggleMobileMenu()">Installation</a>
       <a href="#api" onclick="toggleMobileMenu()">API</a>
@@ -1608,13 +1610,13 @@
       <div class="hero-content">
         <div class="hero-badge">
           <i data-lucide="sparkles" style="width: 14px; height: 14px"></i>
-          v2.2.0 - Zero Dependencies
+          v2.3.0 - Performance Optimized
         </div>
         <h1 class="hero-title">Myanmar Calendar<br />for TypeScript</h1>
         <p class="hero-subtitle">
           Convert Gregorian dates to Myanmar calendar with Thingyan, Watat
-          years, and Buddhist Era. Zero dependencies. Full TypeScript support.
-          Production-ready.
+          years, and Buddhist Era. Zero dependencies. Lightning fast with LRU
+          caching. Production-ready.
         </p>
         <div class="hero-cta">
           <button
@@ -1732,10 +1734,10 @@
             <div class="feature-icon">
               <i data-lucide="rocket"></i>
             </div>
-            <h3 class="feature-title">Tiny & Fast</h3>
+            <h3 class="feature-title">Lightning Fast</h3>
             <p class="feature-description">
-              Built with Bun for maximum performance. Smallest possible bundle
-              size. Lightning fast calculations.
+              Up to 310x faster with LRU caching. O(1) zodiac lookups. Optimized
+              date formatting. 1.8M+ ops/sec on Thingyan calculations.
             </p>
           </div>
 
@@ -1758,6 +1760,87 @@
             <p class="feature-description">
               100% API compatible with v1.x. Drop-in replacement. Upgrade
               without breaking your code.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Performance -->
+    <section id="performance">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">Performance</div>
+          <h2 class="section-title">Lightning Fast</h2>
+          <p class="section-description">
+            Optimized with LRU caching and O(1) lookups for maximum speed
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="zap"></i>
+            </div>
+            <h3 class="feature-title">310x Faster Thingyan</h3>
+            <p class="feature-description">
+              From 5,796 to <strong>1,800,180 ops/sec</strong> with intelligent
+              caching of Thingyan calculations.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="database"></i>
+            </div>
+            <h3 class="feature-title">47x Faster Watat</h3>
+            <p class="feature-description">
+              Nearest watat year lookup now cached. From 14,813 to
+              <strong>702,967 ops/sec</strong>.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="gauge"></i>
+            </div>
+            <h3 class="feature-title">99x Faster All Properties</h3>
+            <p class="feature-description">
+              Access all calendar properties in parallel. From 1,629 to
+              <strong>161,148 ops/sec</strong>.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="search"></i>
+            </div>
+            <h3 class="feature-title">O(1) Zodiac Lookup</h3>
+            <p class="feature-description">
+              Replaced linear search with constant-time lookup table.
+              <strong>25M+ ops/sec</strong>.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="clock"></i>
+            </div>
+            <h3 class="feature-title">LRU Caching</h3>
+            <p class="feature-description">
+              Smart cache for watat, thingyan, waso, and firstDayOfTagu
+              calculations. 256-entry LRU per cache.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i data-lucide="code-2"></i>
+            </div>
+            <h3 class="feature-title">Optimized Formatting</h3>
+            <p class="feature-description">
+              Replaced expensive toLocaleDateString() with custom
+              formatDate(). Reduced string operations.
             </p>
           </div>
         </div>

@@ -5,17 +5,32 @@
 
 import { julianToDate } from '../utils/julian.js';
 import { CONST } from '../constants.js';
+import { caches } from '../utils/cache.js';
 import type { ThingyanResult } from '../types.js';
 
 const { SY, MO, SE3 } = CONST;
 
 /**
- * Calculate Thingyan (Water Festival) dates for a Myanmar year
+ * Format date to US date string (faster than toLocaleDateString)
+ */
+function formatDate(date: Date): string {
+  const month = date.getUTCMonth() + 1;
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  return `${month}/${day}/${year}`;
+}
+
+/**
+ * Calculate Thingyan (Water Festival) dates for a Myanmar year (with caching)
  *
  * @param mmyear - Myanmar Year
  * @returns Thingyan festival information including dates and times
  */
 export function thingyan(mmyear: number): ThingyanResult {
+  // Check cache first
+  const cached = caches.thingyan.get(mmyear);
+  if (cached) return cached;
+
   let akyaTime: number;
   const atatTime = SY * mmyear + MO;
 
@@ -31,29 +46,48 @@ export function thingyan(mmyear: number): ThingyanResult {
   atat.setHours(0, 0, 0, 0);
   akya.setHours(0, 0, 0, 0);
 
-  const akyo = new Date(
-    Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() - 1)
+  const akyoDate = new Date(
+    Date.UTC(akya.getUTCFullYear(), akya.getUTCMonth(), akya.getUTCDate() - 1)
   );
-  const new_year_day = new Date(
-    Date.UTC(atat.getFullYear(), atat.getMonth(), atat.getDate() + 1)
+  const new_year_dayDate = new Date(
+    Date.UTC(atat.getUTCFullYear(), atat.getUTCMonth(), atat.getUTCDate() + 1)
   );
 
+  // Use optimized date formatting
+  const akyo = formatDate(akyoDate);
+  const akyaDateStr = formatDate(akya);
+  const atatDateStr = formatDate(atat);
+  const new_year_day = formatDate(new_year_dayDate);
+
+  // Optimize akyat array generation - reduce Date object creation
   const akyat: string[] = [];
-  for (let i = 1; i < atat.getUTCDate() - akya.getUTCDate(); i++) {
+  const dayDiff = atat.getUTCDate() - akya.getUTCDate();
+  for (let i = 1; i < dayDiff; i++) {
     akyat.push(
-      new Date(
-        Date.UTC(akya.getFullYear(), akya.getMonth(), akya.getDate() + i)
-      ).toLocaleDateString('en-US')
+      formatDate(
+        new Date(
+          Date.UTC(
+            akya.getUTCFullYear(),
+            akya.getUTCMonth(),
+            akya.getUTCDate() + i
+          )
+        )
+      )
     );
   }
 
-  return {
-    akyo: akyo.toLocaleDateString('en-US'),
-    akya: akya.toLocaleDateString('en-US'),
+  const result: ThingyanResult = {
+    akyo,
+    akya: akyaDateStr,
     akyat,
-    atat: atat.toLocaleDateString('en-US'),
-    new_year_day: new_year_day.toLocaleDateString('en-US'),
+    atat: atatDateStr,
+    new_year_day,
     akyaTime: julianToDate(akyaTime).toISOString(),
     atatTime: julianToDate(atatTime).toISOString(),
   };
+
+  // Cache the result
+  caches.thingyan.set(mmyear, result);
+
+  return result;
 }

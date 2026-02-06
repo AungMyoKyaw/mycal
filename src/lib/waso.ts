@@ -5,12 +5,23 @@
 
 import { julianToDate } from '../utils/julian.js';
 import { CONST, findException, getExceptions } from '../constants.js';
+import { caches } from '../utils/cache.js';
 import type { WatatInfo, WasoResult } from '../types.js';
 
 const { SY, MO, LM, firstEra, secondEra, thirdEra } = CONST;
 
 /**
- * Calculate Full Moon Day of Waso
+ * Format date to US date string (faster than toLocaleDateString)
+ */
+function formatDate(date: Date): string {
+  const month = date.getUTCMonth() + 1;
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  return `${month}/${day}/${year}`;
+}
+
+/**
+ * Calculate Full Moon Day of Waso (with caching)
  *
  * @param watatInfo - Watat information
  * @param mmYear - Myanmar Year
@@ -20,6 +31,11 @@ export function waso(
   watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>,
   mmYear: number
 ): WasoResult {
+  // Check cache first
+  const cacheKey = `${mmYear}-${watatInfo.era}-${watatInfo.isWatatYear}`;
+  const cached = caches.waso.get(cacheKey);
+  if (cached) return cached;
+
   let w: number | undefined;
   let WO: number;
 
@@ -75,8 +91,13 @@ export function waso(
     w += fmeException;
   }
 
-  return {
+  const result: WasoResult = {
     jd: w, // Julian day
-    gd: julianToDate(w).toLocaleDateString('en-US'), // Gregorian date
+    gd: formatDate(julianToDate(w)), // Use optimized formatting
   };
+
+  // Cache the result
+  caches.waso.set(cacheKey, result);
+
+  return result;
 }

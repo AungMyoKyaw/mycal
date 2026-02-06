@@ -8,7 +8,28 @@ import type { ChineseZodiacResult, ZodiacResult } from '../types.js';
 /**
  * Burmese numerals for number formatting
  */
-const BURMESE_NUMERALS = ['၀', '၁', '၂', '၃', '၄', '၅', '၆', '၇', '၈', '၉'];
+const BURMESE_NUMERALS = [
+  '၀',
+  '၁',
+  '၂',
+  '၃',
+  '၄',
+  '၅',
+  '၆',
+  '၇',
+  '၈',
+  '၉',
+] as const;
+
+/**
+ * Pre-computed reversed map for Burmese numeral conversion (cached)
+ */
+const REVERSED_NUMERAL_MAP: Readonly<Record<string, number>> = Object.freeze(
+  BURMESE_NUMERALS.reduce(
+    (map, numeral, index) => ({ ...map, [numeral]: index }),
+    {} as Record<string, number>
+  )
+);
 
 /**
  * Burmese number words
@@ -86,93 +107,76 @@ const CHINESE_ZODIAC_MY = [
 ];
 
 /**
- * Western zodiac signs with date ranges
+ * Zodiac lookup table by month for O(1) access
+ * Index 0 = unused, Index 1 = January, etc.
+ * Each month has two possible zodiac signs with cutoff days
  */
-const ZODIAC_SIGNS: {
-  sign: string;
-  sign_mm: string;
-  start: { month: number; day: number };
-  end: { month: number; day: number };
-}[] = [
-  {
-    sign: 'Capricorn',
-    sign_mm: 'မကာရ',
-    start: { month: 1, day: 1 },
-    end: { month: 1, day: 19 },
-  },
-  {
-    sign: 'Aquarius',
-    sign_mm: 'ကုံ',
-    start: { month: 1, day: 20 },
-    end: { month: 2, day: 18 },
-  },
-  {
-    sign: 'Pisces',
-    sign_mm: 'မိန်',
-    start: { month: 2, day: 19 },
-    end: { month: 3, day: 20 },
-  },
-  {
-    sign: 'Aries',
-    sign_mm: 'မိဿ',
-    start: { month: 3, day: 21 },
-    end: { month: 4, day: 19 },
-  },
-  {
-    sign: 'Taurus',
-    sign_mm: 'ပြိဿ',
-    start: { month: 4, day: 20 },
-    end: { month: 5, day: 20 },
-  },
-  {
-    sign: 'Gemini',
-    sign_mm: 'မေထုန်',
-    start: { month: 5, day: 21 },
-    end: { month: 6, day: 20 },
-  },
-  {
-    sign: 'Cancer',
-    sign_mm: 'ကရကဋ်',
-    start: { month: 6, day: 21 },
-    end: { month: 7, day: 22 },
-  },
-  {
-    sign: 'Leo',
-    sign_mm: 'သိဟ်',
-    start: { month: 7, day: 23 },
-    end: { month: 8, day: 22 },
-  },
-  {
-    sign: 'Virgo',
-    sign_mm: 'ကန်',
-    start: { month: 8, day: 23 },
-    end: { month: 9, day: 22 },
-  },
-  {
-    sign: 'Libra',
-    sign_mm: 'တူ',
-    start: { month: 9, day: 23 },
-    end: { month: 10, day: 22 },
-  },
-  {
-    sign: 'Scorpio',
-    sign_mm: 'ဗြိစ္ဆာ',
-    start: { month: 10, day: 23 },
-    end: { month: 11, day: 21 },
-  },
-  {
-    sign: 'Sagittarius',
-    sign_mm: 'ဓနု',
-    start: { month: 11, day: 22 },
-    end: { month: 12, day: 21 },
-  },
-  {
-    sign: 'Capricorn',
-    sign_mm: 'မကာရ',
-    start: { month: 12, day: 22 },
-    end: { month: 12, day: 31 },
-  },
-];
+const ZODIAC_LOOKUP: readonly ({
+  early: Readonly<{ sign: string; sign_mm: string; cutoffDay: number }>;
+  late: Readonly<{ sign: string; sign_mm: string }>;
+} | null)[] = Object.freeze([
+  null, // 0 - unused
+  Object.freeze({
+    // January
+    early: { sign: 'Capricorn', sign_mm: 'မကာရ', cutoffDay: 19 },
+    late: { sign: 'Aquarius', sign_mm: 'ကုံ' },
+  }),
+  Object.freeze({
+    // February
+    early: { sign: 'Aquarius', sign_mm: 'ကုံ', cutoffDay: 18 },
+    late: { sign: 'Pisces', sign_mm: 'မိန်' },
+  }),
+  Object.freeze({
+    // March
+    early: { sign: 'Pisces', sign_mm: 'မိန်', cutoffDay: 20 },
+    late: { sign: 'Aries', sign_mm: 'မိဿ' },
+  }),
+  Object.freeze({
+    // April
+    early: { sign: 'Aries', sign_mm: 'မိဿ', cutoffDay: 19 },
+    late: { sign: 'Taurus', sign_mm: 'ပြိဿ' },
+  }),
+  Object.freeze({
+    // May
+    early: { sign: 'Taurus', sign_mm: 'ပြိဿ', cutoffDay: 20 },
+    late: { sign: 'Gemini', sign_mm: 'မေထုန်' },
+  }),
+  Object.freeze({
+    // June
+    early: { sign: 'Gemini', sign_mm: 'မေထုန်', cutoffDay: 20 },
+    late: { sign: 'Cancer', sign_mm: 'ကရကဋ်' },
+  }),
+  Object.freeze({
+    // July
+    early: { sign: 'Cancer', sign_mm: 'ကရကဋ်', cutoffDay: 22 },
+    late: { sign: 'Leo', sign_mm: 'သိဟ်' },
+  }),
+  Object.freeze({
+    // August
+    early: { sign: 'Leo', sign_mm: 'သိဟ်', cutoffDay: 22 },
+    late: { sign: 'Virgo', sign_mm: 'ကန်' },
+  }),
+  Object.freeze({
+    // September
+    early: { sign: 'Virgo', sign_mm: 'ကန်', cutoffDay: 22 },
+    late: { sign: 'Libra', sign_mm: 'တူ' },
+  }),
+  Object.freeze({
+    // October
+    early: { sign: 'Libra', sign_mm: 'တူ', cutoffDay: 22 },
+    late: { sign: 'Scorpio', sign_mm: 'ဗြိစ္ဆာ' },
+  }),
+  Object.freeze({
+    // November
+    early: { sign: 'Scorpio', sign_mm: 'ဗြိစ္ဆာ', cutoffDay: 21 },
+    late: { sign: 'Sagittarius', sign_mm: 'ဓနု' },
+  }),
+  Object.freeze({
+    // December
+    early: { sign: 'Sagittarius', sign_mm: 'ဓနု', cutoffDay: 21 },
+    late: { sign: 'Capricorn', sign_mm: 'မကာရ' },
+  }),
+]);
 
 /**
  * Calculate Maharbote birth sign
@@ -291,7 +295,7 @@ export function chineseZodiac(year: number): ChineseZodiacResult {
 }
 
 /**
- * Get Western zodiac sign
+ * Get Western zodiac sign (O(1) lookup with optimized table)
  *
  * @param day - Day of month (1-31)
  * @param month - Month (1-12)
@@ -309,19 +313,23 @@ export function zodiac(day: number, month: number): ZodiacResult {
     throw new Error('Invalid date or month input');
   }
 
-  for (const z of ZODIAC_SIGNS) {
-    if (
-      (month === z.start.month && day >= z.start.day) ||
-      (month === z.end.month && day <= z.end.day)
-    ) {
-      return {
-        sign: z.sign,
-        sign_mm: z.sign_mm,
-      };
-    }
+  const monthData = ZODIAC_LOOKUP[month];
+  if (!monthData) {
+    throw new Error('Could not determine zodiac sign');
   }
 
-  throw new Error('Could not determine zodiac sign');
+  // O(1) lookup - just compare day to cutoff
+  if (day <= monthData.early.cutoffDay) {
+    return {
+      sign: monthData.early.sign,
+      sign_mm: monthData.early.sign_mm,
+    };
+  }
+
+  return {
+    sign: monthData.late.sign,
+    sign_mm: monthData.late.sign_mm,
+  };
 }
 
 /**
@@ -339,20 +347,15 @@ export function toBurmeseNumerals(num: number): string {
 }
 
 /**
- * Convert Burmese numerals to regular number
+ * Convert Burmese numerals to regular number (optimized with cached map)
  *
  * @param str - String with Burmese numerals
  * @returns Regular number
  */
 export function fromBurmeseNumerals(str: string): number {
-  const reversedMap: Record<string, number> = {};
-  BURMESE_NUMERALS.forEach((num, index) => {
-    reversedMap[num] = index;
-  });
-
   const result = str
     .split('')
-    .map(char => reversedMap[char] ?? char)
+    .map(char => REVERSED_NUMERAL_MAP[char] ?? char)
     .join('');
 
   return parseInt(result, 10) || 0;

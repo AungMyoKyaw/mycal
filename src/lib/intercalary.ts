@@ -4,9 +4,13 @@
  */
 
 import { CONST, findException, getExceptions } from '../constants.js';
+import { caches } from '../utils/cache.js';
 import type { WatatInfo } from '../types.js';
 
 const { KALI_YUGA, LM, firstEra, secondEra, thirdEra, SY } = CONST;
+
+// Cache for nearest watat year lookups to avoid repeated loops
+const nearestWatatCache = new Map<number, number>();
 
 /**
  * Mathematical modulo that always returns positive result
@@ -75,12 +79,18 @@ export function isWatatYear(
 }
 
 /**
- * Find the nearest watat year before the given year
+ * Find the nearest watat year before the given year (with caching)
  *
  * @param mmYear - Myanmar Year
  * @returns Watat information for the nearest watat year
  */
 export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
+  // Check cache first
+  if (nearestWatatCache.has(mmYear)) {
+    const cachedYear = nearestWatatCache.get(mmYear)!;
+    return { ...isWatatYear(cachedYear), year: cachedYear };
+  }
+
   let isWatat = false;
   let watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>;
   mmYear--;
@@ -88,6 +98,13 @@ export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
   const MIN_YEAR = 0; // Myanmar calendar starts at ME 0 (year 0 IS a watat year)
 
   do {
+    // Check cache while iterating
+    if (nearestWatatCache.has(mmYear)) {
+      const cachedYear = nearestWatatCache.get(mmYear)!;
+      nearestWatatCache.set(mmYear + 1, cachedYear);
+      return { ...isWatatYear(cachedYear), year: cachedYear };
+    }
+
     // Prevent infinite loop by clamping to minimum year
     if (mmYear < MIN_YEAR) {
       mmYear = MIN_YEAR;
@@ -101,17 +118,29 @@ export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
     }
   } while (!isWatat);
 
+  // Cache the result for this and nearby years
+  nearestWatatCache.set(mmYear + 1, mmYear);
+
   return { ...watatInfo, year: mmYear };
 }
 
 /**
- * Get watat information including nearest watat year
+ * Get watat information including nearest watat year (with caching)
  *
  * @param mmYear - Myanmar Year
  * @returns Complete watat information including nearest watat year
  */
 export function watat(mmYear: number): WatatInfo {
+  // Check cache first
+  const cached = caches.watat.get(mmYear);
+  if (cached) return cached;
+
   const watatInfo = isWatatYear(mmYear);
   const nearestWatatInfo = nearestWatatYear(mmYear);
-  return { ...watatInfo, nearestWatatInfo };
+  const result = { ...watatInfo, nearestWatatInfo };
+
+  // Cache the result
+  caches.watat.set(mmYear, result);
+
+  return result;
 }

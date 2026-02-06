@@ -1,6 +1,6 @@
 # MYCAL
 
-> Myanmar Calendar - Zero dependency TypeScript library
+> Myanmar Calendar - Zero dependency TypeScript library with performance optimizations
 
 [![code style: prettier][prettier]][prettier-url]
 [![npm][npm-download]][npm-dl-url]
@@ -12,7 +12,27 @@
 
 [Algorithm, Program and Calculation of Myanmar Calendar][algorithm]
 
-## v2.2 - What's New?
+## What's New?
+
+### v2.3 - Performance Optimizations (Latest)
+
+**MyCal v2.3** brings massive performance improvements:
+
+- ✅ **310x Faster Thingyan** - 1.8M ops/sec with LRU caching (was 5.8K ops/sec)
+- ✅ **47x Faster Watat** - 703K ops/sec with cached nearest watat lookup (was 14.8K ops/sec)
+- ✅ **99x Faster All Properties** - 161K ops/sec (was 1.6K ops/sec)
+- ✅ **O(1) Zodiac Lookup** - Constant-time lookup table (was linear search)
+- ✅ **Optimized Date Formatting** - Custom formatDate() replacing toLocaleDateString()
+- ✅ **Smart Caching** - 256-entry LRU caches for expensive calculations
+
+| Metric                 | Before       | After           | Improvement       |
+| ---------------------- | ------------ | --------------- | ----------------- |
+| Access all properties  | 1,629 ops/s  | 161,148 ops/s   | **98.9x faster**  |
+| Thingyan calculation   | 5,796 ops/s  | 1,800,180 ops/s | **310.5x faster** |
+| Watat year calculation | 14,813 ops/s | 702,967 ops/s   | **47.4x faster**  |
+| Zodiac lookup          | 21.7M ops/s  | 25.3M ops/s     | **1.16x faster**  |
+
+### v2.2 - Astrology Features
 
 **MyCal v2.2** adds complete astrology support:
 
@@ -23,14 +43,14 @@
 - ✅ **Number Formatting** - Convert numbers to Burmese words
 - ✅ **Validation Tools** - Calendar consistency validation framework
 
-## v2.0 - Major Rewrite
+### v2.0 - Major Rewrite
 
 **MyCal v2.0** was a complete rewrite with:
 
 - ✅ **Zero Dependencies** - No external packages required
-- ✅ **TypeScript** - Full type safety and better IDE support
-- ✅ **Bun Runtime** - Faster performance and modern tooling
-- ✅ **Smaller Bundle** - No dependency bloat
+- ✅ **Full TypeScript** - Type safety and better IDE support
+- ✅ **Bun Runtime** - Modern tooling and faster builds
+- ✅ **Smaller Bundle** - No dependency bloat (34.31 KB)
 - ✅ **100% Backward Compatible** - Same API as v1.x
 
 ## Installation
@@ -406,17 +426,23 @@ const date = new Mycal('2000-01-01');
 console.log(date.year); // { en: '1361', my: '၁၃၆၁' }
 ```
 
-**Plus new features in v2.2:**
+**Plus new features in v2.2 and v2.3:**
 
 ```typescript
 import { Mycal } from 'mycal';
 const date = new Mycal('2000-01-01');
 
-// New astrology features
+// v2.2 - Astrology features
 console.log(date.maharbote); // Birth sign
 console.log(date.numerology); // Numerology number
 console.log(date.chineseZodiac); // Chinese zodiac
 console.log(Mycal.zodiac(15, 1)); // Western zodiac
+
+// v2.3 - Performance improvements (automatic, no API changes)
+// - 310x faster Thingyan calculations with LRU caching
+// - 47x faster Watat year calculations
+// - 99x faster when accessing all properties
+// - O(1) zodiac lookups
 ```
 
 ## Development
@@ -467,6 +493,9 @@ bun run format:check
 # Full validation
 bun run validate  # Type check + lint + format check
 bun run ci        # Full CI pipeline
+
+# Performance benchmark
+bun run benchmark  # Run performance benchmarks
 ```
 
 ### Build Outputs
@@ -476,6 +505,42 @@ The build process creates three outputs:
 1. **Node.js**: `dist/node/index.js` - CommonJS build for Node.js
 2. **Browser**: `dist/browser/index.js` - ESM build for browsers
 3. **Types**: `dist/types/` - TypeScript declaration files
+
+## Performance
+
+MyCal v2.3 includes significant performance optimizations:
+
+### Benchmarks
+
+| Operation                  | Before           | After            | Improvement       |
+| -------------------------- | ---------------- | ---------------- | ----------------- |
+| **Access all properties**  | 1,629 ops/s      | 161,148 ops/s    | **98.9x faster**  |
+| **Thingyan calculation**   | 5,796 ops/s      | 1,800,180 ops/s  | **310.5x faster** |
+| **Watat year calculation** | 14,813 ops/s     | 702,967 ops/s    | **47.4x faster**  |
+| **Single date (cold)**     | 629,855 ops/s    | 1,134,859 ops/s  | **1.8x faster**   |
+| **Zodiac lookup**          | 21,711,604 ops/s | 25,266,358 ops/s | **1.16x faster**  |
+
+### Optimizations
+
+1. **LRU Caching** - 256-entry caches for:
+   - Watat year calculations
+   - Thingyan calculations
+   - Waso calculations
+   - First day of Tagu calculations
+
+2. **Nearest Watat Cache** - Eliminates repeated backward loops
+
+3. **Optimized Date Formatting** - Custom `formatDate()` function replacing expensive `toLocaleDateString()`
+
+4. **O(1) Zodiac Lookup** - Constant-time lookup table instead of linear search
+
+5. **Cached Reversed Map** - Pre-computed Burmese numeral conversion map
+
+Run benchmarks:
+
+```bash
+bun run benchmark
+```
 
 ## Test
 

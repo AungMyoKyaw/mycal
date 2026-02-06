@@ -340,8 +340,8 @@ describe('BayDin Functions', () => {
 
     test('should return Aquarius for Jan 20', () => {
       const result = zodiac(20, 1);
-      // Note: Jan 20-31 is still Capricorn in the data structure
-      expect(result.sign).toBe('Capricorn');
+      expect(result.sign).toBe('Aquarius');
+      expect(result.sign_mm).toBe('ကုံ');
     });
 
     test('should return Pisces for Feb 19', () => {
@@ -412,7 +412,7 @@ describe('BayDin Functions', () => {
     test('should handle boundary dates correctly', () => {
       // Zodiac sign boundaries in the data
       expect(zodiac(19, 1).sign).toBe('Capricorn');
-      expect(zodiac(20, 1).sign).toBe('Capricorn'); // Still Capricorn until Jan 19
+      expect(zodiac(20, 1).sign).toBe('Aquarius'); // Jan 20+ is Aquarius
       expect(zodiac(18, 2).sign).toBe('Aquarius');
       expect(zodiac(19, 2).sign).toBe('Pisces');
     });
@@ -440,7 +440,7 @@ describe('BayDin Functions', () => {
 
     test('should handle last day of each month', () => {
       // Based on actual zodiac date ranges in the data
-      expect(zodiac(31, 1).sign).toBe('Capricorn'); // Jan 20+ is Capricorn
+      expect(zodiac(31, 1).sign).toBe('Aquarius'); // Jan 20+ is Aquarius
       expect(zodiac(28, 2).sign).toBe('Pisces');
       expect(zodiac(31, 12).sign).toBe('Capricorn');
     });
