@@ -71,15 +71,16 @@ export class Mycal {
    */
   constructor(dateString?: string, _options?: MycalOptions) {
     this.gDate = dateString ? new Date(dateString) : new Date();
-    this.gDate.setHours(12, 0);
 
-    // Myanmar time (UTC +5:30)
-    const utcTime = Date.UTC(
-      this.gDate.getUTCFullYear(),
-      this.gDate.getUTCMonth(),
-      this.gDate.getUTCDate()
-    );
-    this.gDate = new Date(utcTime + 5.5 * 60 * 60 * 1000);
+    // Use UTC methods to avoid timezone issues
+    // Set to noon UTC, then adjust to Myanmar time (UTC +5:30)
+    const utcYear = this.gDate.getUTCFullYear();
+    const utcMonth = this.gDate.getUTCMonth();
+    const utcDay = this.gDate.getUTCDate();
+
+    // Create UTC date at noon, then add Myanmar time offset
+    this.gDate = new Date(Date.UTC(utcYear, utcMonth, utcDay, 12, 0, 0, 0));
+    this.gDate = new Date(this.gDate.getTime() + 5.5 * 60 * 60 * 1000);
   }
 
   /**
