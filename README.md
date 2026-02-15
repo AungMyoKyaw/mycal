@@ -461,6 +461,35 @@ bun install
 npm install
 ```
 
+### Project Structure
+
+```
+mycal/
+  src/
+    index.ts          # Main entry point, Mycal class
+    constants.ts      # Calendar constants and exception tables
+    localization.ts   # Month, weekday, moon phase names
+    types.ts          # TypeScript type definitions
+    lib/
+      baydin.ts       # Astrology functions (maharbote, zodiac, etc.)
+      buddhistEra.ts  # Buddhist Era year conversion
+      firstDayOfTagu.ts # Myanmar New Year calculation
+      intercalary.ts  # Watat (leap) year calculations
+      myday.ts        # Myanmar day calculations
+      mymonth.ts      # Myanmar month calculations
+      myweekday.ts    # Myanmar weekday calculations
+      myyear.ts       # Myanmar year calculations
+      thingyan.ts     # Water Festival calculations
+      waso.ts         # Full moon of Waso calculations
+      validator.ts    # Calendar validation utilities
+    utils/
+      cache.ts        # LRU cache implementation
+      julian.ts       # Julian date conversions
+      numerals.ts     # Burmese numeral utilities
+  test/
+    *.test.ts         # Test files
+```
+
 ### Commands
 
 ```bash
@@ -541,6 +570,29 @@ Run benchmarks:
 ```bash
 bun run benchmark
 ```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`bun test`) and linting (`bun run validate`)
+5. Commit your changes using conventional commits (`git commit -m 'feat: add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+### Code Style
+
+- Follow the existing code style (enforced by ESLint and Prettier)
+- Write tests for new features
+- Update documentation as needed
+- Keep functions under 50 lines and files under 300 lines
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history and release notes.
 
 ## Test
 
