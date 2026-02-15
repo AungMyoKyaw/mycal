@@ -182,16 +182,24 @@ export interface IMycal {
  * Chinese zodiac result
  */
 export interface ChineseZodiacResult {
-  sign: string; // English zodiac sign
-  signInBurmese: string; // Burmese zodiac sign
+  en: string; // English zodiac sign
+  my: string; // Burmese zodiac sign
+  /** @deprecated Use `en` instead */
+  sign: string;
+  /** @deprecated Use `my` instead */
+  signInBurmese: string;
 }
 
 /**
  * Western zodiac result
  */
 export interface ZodiacResult {
-  sign: string; // English zodiac sign
-  sign_mm: string; // Burmese zodiac sign
+  en: string; // English zodiac sign
+  my: string; // Burmese zodiac sign
+  /** @deprecated Use `en` instead */
+  sign: string;
+  /** @deprecated Use `my` instead */
+  sign_mm: string;
 }
 
 /**

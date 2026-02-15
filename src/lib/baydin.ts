@@ -288,9 +288,13 @@ export function chineseZodiac(year: number): ChineseZodiacResult {
   }
 
   const index = (year - 4) % 12;
+  const en = CHINESE_ZODIAC_EN[index];
+  const my = CHINESE_ZODIAC_MY[index];
   return {
-    sign: CHINESE_ZODIAC_EN[index],
-    signInBurmese: CHINESE_ZODIAC_MY[index],
+    en,
+    my,
+    sign: en, // Backward compatibility
+    signInBurmese: my, // Backward compatibility
   };
 }
 
@@ -321,14 +325,18 @@ export function zodiac(day: number, month: number): ZodiacResult {
   // O(1) lookup - just compare day to cutoff
   if (day <= monthData.early.cutoffDay) {
     return {
-      sign: monthData.early.sign,
-      sign_mm: monthData.early.sign_mm,
+      en: monthData.early.sign,
+      my: monthData.early.sign_mm,
+      sign: monthData.early.sign, // Backward compatibility
+      sign_mm: monthData.early.sign_mm, // Backward compatibility
     };
   }
 
   return {
-    sign: monthData.late.sign,
-    sign_mm: monthData.late.sign_mm,
+    en: monthData.late.sign,
+    my: monthData.late.sign_mm,
+    sign: monthData.late.sign, // Backward compatibility
+    sign_mm: monthData.late.sign_mm, // Backward compatibility
   };
 }
 

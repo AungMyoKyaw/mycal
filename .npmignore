@@ -9,11 +9,12 @@ src/
 *.test.js
 test/
 tests/
+bench/
 
 # CI/CD
 .github/
 
-# Documentation
+# Documentation (keep README)
 *.md
 !README.md
 
@@ -27,6 +28,7 @@ tests/
 *.swp
 *.swo
 *~
+.editorconfig
 
 # Environment files
 .env
@@ -45,5 +47,17 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Misc
-bun.lockb
+# Config files
+.eslintignore
+.eslintrc*
+.eslint.config.js
+.prettierrc
+.prettierrc.json
+.prettierignore
+tsconfig.json
+tsconfig.test.json
+
+# Lock files (not needed in published package)
+bun.lock
+package-lock.json
+yarn.lock
