@@ -93,18 +93,12 @@ export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
 
   let isWatat = false;
   let watatInfo: Omit<WatatInfo, 'nearestWatatInfo'>;
+  const requestedYear = mmYear;
   mmYear--;
 
   const MIN_YEAR = 0; // Myanmar calendar starts at ME 0 (year 0 IS a watat year)
 
   do {
-    // Check cache while iterating
-    if (nearestWatatCache.has(mmYear)) {
-      const cachedYear = nearestWatatCache.get(mmYear)!;
-      nearestWatatCache.set(mmYear + 1, cachedYear);
-      return { ...isWatatYear(cachedYear), year: cachedYear };
-    }
-
     // Prevent infinite loop by clamping to minimum year
     if (mmYear < MIN_YEAR) {
       mmYear = MIN_YEAR;
@@ -118,8 +112,7 @@ export function nearestWatatYear(mmYear: number): WatatInfo & { year: number } {
     }
   } while (!isWatat);
 
-  // Cache the result for this and nearby years
-  nearestWatatCache.set(mmYear + 1, mmYear);
+  nearestWatatCache.set(requestedYear, mmYear);
 
   return { ...watatInfo, year: mmYear };
 }

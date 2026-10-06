@@ -32,7 +32,7 @@ export function waso(
   mmYear: number
 ): WasoResult {
   // Check cache first
-  const cacheKey = `${mmYear}-${watatInfo.era}-${watatInfo.isWatatYear}`;
+  const cacheKey = `${mmYear}-${watatInfo.era}-${watatInfo.isWatatYear}-${watatInfo.ed}`;
   const cached = caches.waso.get(cacheKey);
   if (cached) return cached;
 

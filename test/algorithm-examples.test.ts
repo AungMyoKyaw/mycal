@@ -29,12 +29,10 @@ describe('Algorithm Examples from Blog Post', () => {
       expect(jd).toBeLessThanOrEqual(2451548);
     });
 
-    test('Example: Julian date for 2000 CE, January 1, 6:00 pm', () => {
+    test('Example: Julian day number for 2000 CE, January 1, 6:00 pm UTC', () => {
       const date = new Date('2000-01-01T18:00:00Z');
       const jd = dateToJulian(date);
-      // 2451545 + 0.25 = 2451545.25 (with timezone adjustment)
-      expect(jd).toBeGreaterThan(2451545);
-      expect(jd).toBeLessThan(2451548);
+      expect(jd).toBe(2451545);
     });
 
     test('should convert JDN back to Gregorian correctly', () => {

@@ -5,6 +5,13 @@
 
 import { describe, test, expect } from 'bun:test';
 import { Mycal } from '../src/index';
+import {
+  dateToJulian,
+  gregorianToJulian,
+  julianToGregorian,
+} from '../src/utils/julian';
+import { isWatatYear, nearestWatatYear } from '../src/lib/intercalary';
+import { waso } from '../src/lib/waso';
 
 describe('MYCAL', () => {
   test('SHOULD RETURN MYANMAR YEAR', () => {
@@ -86,9 +93,80 @@ describe('MYCAL', () => {
     const { day } = cal;
 
     expect(day).toEqual({
-      fd: { en: '4', my: '၄' }, // Fortnight day (number)
+      fd: { en: '3', my: '၃' }, // Fortnight day (number)
       mp: { en: 'Waxing', my: 'လဆန်း' }, // Moon phase
     });
+  });
+
+  test.each([
+    ['2026-02-28', '13', '၁၃'],
+    ['2026-03-01', '14', '၁၄'],
+  ])('Tabaung waxing day for %s is %s', (date, en, my) => {
+    const cal = new Mycal(date);
+    expect(cal.day).toEqual({
+      fd: { en, my },
+      mp: { en: 'Waxing', my: 'လဆန်း' },
+    });
+    expect(cal.month).toEqual({ en: 'Tabaung', my: 'တပေါင်း' });
+    expect(cal.day.fd).toEqual({ en, my });
+  });
+
+  test('Nearest watat lookup includes a previously cached watat year', () => {
+    expect(isWatatYear(1385).isWatatYear).toBe(true);
+    expect(nearestWatatYear(1385).year).toBe(1382);
+    expect(nearestWatatYear(1386).year).toBe(1385);
+    expect(new Mycal('2026-03-01').day).toEqual({
+      fd: { en: '14', my: '၁၄' },
+      mp: { en: 'Waxing', my: 'လဆန်း' },
+    });
+  });
+
+  test('Waso cache distinguishes excess days for the same year', () => {
+    const watatInfo = isWatatYear(1385);
+    const original = waso(watatInfo, 1385);
+    const altered = waso({ ...watatInfo, ed: watatInfo.ed + 1 }, 1385);
+    expect(altered.jd).toBe(original.jd - 1);
+    expect(waso(watatInfo, 1385)).toEqual(original);
+    expect(new Mycal('2026-03-01').day).toEqual({
+      fd: { en: '14', my: '၁၄' },
+      mp: { en: 'Waxing', my: 'လဆန်း' },
+    });
+  });
+
+  test.each([
+    '2026-02-29',
+    '2026-02-30',
+    '2/29/2026',
+    '2/30/2026',
+    '2026-02-29T12:00:00Z',
+    '2026-04-31',
+    '1900-02-29',
+    'not-a-date',
+  ])('Rejects invalid Gregorian date %s', date => {
+    expect(() => new Mycal(date)).toThrow(RangeError);
+  });
+
+  test.each(['2024-02-29', '2/29/2024', '2000-02-29'])(
+    'Accepts valid Gregorian leap day %s',
+    date => {
+      expect(new Mycal(date).day.fd.en).toMatch(/^\d+$/);
+    }
+  );
+
+  test.each([
+    [2026, 2, 28, 2461100],
+    [2026, 3, 1, 2461101],
+    [2024, 2, 29, 2460370],
+    [2024, 3, 1, 2460371],
+    [2000, 1, 1, 2451545],
+    [1900, 3, 1, 2415080],
+    [2012, 5, 23, 2456071],
+  ])('Gregorian %i-%i-%i has Julian day %i', (year, month, day, jd) => {
+    expect(gregorianToJulian(year, month, day)).toBe(jd);
+    expect(julianToGregorian(jd)).toEqual({ year, month, day });
+    expect(dateToJulian(new Date(Date.UTC(year, month - 1, day, 17, 30)))).toBe(
+      jd
+    );
   });
 
   test('SHOULD RETURN MYANMAR WEEK DAY', () => {

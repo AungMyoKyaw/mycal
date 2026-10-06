@@ -146,6 +146,8 @@ Creates a new Mycal instance.
 
 **Returns:** `Mycal` instance
 
+**Throws:** `RangeError` for invalid dates, including impossible ISO or slash-format calendar dates such as `2026-02-29` and `2026-02-30`. Valid leap days such as `2024-02-29` are accepted.
+
 ### Properties
 
 All properties are **read-only** and computed lazily.
@@ -178,7 +180,7 @@ Returns the fortnight day and moon phase.
 const cal = new Mycal('2012-05-23');
 console.log(cal.day);
 // {
-//   fd: { en: '4', my: '၄' },    // Fortnight day
+//   fd: { en: '3', my: '၃' },    // Fortnight day
 //   mp: { en: 'Waxing', my: 'လဆန်း' }  // Moon phase
 // }
 ```

@@ -269,13 +269,13 @@ describe('Edge Cases: Myanmar Calendar Specific', () => {
     });
 
     test('should handle waning day 1', () => {
-      const cal = new Mycal('2012-08-02'); // Waning day 1 of Second Waso
+      const cal = new Mycal('2012-08-03'); // Waning day 1 of Second Waso
       expect(cal.day.mp.en).toBe('Waning');
       expect(cal.day.fd.en).toBe('1');
     });
 
     test('should handle waning day 2', () => {
-      const cal = new Mycal('2012-08-03'); // Second day of waning
+      const cal = new Mycal('2012-08-04'); // Second day of waning
       expect(cal.day.mp.en).toBe('Waning');
       expect(cal.day.fd.en).toBe('2');
     });
